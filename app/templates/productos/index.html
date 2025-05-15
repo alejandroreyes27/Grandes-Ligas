@@ -110,41 +110,45 @@
     <!-- Contenido Principal -->
     <div class="w3-container w3-padding-32">
         <div class="product-grid">
+
             {% for producto in data_producto %}
-            <div class="product-card" data-categoria="{{ producto.idCategoria or '' }}">
-                <!-- Imagen del producto -->
-                <img src="{{ url_for('static', filename=producto.imagenProducto) }}" class="product-image" alt="{{ producto.nombreProducto }}">
-                <!-- Información del producto -->
-                <div class="product-info">
+                <div class="product-card" data-categoria="{{ producto.idCategoria or '' }}">
+                    <!-- Imagen del producto -->
+                    <img src="{{ url_for('static', filename=producto.imagenProducto if producto.imagenProducto else 'img/default.png') }}"
+                        class="product-image" alt="{{ producto.nombreProducto }}">
 
-                    <!-- Descripción del producto -->
-                    <div class="product-description">
-                        <p>{{ producto.descripcionProducto }}</p>
-                    </div>
-                    <!-- Contenedor para precio y botón -->
-                    <div class="price-and-cart">
-                        <p class="price"><b>${{ "{:,.0f}".format(producto.precioProducto).replace(",", ".") }}</b></p>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                            data-id="{{ producto.idProducto }}"
-                            data-nombre="{{ producto.nombreProducto }}"
-                            data-precio="{{ producto.precioProducto|int }}" 
-                            data-descripcion="{{ producto.descripcionProducto }}"
-                            data-imagen="{{ url_for('static', filename=producto.imagenProducto) }}"
-                            data-categoria="{{ producto.categoria.nombreCategoria or 'Sin categoría' }}">
-                        <i class="material-icons">shopping_cart</i>
-                    </button>
+                    <!-- Información del producto -->
+                    <div class="product-info">
+                        <!-- Descripción del producto -->
+                        <div class="product-description">
+                            <p>{{ producto.descripcionProducto }}</p>
+                        </div>
 
-                    </div>
-                    <!-- Acciones para administradores -->
-                    <div class="admin-actions">
-                        {% if current_user.rolUser == 'administrador': %}
-                            <a href="{{ url_for('productos.index', edit=producto.idProducto) }}"><i class="material-icons me-1">edit</i></a>
-                            <a href="{{ url_for('productos.delete', id=producto.idProducto) }}" onclick="return confirm('¿Seguro que desea eliminar el producto?');"><i class="material-icons">delete</i></a>
-                        {% endif %}
+                        <!-- Contenedor para precio y botón -->
+                        <div class="price-and-cart">
+                            <p class="price"><b>${{ "{:,.0f}".format(producto.precioProducto).replace(",", ".") }}</b></p>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    data-id="{{ producto.idProducto }}"
+                                    data-nombre="{{ producto.nombreProducto }}"
+                                    data-precio="{{ producto.precioProducto|int }}" 
+                                    data-descripcion="{{ producto.descripcionProducto }}"
+                                    data-imagen="{{ url_for('static', filename=producto.imagenProducto if producto.imagenProducto else 'img/default.png') }}"
+                                    data-categoria="{{ producto.categoria.nombreCategoria or 'Sin categoría' }}">
+                                <i class="material-icons">shopping_cart</i>
+                            </button>
+                        </div>
+
+                        <!-- Acciones para administradores -->
+                        <div class="admin-actions">
+                            {% if current_user.rolUser == 'administrador' %}
+                                <a href="{{ url_for('productos.index', edit=producto.idProducto) }}"><i class="material-icons me-1">edit</i></a>
+                                <a href="{{ url_for('productos.delete', id=producto.idProducto) }}" onclick="return confirm('¿Seguro que desea eliminar el producto?');"><i class="material-icons">delete</i></a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
+
         </div>  
     </div>
 
