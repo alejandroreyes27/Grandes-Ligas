@@ -1,18 +1,7 @@
-version: "3.8"
-
 services:
   web:
+    image: python:3.13-alpine 
     build:
-      context: https://github.com/alejandroreyes27/palmas.git
-      dockerfile: Dockerfile
-    image: alejandro/palmas:latest
-    # Carga de variables de entorno desde el .env de tu repo
-    env_file:
-      - .env
-    # Monta tu código local para desarrollo en caliente
+      context: "https://github.com/alejandroreyes27/palmas.git"
     volumes:
-      - ./:/app
-    ports:
-      - "2727:2727"
-    # Comando de arranque (coincide con tu Dockerfile)
-    command: ["python", "run.py"]
+      - .:/app

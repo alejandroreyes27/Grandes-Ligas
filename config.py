@@ -1,24 +1,13 @@
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
+import secrets
 
 class Config:
-    # Desactiva warnings de SQLAlchemy
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:///flaskdb.sqlite'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = secrets.token_urlsafe(24)
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://alejandro:seyerreyes@isladigital.xyz:3333/alejandrobd'
+    #SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://usuario:contaseña@85.239.241.150:3306/alejandrobd'
 
-    # Clave secreta
-    SECRET_KEY = os.environ.get("SECRET_KEY") or os.urandom(24)
-
-    # Variables de entorno
-    DB_USER = os.environ.get("DB_USER")
-    DB_PASS = os.environ.get("DB_PASS")
-    DB_HOST = os.environ.get("DB_HOST", "isladigital.xyz")
-    DB_PORT = os.environ.get("DB_PORT", "3311")
-    DB_NAME = os.environ.get("DB_NAME", "alejandrobd")
-
-    # ÚNICA URI — ¡ASEGÚRATE de usar paréntesis () y la f‑string completa!
-    SQLALCHEMY_DATABASE_URI = (
-        f"mysql+pymysql://{DB_USER}:{DB_PASS}"
-        f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    )
+#Comandos para descargar en instalar todas las librerias offline
+#python ñ
+#pip install --no-index --find-links=librerias -r requirements.txt
