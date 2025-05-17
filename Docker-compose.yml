@@ -4,4 +4,4 @@ services:
     build:
       context: "https://github.com/alejandroreyes27/palmas.git"
     volumes:
-      - /app/palmas:/app
+      - .:/app
