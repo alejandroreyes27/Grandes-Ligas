@@ -1,17 +1,19 @@
 import os
-import secrets
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Config:
-
-    DB_USER = os.environ.get('DB_USER')
-    DB_PASS = os.environ.get('DB_PASS')
-
-    SQLALCHEMY_DATABASE_URI = (
-            f"mysql+pymysql://{DB_USER}:{DB_PASS}@"
-        )
-    
-    #SQLALCHEMY_DATABASE_URI = 'sqlite:///flaskdb.sqlite'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = secrets.token_urlsafe(24)
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{DB_USER}:{DB_PASS}@isladigital.xyz:3311/alejandrobd'
-    #SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://usuario:contaseña@85.239.241.150:3306/alejandrobd'
+    SECRET_KEY = os.environ.get("SECRET_KEY") or os.urandom(24)
+
+    # Variables del entorno
+    DB_USER = os.environ.get("DB_USER")
+    DB_PASS = os.environ.get("DB_PASS")
+    DB_HOST = os.environ.get("DB_HOST", "isladigital.xyz")
+    DB_PORT = os.environ.get("DB_PORT", "3311")
+    DB_NAME = os.environ.get("DB_NAME", "alejandrobd")
+
+    # ÚNICA URI con f‑string completo
+    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
