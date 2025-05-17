@@ -7,7 +7,11 @@ class Config:
     DB_USER = os.environ.get("DB_USER")
     DB_PASSWORD = os.environ.get("DB_PASS")
     DB_HOST = os.environ.get("DB_HOST")
-    DB_PORT = os.environ.get("DB_PORT") or "3306"
+    raw_port = os.environ.get("DB_PORT")
+    if not raw_port or raw_port == "{DB_PORT}":
+        DB_PORT = "3306"
+    else:
+        DB_PORT = raw_port
     DB_NAME = os.environ.get("DB_NAME")
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
