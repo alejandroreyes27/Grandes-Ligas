@@ -1,7 +1,7 @@
 import os
 import secrets
-from dotenv import load_dotenv
-load_dotenv()
+#from dotenv import load_dotenv
+#load_dotenv()
 
 class Config:
     DB_USER = os.getenv("DB_USER")
