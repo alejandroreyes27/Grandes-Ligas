@@ -1,10 +1,15 @@
 import os
 import secrets
 
-DB_USER = os.environ.get('DB_USER')
-DB_PASS = os.environ.get('DB_PASS')
-
 class Config:
+
+    DB_USER = os.environ.get('DB_USER')
+    DB_PASS = os.environ.get('DB_PASS')
+
+    SQLALCHEMY_DATABASE_URI = (
+            f"mysql+pymysql://{DB_USER}:{DB_PASS}@"
+        )
+    
     #SQLALCHEMY_DATABASE_URI = 'sqlite:///flaskdb.sqlite'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = secrets.token_urlsafe(24)
