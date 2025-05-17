@@ -104,6 +104,7 @@ def generar_factura_pdf(datos):
     data = [
         [Paragraph("Cliente:", style_heading), Paragraph(datos['cliente'], style_normal)],
         [Paragraph("Fecha:", style_heading), Paragraph(datos['fecha'], style_normal)],
+        [Paragraph("Factura #", style_heading), Paragraph(datos['numero'], style_normal)]
     ]
     table = Table(data, colWidths=[100, 300])
     table.setStyle(TableStyle([('FONTNAME', (0,0), (-1,-1), 'Helvetica-Bold')] ))
