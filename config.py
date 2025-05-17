@@ -4,7 +4,7 @@ import secrets
 #load_dotenv()
 
 class Config:
-    DB_USER = os.getenv("DB_USER")
+    DB_USER = os.environ.get("DB_USER")
  
     #SQLALCHEMY_DATABASE_URI = 'sqlite:///flaskdb.sqlite'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
