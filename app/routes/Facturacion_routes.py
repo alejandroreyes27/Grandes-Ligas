@@ -93,8 +93,8 @@ def generar_factura_pdf(datos):
         pass
 
     # Información de la empresa
-    story.append(Paragraph("Palmas Clothing", 
-                          ParagraphStyle('Company', parent=style_title, textColor=colors.HexColor("#1f6fcb"))))
+    story.append(Paragraph("Grandes Ligas", 
+                          ParagraphStyle('Company', parent=style_title, textColor=colors.HexColor("#000000"))))
     story.append(Spacer(1, 12))
     story.append(Paragraph("Centro comercial vèlez plaza local 1-04", style_normal))
     story.append(Paragraph("WhatsApp: 3133619030 | Email: alejandroariza.cr@gmail.com", style_normal))
@@ -198,7 +198,7 @@ def generar_factura_pdf(datos):
                           ParagraphStyle('ThankYou', parent=style_title, fontSize=16, textColor=colors.HexColor("#1f6fcb"))))
     story.append(Spacer(1, 12))
     story.append(Paragraph("Política de devolución: 30 días con recibo.", terms_style))
-    story.append(Paragraph("www.palmasclothing.com", terms_style))
+    story.append(Paragraph("https://grandesligas.isladigital.xyz", terms_style))
 
     doc.build(story)
     buffer.seek(0)
