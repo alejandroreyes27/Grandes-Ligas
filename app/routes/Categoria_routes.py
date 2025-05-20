@@ -9,7 +9,7 @@ bp = Blueprint('categoria', __name__)
 @bp.route('/categorias/index')
 @login_required
 def index():
-    categorias = Categoria.query.all()
+    categorias = Categoria.query.order_by(Categoria.idCategoria).all()
     return render_template('categorias/index.html', categorias=categorias)
 
 @bp.route('/categorias/add', methods=['GET', 'POST'])
@@ -34,7 +34,7 @@ def add():
             flash(f'Error al agregar la categoría: {str(e)}', 'error')
 
     return render_template('categorias/add.html')
-
+            
 @bp.route('/categorias/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
