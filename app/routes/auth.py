@@ -77,20 +77,20 @@ def edit(id):
     if request.method == 'POST':
         user.correoUser = request.form['correoUser']
         user.nameUser = request.form['nameUser']
-        user.passwordUser = request.form['passwordUser']
+        new_password = request.form['passwordUser']
+        if new_password:
+            user.passwordUser = new_password
         user.telefonoUser = request.form['telefonoUser']
 
-        if current_user.idUser == 1:
-            user.rolUser = request.form['rolUser']
-
-        if current_user.rolUser == 'cliente':
-            user.rolUser = request.form['rolUser']
-
-        else:
+        if current_user.idUser == 1 and 'rolUser' in request.form:
             user.rolUser = request.form['rolUser']
 
         db.session.commit()
-        return redirect(url_for('auth.login'))
+        flash('Usuario actualizado correctamente.', 'success')
+        if current_user.rolUser == 'administrador':
+            return redirect(url_for('productos.index'))
+        else:
+            return redirect(url_for('auth.logout'))
 
     return render_template('login/edit.html', user=user, current_user=current_user)
 

@@ -102,7 +102,17 @@
                             <span class="navbar-text text-white">{{ current_user.nameUser }}</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ url_for('auth.edit', id=user.idUser) }}">Editar Perfil</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#editModal"
+                                    data-id="{{ user.idUser }}"
+                                    data-email="{{ user.correoUser }}"
+                                    data-name="{{ user.nameUser }}"
+                                    data-phone="{{ user.telefonoUser }}">
+                                    Editar Perfil
+                                </a>
+                            </li>
                             <li><a class="dropdown-item" href="">Ver Compras</a></li>
                         </ul>
                     </li>
@@ -161,48 +171,98 @@
         </div>  
     </div>
 
-<!-- Ubicación Section -->
-<section id="ubicacion" class="ubicacion-section py-5 bg-light text-center">
-  <div class="container" style="max-width: 1200px;">
-    <div class="card ubicacion-card shadow rounded p-4">
+    <!-- Ubicación Section -->
+    <section id="ubicacion" class="ubicacion-section py-5 bg-light text-center">
+    <div class="container" style="max-width: 1200px;">
+        <div class="card ubicacion-card shadow rounded p-4">
 
-      <!-- Misión arriba -->
-      <div class="text-content w-100 text-start mb-4">
-        <h2 class="mb-3 text-primary fw-bold">Nuestra Misión</h2>
-        <p class="fs-5 fst-italic text-secondary mb-0">
-          <i class="fas fa-shopping-bag"></i>
-          Brindar <span class="highlight-quality">productos de calidad</span>
-          y un <span class="highlight-service">servicio excepcional</span>
-          para nuestros clientes.
-        </p>
-      </div>
-
-      <!-- Mapas lado a lado -->
-      <div class="d-flex flex-wrap justify-content-between gap-3 maps-container w-100">
-        <div class="map-responsive">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4946.976858357151!2d-73.6758238561676!3d6.012307538997236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e41f06a32d7949f%3A0x835212754d0b5523!2sBlack%20Rose%20Studio!5e0!3m2!1ses-419!2sco!4v1747760302771!5m2!1ses-419!2sco"
-            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+        <!-- Misión arriba -->
+        <div class="text-content w-100 text-start mb-4">
+            <h2 class="mb-3 text-primary fw-bold">Nuestra Misión</h2>
+            <p class="fs-5 fst-italic text-secondary mb-0">
+            <i class="fas fa-shopping-bag"></i>
+            Brindar <span class="highlight-quality">productos de calidad</span>
+            y un <span class="highlight-service">servicio excepcional</span>
+            para nuestros clientes.
+            </p>
         </div>
-        <div class="map-responsive">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2sco!4v1747710422081!5m2!1ses-419!2sco!6m8!1m7!1s2r0YJHnf9IBCxr0TUPiFiQ!2m2!1d6.012560610223842!2d-73.67336965270613!3f297.5501443523917!4f-12.586373469397657!5f0.4000000000000002"
-            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+
+        <!-- Mapas lado a lado -->
+        <div class="d-flex flex-wrap justify-content-between gap-3 maps-container w-100">
+            <div class="map-responsive">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4946.976858357151!2d-73.6758238561676!3d6.012307538997236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e41f06a32d7949f%3A0x835212754d0b5523!2sBlack%20Rose%20Studio!5e0!3m2!1ses-419!2sco!4v1747760302771!5m2!1ses-419!2sco"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            </div>
+            <div class="map-responsive">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2sco!4v1747710422081!5m2!1ses-419!2sco!6m8!1m7!1s2r0YJHnf9IBCxr0TUPiFiQ!2m2!1d6.012560610223842!2d-73.67336965270613!3f297.5501443523917!4f-12.586373469397657!5f0.4000000000000002"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            </div>
         </div>
-      </div>
 
-      <!-- Información de dirección y horario -->
-      <div class="text-content w-100 text-start mt-4">
-        <h3 class="mb-3 fw-semibold text-dark">Visítanos en nuestra tienda física</h3>
-        <p><i class="fas fa-map-marker-alt"></i> Cra. 4 # 8-44, Vélez</p>
-        <p><i class="far fa-clock"></i> Lunes a sábado: 9 AM - 8 PM</p>
-      </div>
+        <!-- Información de dirección y horario -->
+        <div class="text-content w-100 text-start mt-4">
+            <h3 class="mb-3 fw-semibold text-dark">Visítanos en nuestra tienda física</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Cra. 4 # 8-44, Vélez</p>
+            <p><i class="far fa-clock"></i> Lunes a sábado: 9 AM - 8 PM</p>
+        </div>
 
+        </div>
     </div>
-  </div>
-</section>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" id="editForm" method="POST">
+        <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Editar Usuario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="mb-3">
+            <label class="form-label">Correo</label>
+            <input type="email" class="form-control" name="correoUser" id="correoUser">
+            </div>
+            
+            <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="nameUser" id="nameUser">
+            </div>
+            
+            <div class="mb-3 position-relative">
+                <label for="passwordUser-{{ user.idUser }}" class="form-label">Contraseña</label>
+                <input
+                type="password"
+                class="form-control"
+                id="passwordUser-{{ user.idUser }}"
+                name="passwordUser"
+                value="{{ user.passwordUser }}"
+                required
+                >
+                <i
+                class="material-icons position-absolute toggle-password-icon"
+                data-target="passwordUser-{{ user.idUser }}"
+                style="cursor: pointer; right: 1.5rem; top: calc(50% + .25rem); transform: translateY(-0%);"
+                >visibility</i>
+            </div>
+            
+            <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" name="telefonoUser" id="telefonoUser">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+        </form>
+    </div>
+    </div>
 
     <!-- Modal para agregar productos -->
     <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
@@ -622,6 +682,32 @@
                 actualizarContadorCarrito();
             }, 500); // Pequeño retraso para asegurar que el servidor responda
             });
+        });
+
+        // Rellena el modal con datos cuando se hace clic
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(link => {
+        link.addEventListener('click', function() {
+            const form = document.getElementById('editForm');
+            form.action = "{{ url_for('auth.edit', id=0) }}".replace('/0', '/' + this.dataset.id);
+            
+            document.getElementById('correoUser').value = this.dataset.email;
+            document.getElementById('nameUser').value = this.dataset.name;
+            document.getElementById('telefonoUser').value = this.dataset.phone;
+        });
+        });
+
+        document.querySelectorAll('.toggle-password-icon').forEach(icon => {
+            icon.addEventListener('click', () => {
+            const input = document.getElementById(icon.dataset.target);
+            if (!input) return;
+            if (input.type === 'password') {
+            input.type = 'text';
+            icon.textContent = 'visibility_off';
+            } else {
+            input.type = 'password';
+            icon.textContent = 'visibility';
+            }
+        });
         });
     </script>   
 </body>

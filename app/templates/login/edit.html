@@ -23,14 +23,6 @@
         <label for="telefonoUser">WhatsApp</label>
         <input type="text" id="telefonoUser" name="telefonoUser" value="{{ user.telefonoUser }}" required>
 
-        {% if current_user.rolUser in ['cliente', 'vendedor'] %}
-        <label for="rolUser">Rol:</label>
-        <select name="rolUser" id="rolUser">
-            <option value="cliente" {% if user.rolUser == 'cliente' %} selected {% endif %}>Cliente</option>
-            <option value="vendedor" {% if user.rolUser == 'vendedor' %} selected {% endif %}>Vendedor</option>
-        </select>
-        {% endif %}
-
         <button type="submit">Actualizar Usuario</button>
         <a href="{{ url_for('productos.index') }}" id="enlace">Regresar</a>
     </form>
