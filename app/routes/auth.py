@@ -45,7 +45,6 @@ def dashboard():
         return redirect(url_for('productos.index'))
     
 @bp.route('/auth/add', methods=['GET', 'POST'])
-@login_required
 def add():
     if request.method == 'POST':
         correoUser = request.form['correoUser']
