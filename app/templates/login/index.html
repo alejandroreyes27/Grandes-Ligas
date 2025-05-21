@@ -83,6 +83,7 @@
         <thead class="table-dark">
           <tr>
             <th>ID</th>
+            <th>Correo</th>
             <th>Nombre</th>
             <th>Contraseña</th>
             <th>WhatsApp</th>
@@ -93,6 +94,7 @@
           {% for user in data_user %}
           <tr>
             <td>{{ user.idUser }}</td>
+            <td>{{ user.correoUser }}</td>
             <td>{{ user.nameUser }}</td>
             <td class="position-relative">
               <input
@@ -102,11 +104,7 @@
                 value="{{ user.passwordUser }}"
                 readonly
               >
-              <i
-                class="material-icons position-absolute toggle-password-icon"
-                data-target="pwd-{{ user.idUser }}"
-                style="cursor: pointer; right: 1rem; top: 50%; transform: translateY(-50%);"
-              >visibility</i>
+              <i class="material-icons position-absolute toggle-password-icon" data-target="pwd-{{ user.idUser }}" style="cursor: pointer; right: 1rem; top: 50%; transform: translateY(-50%);">visibility</i>
             </td>
             <td>{{ user.telefonoUser }}</td>
             <td class="text-center">
@@ -123,6 +121,14 @@
                   </div>
                   
                   <form action="{{ url_for('auth.edit', id=user.idUser) }}" method="post">
+
+                    <div class="mb-3">
+                      <label for="correoUser-{{ user.idUser }}" class="form-label">Correo electronico</label>
+                      <input type="text" class="form-control" 
+                             id="correoUser-{{ user.idUser }}" 
+                             name="correoUser" value="{{ user.correoUser }}" required>
+                    </div>
+
                     <div class="mb-3">
                       <label for="nameUser-{{ user.idUser }}" class="form-label">Nombre de Usuario</label>
                       <input type="text" class="form-control" 
@@ -160,6 +166,7 @@
                       <select class="form-select" name="rolUser" id="rolUser-{{ user.idUser }}">
                         <option value="cliente" {% if user.rolUser == 'cliente' %} selected {% endif %}>Cliente</option>
                         <option value="administrador" {% if user.rolUser == 'administrador' %} selected {% endif %}>Administrador</option>
+                        <option value="vendedor" {% if user.rolUser == 'vendedor' %} selected {% endif %}>Vendedor</option>
                       </select>
                     </div>
                     {% endif %}

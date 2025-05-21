@@ -10,22 +10,29 @@
 <body>
     <h1>Editar Usuario</h1>
     <form action="{{ url_for('auth.edit', id=user.idUser) }}" method="post">
+
+        <label for="correoUser">Correo electronico:</label>
+        <input type="text" id="correoUser" name="correoUser" value="{{ user.correoUser }}" required>
+
         <label for="nameUser">Nombre:</label>
         <input type="text" id="nameUser" name="nameUser" value="{{ user.nameUser }}" required>
 
         <label for="passwordUser">Contraseña:</label>
         <input type="password" id="passwordUser" name="passwordUser" value="{{ user.passwordUser }}" required>
 
-        {% if current_user.idUser == 1 %}
+        <label for="telefonoUser">WhatsApp</label>
+        <input type="text" id="telefonoUser" name="telefonoUser" value="{{ user.telefonoUser }}" required>
+
+        {% if current_user.rolUser in ['cliente', 'vendedor'] %}
         <label for="rolUser">Rol:</label>
         <select name="rolUser" id="rolUser">
             <option value="cliente" {% if user.rolUser == 'cliente' %} selected {% endif %}>Cliente</option>
-            <option value="administrador" {% if user.rolUser == 'administrador' %} selected {% endif %}>Administrador</option>
+            <option value="vendedor" {% if user.rolUser == 'vendedor' %} selected {% endif %}>Vendedor</option>
         </select>
         {% endif %}
 
         <button type="submit">Actualizar Usuario</button>
-        <a href="{{ url_for('auth.dashboard') }}" id="enlace">Regresar</a>
+        <a href="{{ url_for('productos.index') }}" id="enlace">Regresar</a>
     </form>
 </body>
 </html>

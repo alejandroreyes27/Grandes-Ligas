@@ -8,10 +8,10 @@ bp = Blueprint('auth', __name__)
 @bp.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        nameUser = request.form['nameUser']
+        correoUser = request.form['correoUser']
         passwordUser = request.form['passwordUser']
 
-        user = Users.query.filter_by(nameUser=nameUser, passwordUser=passwordUser).first()
+        user = Users.query.filter_by(correoUser=correoUser, passwordUser=passwordUser).first()
 
         if user:
             login_user(user)
@@ -45,8 +45,10 @@ def dashboard():
         return redirect(url_for('productos.index'))
     
 @bp.route('/auth/add', methods=['GET', 'POST'])
+@login_required
 def add():
     if request.method == 'POST':
+        correoUser = request.form['correoUser']
         nameUser = request.form['nameUser']
         passwordUser = request.form['passwordUser']
         telefonoUser = request.form['telefonoUser']
@@ -56,9 +58,9 @@ def add():
         
         # Si no existe, asignamos el rol de 'administrador'
         if not first_user:
-            new_User = Users(nameUser=nameUser, passwordUser=passwordUser, telefonoUser=telefonoUser, rolUser='administrador')
+            new_User = Users(correoUser=correoUser, nameUser=nameUser, passwordUser=passwordUser, telefonoUser=telefonoUser, rolUser='administrador')
         else:
-            new_User = Users(nameUser=nameUser, passwordUser=passwordUser, telefonoUser=telefonoUser)
+            new_User = Users(correoUser=correoUser, nameUser=nameUser, passwordUser=passwordUser, telefonoUser=telefonoUser)
         
         db.session.add(new_User)
         db.session.commit()
@@ -68,10 +70,12 @@ def add():
     return render_template('login/add.html')
 
 @bp.route('/auth/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
 def edit(id):
     user = Users.query.get_or_404(id)
 
     if request.method == 'POST':
+        user.correoUser = request.form['correoUser']
         user.nameUser = request.form['nameUser']
         user.passwordUser = request.form['passwordUser']
         user.telefonoUser = request.form['telefonoUser']
@@ -79,8 +83,14 @@ def edit(id):
         if current_user.idUser == 1:
             user.rolUser = request.form['rolUser']
 
+        if current_user.rolUser == 'cliente':
+            user.rolUser = request.form['rolUser']
+
+        else:
+            user.rolUser = request.form['rolUser']
+
         db.session.commit()
-        return redirect(url_for('auth.dashboard'))
+        return redirect(url_for('auth.login'))
 
     return render_template('login/edit.html', user=user, current_user=current_user)
 

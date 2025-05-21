@@ -49,7 +49,7 @@
                             </ul>
                         </li>
                     {% endif %}
-                    {% if current_user.rolUser == 'administrador' %}
+                    {% if current_user.rolUser in ['administrador', 'vendedor'] %}
                     <li class="nav-item mb-2 mb-lg-0 me-lg-3 w-100 w-lg-auto">
                         <button type="button" class="btn btn-primary d-inline-flex align-items-center w-100 w-lg-auto" data-bs-toggle="modal" data-bs-target="#addProductModal">
                             <i class="material-icons me-1">add_circle_outline</i>
@@ -95,9 +95,18 @@
                         </span>
                       </a>
                     </li>
-                    <li class="nav-item d-flex align-items-center mb-2 mb-lg-0 me-lg-3">
-                        <span class="navbar-text text-white">{{ current_user.nameUser }}</span>
+
+                    <li class="nav-item dropdown mb-2 mb-lg-0 me-lg-3 w-100 w-lg-auto">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center justify-content-between" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="material-icons me-1">account_circle</i>
+                            <span class="navbar-text text-white">{{ current_user.nameUser }}</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('auth.edit', id=user.idUser) }}">Editar Perfil</a></li>
+                            <li><a class="dropdown-item" href="">Ver Compras</a></li>
+                        </ul>
                     </li>
+
                     <li class="nav-item">
                         <a href="{{ url_for('auth.logout') }}" class="btn btn-danger d-flex align-items-center flex-nowrap">
                           <i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión</a>
@@ -140,7 +149,7 @@
 
                         <!-- Acciones para administradores -->
                         <div class="admin-actions">
-                            {% if current_user.rolUser == 'administrador' %}
+                            {% if current_user.rolUser in ['administrador', 'vendedor'] %}
                                 <a href="{{ url_for('productos.index', edit=producto.idProducto) }}"><i class="material-icons me-1">edit</i></a>
                                 <a href="{{ url_for('productos.delete', id=producto.idProducto) }}" onclick="return confirm('¿Seguro que desea eliminar el producto?');"><i class="material-icons">delete</i></a>
                             {% endif %}

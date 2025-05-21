@@ -18,6 +18,19 @@
         <div class="card-body">
             <form action="{{ url_for('auth.add') }}" method="post">
                 <div class="mb-3">
+                <input
+                    type="email"
+                    class="form-control"
+                    id="correoUser"
+                    name="correoUser"
+                    placeholder="Correo electrónico"
+                    required
+                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                    title="Por favor ingresa un correo válido, que incluya ‘@’ y un dominio (ej. usuario@gmail.com)."
+                >
+                </div>
+
+                <div class="mb-3">
                     <input type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Nombre de usuario" required>
                 </div>
                 <div class="mb-3">
