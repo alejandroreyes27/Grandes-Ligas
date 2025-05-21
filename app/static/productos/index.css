@@ -14,10 +14,7 @@
         /* Prevent product card from stretching full width when only one product */
         .product-card {
             max-width: 280px;
-            height: 400px;
             margin: 0 auto;
-            padding-bottom: 12px;
-            overflow: hidden;
         }
 
         /* ===============================
@@ -30,14 +27,14 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             position: relative;
             border: 1px solid transparent;
-            padding-bottom: 12px;
         }
 
         .product-card:hover {
+            transform: translateY(-6px);
             box-shadow: 0 12px 24px rgba(0,0,0,0.15);
             border-color: #007bff;
         }
@@ -51,14 +48,11 @@
             object-fit: cover;
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
-            backface-visibility: hidden; /* ✅ SIEMPRE ACTIVO */
-            perspective: 1000px; /* ✅ SIEMPRE ACTIVO */
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease;
         }
 
-        .product-image:hover {
-            backface-visibility: hidden;
-            perspective: 1000px;
+        .product-card:hover .product-image {
+            transform: scale(1.05);
         }
 
         /* ===============================
@@ -125,6 +119,7 @@
         .price-and-cart button:hover {
             background-color: #0056b3;
         }
+
 
         /* ===============================
         ADMIN ACTIONS
