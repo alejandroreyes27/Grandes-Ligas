@@ -5,16 +5,9 @@ class Factura(db.Model):
     __tablename__ = 'facturas'
 
     id           = db.Column(db.Integer, primary_key=True)
-    # Apunta a user.idUser, que es tu definición real:
-    user_id      = db.Column(db.Integer,
-                             db.ForeignKey('user.idUser'),
-                             nullable=False)
-
-    # Relación hacia Users (clase se llama Users)
-    user         = db.relationship(
-        'Users',
-        back_populates='facturas'
-    )
+    user_id      = db.Column(db.Integer, db.ForeignKey('user.idUser'), nullable=False)
+    
+    user         = db.relationship('Users', back_populates='facturas')
 
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     subtotal     = db.Column(db.Float, nullable=False, default=0.0)

@@ -331,3 +331,44 @@ def delete_factura(factura_id):
     else:
         return redirect(url_for('carrito.index'))
 
+@bp.route('/mis-compras')
+@login_required
+def mis_compras():
+    # Obtenemos todas las facturas del usuario actual
+    facturas = Factura.query.filter_by(user_id=current_user.idUser).all()
+    return render_template('facturacion/mis_compras.html', facturas=facturas)
+
+@bp.route('/api/detalle-factura/<int:id_factura>', methods=['GET'])
+@login_required
+def obtener_detalle_factura(id_factura):
+    # Validamos que la factura pertenezca al usuario actual
+    factura = Factura.query.filter_by(id=id_factura, user_id=current_user.idUser).first()
+    if not factura:
+        return jsonify({"error": "Factura no encontrada"}), 404
+    
+    # Obtenemos los detalles con información del producto
+    detalles = DetalleFactura.query\
+        .filter_by(factura_id=id_factura)\
+        .join(Productos, DetalleFactura.product_id == Productos.idProducto)\
+        .add_columns(
+            Productos.nombreProducto,
+            DetalleFactura.talla,
+            DetalleFactura.quantity,
+            DetalleFactura.price,
+            DetalleFactura.total
+        )\
+        .all()
+    
+    # Formateamos los datos
+    detalles_list = [{
+        'nombre': detalle.nombreProducto,
+        'talla': detalle.talla,
+        'cantidad': detalle.quantity,
+        'precio_unitario': detalle.price,
+        'total_linea': detalle.total
+    } for detalle in detalles]
+    
+    return jsonify({
+        'factura_id': id_factura,
+        'detalles': detalles_list
+    })
