@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>Tus Pedidos</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap @5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css " rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='icons/icon.css') }}">
     <style>
         .invoice-card {
             border-radius: 10px;
@@ -24,9 +25,205 @@
             max-height: 300px;
             overflow-y: auto;
         }
+        /* ===============================
+        NAVBAR
+        =============================== */
+        .navbar {
+            background-color: #007bff !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+        }
+
+        .navbar .navbar-nav .nav-link {
+            color: #fff !important;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 6px;
+        }
+
+        /* Fix for logout button to prevent line break */
+        .navbar .nav-item > a.btn.btn-danger {
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            height: 40px;
+            padding: 0 12px;
+        }
+
+        .navbar .navbar-nav .nav-link:hover,
+        .navbar .navbar-nav .nav-link:focus {
+            background-color: rgba(255,255,255,0.2);
+            color: #fff !important;
+            outline: none;
+        }
+
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu {
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: none;
+            padding: 0.5rem 0;
+            min-width: 200px;
+        }
+
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item {
+            color: #333;
+            font-weight: 500;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item:hover,
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item:focus {
+            background-color: #0056b3;
+            color: #fff;
+            outline: none;
+        }
+
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            background-color: #dc3545;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 12px;
+            margin-left: 8px;
+        }
+
+        /* Cart icon and badge */
+        .navbar .nav-link i.material-icons {
+            font-size: 1.6rem;
+            position: relative;
+            margin-right: 0; /* Remove any margin to stick badge closer */
+        }
+        .footer-custom {
+        width: 100%;
+        background-color: #007bff;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Contenedor centrado y responsivo */
+        .footer-custom .container {
+        max-width: 1140px;
+        margin: 0 auto;
+        }
+
+        /* Texto */
+        .footer-custom p {
+        margin: 0;
+        font-size: 0.875rem;
+        color: #fff !important;
+        }
+
+        /* Iconos sociales */
+        .social-link {
+        color: rgba(255,255,255,0.85);
+        transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-link:hover {
+        transform: translateY(-2px);
+        }
+        .social-link.instagram:hover { color: #E4405F; }
+        .social-link.facebook:hover  { color: #4267B2; }
+        .social-link.whatsapp:hover  { color: #25D366; }
+
+        /* Apilar y centrar en móvil */
+        @media (max-width: 767px) {
+        .footer-custom .container {
+            flex-direction: column;
+            text-align: center;
+        }
+        .footer-custom ul {
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+        }
+
     </style>
 </head>
 <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <!-- Botón de Hamburguesa -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Contenedor del Menú -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center flex-column flex-lg-row">
+                    <li class="nav-item mb-2 mb-lg-0 me-lg-3">
+                        <a class="nav-link text-white d-flex align-items-center" href="{{ url_for('productos.index') }}">
+                            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="rounded-circle" style="height: 40px; width: 40px; object-fit: cover;">
+                        </a>
+                    </li>
+                    {% if current_user.rolUser == 'administrador' %}
+                        <li class="nav-item dropdown mb-2 mb-lg-0 me-lg-3 w-100 w-lg-auto">
+                            <a class="nav-link dropdown-toggle text-white d-flex align-items-center justify-content-between" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="material-icons me-1">account_circle</i>
+                                <span class="d-none d-lg-inline">Administrador</span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                    href="{{ url_for('facturacion.facturas_index') }}">
+                                    Facturas
+                                    {% if pendientes_facturas > 0 %} 
+                                        <span class="badge bg-danger">{{ pendientes_facturas }}</span>
+                                    {% endif %}
+                                    </a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ url_for('categoria.index') }}">Categorías</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('auth.dashboard') }}">Usuarios Registrados</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('productos.index_ejemplo') }}">Zapatos</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+
+                <li class="nav-item mb-2 mb-lg-0 me-lg-3">
+                  <a class="nav-link text-white d-flex align-items-center" href="{{ url_for('productos.index', _anchor='ubicacion') }}">
+                    <i class="material-icons me-1">location_on</i>
+                    <span class="d-none d-lg-inline">Ubicación</span>
+                  </a>
+                </li>
+
+                </ul>
+                <ul class="navbar-nav ms-auto align-items-center flex-column flex-lg-row">
+
+                    <li class="nav-item dropdown mb-2 mb-lg-0 me-lg-3 w-100 w-lg-auto">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center justify-content-between" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="material-icons me-1">account_circle</i>
+                            <span class="d-none d-lg-inline navbar-text text-white">{{ current_user.nameUser }}</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center" href="#" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#editModal"
+                                data-id="{{ current_user.idUser }}"
+                                data-email="{{ current_user.correoUser }}"
+                                data-name="{{ current_user.nameUser }}"
+                                data-phone="{{ current_user.telefonoUser }}">
+                                Editar Perfil
+                            </a>
+                            </li>
+                            <li><a class="dropdown-item d-flex justify-content-between align-items-center" href="/facturacion/mis-compras">Tus Pedidos</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url_for('auth.logout') }}" class="btn btn-danger d-flex align-items-center flex-nowrap">
+                            <i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container py-5">
         <h1 class="mb-4 text-center"><i class="fas fa-boxes"></i> Tus Pedidos</h1>
         
@@ -46,8 +243,7 @@
                                     {{ factura.date_created.strftime('%d/%m/%Y') }}
                                 </p>
                                 <div class="d-grid gap-2">
-                                    <button class="btn btn-primary" 
-                                            onclick="verDetalles({{ factura.id }})">
+                                    <button class="btn btn-primary ver-detalles-btn" data-factura-id="{{ factura.id }}">
                                         <i class="fas fa-eye me-2"></i> Ver Detalles
                                     </button>
                                 </div>
@@ -70,6 +266,59 @@
                 <p>¡Empieza a disfrutar de nuestros productos!</p>
             </div>
         {% endif %}
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" id="editForm" method="POST">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+        <div class="modal-body">
+
+            <!-- Removed user image display due to missing 'image' attribute in current_user -->
+
+            <div class="mb-3">
+            <label class="form-label">Correo</label>
+            <input type="email" class="form-control" name="correoUser" id="correoUser">
+            </div>
+            
+            <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="nameUser" id="nameUser">
+            </div>
+            
+            <div class="mb-3 position-relative">
+                <label for="passwordUser-{{ current_user.idUser }}" class="form-label">Contraseña</label>
+                <input
+                type="password"
+                class="form-control"
+                id="passwordUser-{{ current_user.idUser }}"
+                name="passwordUser"
+                value="{{ current_user.passwordUser }}"
+                required
+                >
+                <i
+                class="material-icons position-absolute toggle-password-icon"
+                data-target="passwordUser-{{ current_user.idUser }}"
+                style="cursor: pointer; right: 1.5rem; top: calc(50% + .25rem); transform: translateY(-0%);"
+                >visibility</i>
+            </div>
+
+            <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" name="telefonoUser" id="telefonoUser">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+        </form>
+    </div>
     </div>
 
     <!-- Modal de Detalles -->
@@ -100,6 +349,7 @@
                         <table class="table table-hover">
                             <thead class="bg-primary text-white">
                                 <tr>
+                                    <th>Imagen</th>
                                     <th>Producto</th>
                                     <th>Talla</th>
                                     <th>Cantidad</th>
@@ -119,30 +369,61 @@
             </div>
         </div>
     </div>
+    
+    <footer class="footer-custom py-4 mt-5">
+    <div class="container d-flex flex-column flex-md-row justify-content-center align-items-center">
+        <p class="text-white small mb-2 mb-md-0 text-center">
+        © 2025 Grandes Ligas. Todos los derechos reservados.
+        </p>
+        <ul class="list-unstyled d-flex mb-0 gap-3 ms-md-4">
+        <li>
+            <a aria-label="Instagram" href="https://www.instagram.com/grandes_ligas22?igsh=a3JvMGRpMG5mb3dx" class="social-link instagram">
+            <i class="fab fa-instagram fa-lg"></i>
+            </a>
+        </li>
+        <li>
+            <a aria-label="Facebook" href="#" class="social-link facebook">
+            <i class="fab fa-facebook-f fa-lg"></i>
+            </a>
+        </li>
+        <li>
+            <a aria-label="WhatsApp" href="https://wa.me/qr/WHDXLHRASLR3D1" class="social-link whatsapp">
+            <i class="fab fa-whatsapp fa-lg"></i>
+            </a>
+        </li>
+        </ul>
+    </div>
+    </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap @5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function verDetalles(idFactura) {
             fetch(`/facturacion/api/detalle-factura/${idFactura}`)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     const tbody = document.getElementById('detalles-body');
-                    tbody.innerHTML = '';
+                    tbody.innerHTML = "";
 
                     // Find the factura card in the page to get date and total
-                    const facturaCard = document.querySelector(`.card.invoice-card button[onclick="verDetalles(${idFactura})"]`).closest('.invoice-card');
-                    const fechaText = facturaCard.querySelector('.card-body p').textContent.trim();
-                    const totalText = facturaCard.querySelector('.card-header span').textContent.trim();
+                    const facturaCard = document.querySelector(`.card.invoice-card button[data-factura-id="${idFactura}"]`).closest(".invoice-card");
+                    const fechaText = facturaCard.querySelector(".card-body p").textContent.trim();
+                    const totalText = facturaCard.querySelector(".card-header span").textContent.trim();
 
-                    document.getElementById('modal-fecha').textContent = fechaText;
-                    document.getElementById('modal-total').textContent = totalText.replace('$', '').trim();
+                    document.getElementById("modal-fecha").textContent = fechaText;
+                    document.getElementById("modal-total").textContent = totalText.replace("$", "").trim();
 
                     data.detalles.forEach(item => {
-                        const tr = document.createElement('tr');
+                        const tr = document.createElement("tr");
                         tr.innerHTML = `
+                            <td><img src="${item.imagen ? '/static/' + item.imagen : '/static/img/default.png'}" alt="${item.nombre}" style="width: 50px; height: auto; border-radius: 5px;"></td>
                             <td>${item.nombre}</td>
-                            <td>${item.talla || 'N/A'}</td>
+                            <td>${item.talla || "N/A"}</td>
                             <td>${item.cantidad}</td>
                             <td>$${item.precio_unitario.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                             <td>$${item.total_linea.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
@@ -151,14 +432,49 @@
                     });
 
                     // Show modal
-                    const modal = new bootstrap.Modal(document.getElementById('detallesModal'));
+                    const modal = new bootstrap.Modal(document.getElementById("detallesModal"));
                     modal.show();
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('No se pudieron cargar los detalles del pedido.');
+                    console.error("Error:", error);
+                    alert("No se pudieron cargar los detalles del pedido.");
                 });
         }
+
+        // Attach event listeners to buttons after DOM content loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.ver-detalles-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const idFactura = button.getAttribute('data-factura-id');
+                    verDetalles(idFactura);
+                });
+            });
+        });
+        // Rellena el modal con datos cuando se hace clic
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(link => {
+        link.addEventListener('click', function() {
+            const form = document.getElementById('editForm');
+            form.action = "{{ url_for('auth.edit', id=0) }}".replace('/0', '/' + this.dataset.id);
+            
+            document.getElementById('correoUser').value = this.dataset.email;
+            document.getElementById('nameUser').value = this.dataset.name;
+            document.getElementById('telefonoUser').value = this.dataset.phone;
+        });
+        });
+
+        document.querySelectorAll('.toggle-password-icon').forEach(icon => {
+            icon.addEventListener('click', () => {
+            const input = document.getElementById(icon.dataset.target);
+            if (!input) return;
+            if (input.type === 'password') {
+            input.type = 'text';
+            icon.textContent = 'visibility_off';
+            } else {
+            input.type = 'password';
+            icon.textContent = 'visibility';
+            }
+        });
+        });
     </script>
 </body>
 </html>

@@ -334,9 +334,20 @@ def delete_factura(factura_id):
 @bp.route('/mis-compras')
 @login_required
 def mis_compras():
-    # Obtenemos todas las facturas del usuario actual
-    facturas = Factura.query.filter_by(user_id=current_user.idUser).all()
-    return render_template('facturacion/mis_compras.html', facturas=facturas)
+    # Obtenemos todas las facturas del usuario actual, ordenadas de más reciente a más antigua
+    facturas = Factura.query.filter_by(user_id=current_user.idUser).order_by(Factura.date_created.desc()).all()
+
+    # Para cada factura, obtener la imagen del primer producto (si existe)
+    facturas_con_imagen = []
+    for factura in facturas:
+        detalle = DetalleFactura.query.filter_by(factura_id=factura.id).join(Productos, DetalleFactura.product_id == Productos.idProducto).add_columns(Productos.imagenProducto).first()
+        imagen_producto = detalle.imagenProducto if detalle else None
+        facturas_con_imagen.append({
+            'factura': factura,
+            'imagen_producto': imagen_producto
+        })
+
+    return render_template('facturacion/mis_compras.html', facturas=facturas_con_imagen)
 
 @bp.route('/api/detalle-factura/<int:id_factura>', methods=['GET'])
 @login_required
@@ -352,6 +363,7 @@ def obtener_detalle_factura(id_factura):
         .join(Productos, DetalleFactura.product_id == Productos.idProducto)\
         .add_columns(
             Productos.nombreProducto,
+            Productos.imagenProducto,
             DetalleFactura.talla,
             DetalleFactura.quantity,
             DetalleFactura.price,
@@ -361,12 +373,13 @@ def obtener_detalle_factura(id_factura):
     
     # Formateamos los datos
     detalles_list = [{
-        'nombre': detalle.nombreProducto,
-        'talla': detalle.talla,
-        'cantidad': detalle.quantity,
-        'precio_unitario': detalle.price,
-        'total_linea': detalle.total
-    } for detalle in detalles]
+        'nombre': nombreProducto,
+        'imagen': imagenProducto,
+        'talla': talla,
+        'cantidad': quantity,
+        'precio_unitario': price,
+        'total_linea': total
+    } for _, nombreProducto, imagenProducto, talla, quantity, price, total in detalles]
     
     return jsonify({
         'factura_id': id_factura,
