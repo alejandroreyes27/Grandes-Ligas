@@ -229,21 +229,28 @@
         
         {% if facturas %}
             <div class="row g-4">
-                {% for factura in facturas %}
+                {% for item in facturas %}
+                    {% set factura = item.factura %}
+                    {% set imagen_producto = item.imagen_producto %}
                     <div class="col-md-6 col-lg-4">
-                        <div class="card invoice-card h-100">
-                            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <div class="card invoice-card h-100 shadow-sm border-0">
+                            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top">
                                 <h5 class="mb-0">Factura #{{ factura.id }}</h5>
-                                <span class="badge bg-light text-dark rounded-pill">
+                                <span class="badge bg-light text-dark rounded-pill px-3 py-1">
                                     ${{ "{:,.0f}".format(factura.total) }}
                                 </span>
                             </div>
-                            <div class="card-body">
-                                <p class="mb-2"><i class="far fa-clock me-2"></i> 
+                            <div class="card-body d-flex flex-column">
+                                <p class="mb-2 text-muted small"><i class="far fa-clock me-2"></i> 
                                     {{ factura.date_created.strftime('%d/%m/%Y') }}
                                 </p>
-                                <div class="d-grid gap-2">
-                                    <button class="btn btn-primary ver-detalles-btn" data-factura-id="{{ factura.id }}">
+                                {% if imagen_producto %}
+                                    <div class="text-center mb-3">
+                                        <img src="{{ url_for('static', filename=imagen_producto) }}" alt="Producto" class="img-fluid rounded" style="max-height: 120px; object-fit: contain;">
+                                    </div>
+                                {% endif %}
+                                <div class="mt-auto">
+                                    <button class="btn btn-primary w-100 ver-detalles-btn" data-factura-id="{{ factura.id }}">
                                         <i class="fas fa-eye me-2"></i> Ver Detalles
                                     </button>
                                 </div>
@@ -365,6 +372,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" id="downloadPdfBtn">Descargar PDF</button>
                 </div>
             </div>
         </div>
@@ -447,8 +455,23 @@
                 button.addEventListener('click', () => {
                     const idFactura = button.getAttribute('data-factura-id');
                     verDetalles(idFactura);
+                    // Store current factura id for PDF download
+                    window.currentFacturaId = idFactura;
                 });
             });
+
+            // Add click event for download PDF button
+            const downloadBtn = document.getElementById('downloadPdfBtn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', () => {
+                    if (!window.currentFacturaId) {
+                        alert('No se ha seleccionado ninguna factura.');
+                        return;
+                    }
+                    // Open PDF in new tab for download
+                    window.open(`/facturacion/generar-pdf/${window.currentFacturaId}`, '_blank');
+                });
+            }
         });
         // Rellena el modal con datos cuando se hace clic
         document.querySelectorAll('[data-bs-toggle="modal"]').forEach(link => {

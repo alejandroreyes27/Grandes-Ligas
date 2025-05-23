@@ -385,3 +385,53 @@ def obtener_detalle_factura(id_factura):
         'factura_id': id_factura,
         'detalles': detalles_list
     })
+
+from flask import send_file
+import io
+
+@bp.route('/generar-pdf/<int:id_factura>', methods=['GET'])
+@login_required
+def generar_pdf_factura(id_factura):
+    factura = Factura.query.filter_by(id=id_factura, user_id=current_user.idUser).first()
+    if not factura:
+        return jsonify({"error": "Factura no encontrada"}), 404
+
+    detalles = DetalleFactura.query\
+        .filter_by(factura_id=id_factura)\
+        .join(Productos, DetalleFactura.product_id == Productos.idProducto)\
+        .add_columns(
+            Productos.nombreProducto,
+            DetalleFactura.talla,
+            DetalleFactura.quantity,
+            DetalleFactura.price,
+            DetalleFactura.total
+        )\
+        .all()
+
+    detalles_list = [{
+        'producto': nombreProducto,
+        'talla': talla,
+        'cantidad': quantity,
+        'precio_unitario': price,
+        'total': total
+    } for _, nombreProducto, talla, quantity, price, total in detalles]
+
+    datos_factura = {
+        'cliente': current_user.nameUser,
+        'fecha': factura.date_created.strftime("%d/%m/%Y"),
+        'numero': f"FAC-{factura.date_created.strftime('%Y%m%d')}-{factura.id}",
+        'items': detalles_list,
+        'subtotal': factura.subtotal,
+        'iva': 0.0,
+        'total': factura.total
+    }
+
+    pdf_buffer = generar_factura_pdf(datos_factura)
+    pdf_buffer.seek(0)
+
+    return send_file(
+        io.BytesIO(pdf_buffer.read()),
+        mimetype='application/pdf',
+        as_attachment=True,
+        download_name=f'factura_{factura.id}.pdf'
+    )
