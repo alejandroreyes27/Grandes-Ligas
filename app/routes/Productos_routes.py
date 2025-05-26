@@ -169,12 +169,3 @@ def delete(id):
         flash(f'Error al eliminar el producto: {e}', 'error')
 
     return redirect(url_for('productos.index'))
-    
-@bp.route('/ejemplo')
-@login_required
-def index_ejemplo():
-
-    categorias = Categoria.query.all()
-    productos = Productos.query.all()
-    
-    return render_template('productos/ejemplo.html', categorias=categorias,user=current_user, productos=productos)
