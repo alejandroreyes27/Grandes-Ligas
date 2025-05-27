@@ -2,7 +2,7 @@ services:
   web:
     image: 'python:3.13-alpine'
     build:
-      context: 'https://github.com/alejandroreyes27/palmas.git'
+      context: 'https://github.com/alejandroreyes27/Grandes-Ligas.git'
     environment:
       - DB_USER=$DB_USER
       - DB_PASSWORD=$DB_PASSWORD
