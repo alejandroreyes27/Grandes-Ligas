@@ -189,3 +189,23 @@
         #detalles-body td, #detalles-body th {
             vertical-align: middle;
         }
+      /* Botón "Seguir Comprando" en estilo minimalista, gris y ovalado */
+        .seguir-comprando-btn {
+            background-color: #6c757d;  /* Gris */
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;  /* Forma ovalada */
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .seguir-comprando-btn:hover {
+            background-color: #5a6268;
+            transform: scale(1.05);
+        }
