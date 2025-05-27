@@ -96,7 +96,7 @@ def generar_factura_pdf(datos):
     story.append(Paragraph("Grandes Ligas", 
                           ParagraphStyle('Company', parent=style_title, textColor=colors.HexColor("#000000"))))
     story.append(Spacer(1, 12))
-    story.append(Paragraph("Centro comercial vèlez plaza local 1-04", style_normal))
+    story.append(Paragraph("Cra. 4 # 8-44, Vélez", style_normal))
     story.append(Paragraph("WhatsApp: 3133619030 | Email: alejandroariza.cr@gmail.com", style_normal))
     story.append(Spacer(1, 24))
 

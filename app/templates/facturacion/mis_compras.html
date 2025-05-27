@@ -162,20 +162,15 @@
             </div>
             
             <div class="mb-3 position-relative">
-                <label for="passwordUser-{{ current_user.idUser }}" class="form-label">Contraseña</label>
-                <input
+            <label for="passwordUser-{{ current_user.idUser }}" class="form-label">Contraseña</label>
+            <input
                 type="password"
                 class="form-control"
                 id="passwordUser-{{ current_user.idUser }}"
                 name="passwordUser"
-                value="{{ current_user.passwordUser }}"
-                required
-                >
-                <i
-                class="material-icons position-absolute toggle-password-icon"
-                data-target="passwordUser-{{ current_user.idUser }}"
-                style="cursor: pointer; right: 1.5rem; top: calc(50% + .25rem); transform: translateY(-0%);"
-                >visibility</i>
+                placeholder="Modificar contraseña"
+                required>
+            <i class="material-icons position-absolute toggle-password-icon" data-target="passwordUser-{{ current_user.idUser }}" style="cursor: pointer; right: 1.5rem; top: calc(50% + .25rem); transform: translateY(-0%);">visibility</i>
             </div>
 
             <div class="mb-3">

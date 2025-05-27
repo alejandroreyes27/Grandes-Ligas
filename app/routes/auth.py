@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from app.models.users import Users
 from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 bp = Blueprint('auth', __name__)
 
@@ -11,9 +12,9 @@ def login():
         correoUser = request.form['correoUser']
         passwordUser = request.form['passwordUser']
 
-        user = Users.query.filter_by(correoUser=correoUser, passwordUser=passwordUser).first()
+        user = Users.query.filter_by(correoUser=correoUser).first()
 
-        if user:
+        if user and check_password_hash(user.passwordUser, passwordUser):
             login_user(user)
             flash("¡Inicio de sesión exitoso!", "success")
             if user.rolUser == 'administrador':
@@ -68,9 +69,11 @@ def add():
         
         # Si no existe, asignamos el rol de 'administrador'
         if not first_user:
-            new_User = Users(correoUser=correoUser, nameUser=nameUser, passwordUser=passwordUser, telefonoUser=telefonoUser, rolUser='administrador')
+            hashed_password = generate_password_hash(passwordUser, method='pbkdf2:sha256', salt_length=16)
+            new_User = Users(correoUser=correoUser, nameUser=nameUser, passwordUser=hashed_password, telefonoUser=telefonoUser, rolUser='administrador')
         else:
-            new_User = Users(correoUser=correoUser, nameUser=nameUser, passwordUser=passwordUser, telefonoUser=telefonoUser)
+            hashed_password = generate_password_hash(passwordUser, method='pbkdf2:sha256', salt_length=16)
+            new_User = Users(correoUser=correoUser, nameUser=nameUser, passwordUser=hashed_password, telefonoUser=telefonoUser)
         
         db.session.add(new_User)
         db.session.commit()
@@ -89,7 +92,7 @@ def edit(id):
         user.nameUser = request.form['nameUser']
         new_password = request.form['passwordUser']
         if new_password:
-            user.passwordUser = new_password
+            user.passwordUser = generate_password_hash(new_password, method='pbkdf2:sha256', salt_length=16)
         user.telefonoUser = request.form['telefonoUser']
 
         if current_user.idUser == 1 and 'rolUser' in request.form:

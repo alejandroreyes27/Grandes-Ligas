@@ -81,7 +81,6 @@
             <th>ID</th>
             <th>Correo</th>
             <th>Nombre</th>
-            <th>Contraseña</th>
             <th>WhatsApp</th>
             <th class="text-center">Acciones</th>
           </tr>
@@ -92,16 +91,6 @@
             <td>{{ user.idUser }}</td>
             <td>{{ user.correoUser }}</td>
             <td>{{ user.nameUser }}</td>
-            <td class="position-relative">
-              <input
-                type="password"
-                class="form-control-plaintext password-field"
-                id="pwd-{{ user.idUser }}"
-                value="{{ user.passwordUser }}"
-                readonly
-              >
-              <i class="material-icons position-absolute toggle-password-icon" data-target="pwd-{{ user.idUser }}" style="cursor: pointer; right: 1rem; top: 50%; transform: translateY(-50%);">visibility</i>
-            </td>
             <td>{{ user.telefonoUser }}</td>
             <td class="text-center">
               <!-- Botón de editar que abre el modal -->
@@ -130,23 +119,6 @@
                       <input type="text" class="form-control" 
                              id="nameUser-{{ user.idUser }}" 
                              name="nameUser" value="{{ user.nameUser }}" required>
-                    </div>
-                    
-                    <div class="mb-3 position-relative">
-                      <label for="passwordUser-{{ user.idUser }}" class="form-label">Contraseña</label>
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="passwordUser-{{ user.idUser }}"
-                        name="passwordUser"
-                        value="{{ user.passwordUser }}"
-                        required
-                      >
-                      <i
-                        class="material-icons position-absolute toggle-password-icon"
-                        data-target="passwordUser-{{ user.idUser }}"
-                        style="cursor: pointer; right: 1.5rem; top: calc(50% + .25rem); transform: translateY(-50%);"
-                      >visibility</i>
                     </div>
                     
                     <div class="mb-3">
