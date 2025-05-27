@@ -52,6 +52,17 @@ def add():
         passwordUser = request.form['passwordUser']
         telefonoUser = request.form['telefonoUser']
 
+        # Validar que telefonoUser tenga exactamente 10 dígitos numéricos
+        if not (telefonoUser.isdigit() and len(telefonoUser) == 10):
+            error_tel = "El número de teléfono debe tener exactamente 10 dígitos numéricos."
+            return render_template('login/add.html', error_tel=error_tel, correoUser=correoUser, nameUser=nameUser, telefonoUser=telefonoUser)
+
+        # Verificar si el correo ya está registrado
+        existing_user = Users.query.filter_by(correoUser=correoUser).first()
+        if existing_user:
+            error = "El correo ya está en uso. Por favor, elige otro."
+            return render_template('login/add.html', error=error, correoUser=correoUser, nameUser=nameUser, telefonoUser=telefonoUser)
+
         # Verificar si ya existe algún usuario registrado
         first_user = Users.query.first()
         

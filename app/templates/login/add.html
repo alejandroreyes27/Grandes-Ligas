@@ -20,14 +20,20 @@
                 <div class="mb-3">
                 <input
                     type="email"
-                    class="form-control"
+                    class="form-control {% if error %}is-invalid{% endif %}"
                     id="correoUser"
                     name="correoUser"
                     placeholder="Correo electrónico"
                     required
                     pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
                     title="Por favor ingresa un correo válido, que incluya ‘@’ y un dominio (ej. usuario@gmail.com)."
+                    value="{{ correoUser if correoUser is defined else '' }}"
                 >
+                {% if error %}
+                <div class="invalid-feedback" style="display:block;">
+                    {{ error }}
+                </div>
+                {% endif %}
                 </div>
 
                 <div class="mb-3">
@@ -37,7 +43,22 @@
                     <input type="password" class="form-control" id="passwordUser" name="passwordUser" placeholder="Contraseña" required>
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="telefonoUser" name="telefonoUser" placeholder="WhatsApp" required>
+                    <input
+                        type="text"
+                        class="form-control {% if error_tel %}is-invalid{% endif %}"
+                        id="telefonoUser"
+                        name="telefonoUser"
+                        placeholder="WhatsApp"
+                        required
+                        pattern="\d{10}"
+                        title="Por favor ingresa un número de teléfono válido de 10 dígitos."
+                        value="{{ telefonoUser if telefonoUser is defined else '' }}"
+                    >
+                    {% if error_tel %}
+                    <div class="invalid-feedback" style="display:block;">
+                        {{ error_tel }}
+                    </div>
+                    {% endif %}
                 </div>
                 <button type="submit" class="btn btn-primary mb-3">Registrar Usuario</button>
                 <p class="text-center">¿Ya tienes cuenta?</p>
