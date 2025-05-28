@@ -1,0 +1,578 @@
+        /* ===============================
+        PRODUCT GRID
+        =============================== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            padding: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+        }
+
+        /* Prevent product card from stretching full width when only one product */
+        .product-card {
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        /* ===============================
+        PRODUCT CARD
+        =============================== */
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+            border-color: #007bff;
+        }
+
+        /* ===============================
+        PRODUCT IMAGE
+        =============================== */
+        .product-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        /* ===============================
+        PRODUCT INFO
+        =============================== */
+        .product-info {
+            padding: 16px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-description p {
+            font-size: 0.95rem;
+            color: #555;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 12px;
+            transition: white-space 0.3s ease, height 0.3s ease;
+        }
+
+        .product-card:hover .product-description p {
+            white-space: normal;
+            height: auto;
+        }
+
+        /* ===============================
+        PRICE AND CART BUTTON
+        =============================== */
+        .price-and-cart {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #28a745;
+        }
+
+        .price b {
+            font-weight: 700;
+        }
+
+        .price-and-cart button {
+            background-color: #007bff; /* Match menu blue */
+            border: none;
+            border-radius: 6px;
+            padding: 8px 14px;
+            color: white;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .price-and-cart button:hover {
+            background-color: #0056b3;
+        }
+
+
+        /* ===============================
+        ADMIN ACTIONS
+        =============================== */
+        .admin-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .admin-actions a {
+            color: #007bff;
+            font-size: 1.4rem;
+            transition: color 0.3s ease;
+        }
+
+        .admin-actions a:hover {
+            color: #0056b3;
+        }
+
+        /* ===============================
+        NAVBAR
+        =============================== */
+        .navbar {
+            background-color: #007bff !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+        }
+
+        .navbar .navbar-nav .nav-link {
+            color: #fff !important;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 6px;
+        }
+
+        /* Fix for logout button to prevent line break */
+        .navbar .nav-item > a.btn.btn-danger {
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            height: 40px;
+            padding: 0 12px;
+        }
+
+        .navbar .navbar-nav .nav-link:hover,
+        .navbar .navbar-nav .nav-link:focus {
+            background-color: rgba(255,255,255,0.2);
+            color: #fff !important;
+            outline: none;
+        }
+
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu {
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: none;
+            padding: 0.5rem 0;
+            min-width: 200px;
+        }
+
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item {
+            color: #333;
+            font-weight: 500;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item:hover,
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item:focus {
+            background-color: #0056b3;
+            color: #fff;
+            outline: none;
+        }
+
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            background-color: #dc3545;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 12px;
+            margin-left: 8px;
+        }
+
+        /* Cart icon and badge */
+        .navbar .nav-link i.material-icons {
+            font-size: 1.6rem;
+            position: relative;
+            margin-right: 0; /* Remove any margin to stick badge closer */
+        }
+
+        #cart-count {
+            position: relative; /* Changed from absolute to relative for inline flow */
+            top: 0;
+            right: 0;
+            min-width: 18px;
+            height: 18px;
+            line-height: 18px;
+            font-size: 11px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #dc3545;
+            color: white;
+            padding: 0 4px;
+            display: inline-block;
+            margin-left: 2px; /* small gap from icon */
+            vertical-align: middle;
+        }
+
+        /* Add product button */
+        .btn-primary.d-inline-flex {
+            background-color: #007bff; /* Match menu blue */
+            border-color: #007bff;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 6px 14px;
+            transition: background-color 0.3s ease;
+            white-space: nowrap; /* Prevent line break */
+        }
+
+        .btn-primary.d-inline-flex:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+
+        /* ===============================
+        CUSTOM SELECT
+        =============================== */
+        .custom-select-wrapper {
+            width: 220px;
+            margin: 12px auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .custom-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1.5px solid #ccc;
+            font-size: 1rem;
+            appearance: none;
+            background-color: #f9f9f9;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 18px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .custom-select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* ===============================
+        FLASH MESSAGE
+        =============================== */
+        .flash-message {
+            position: relative;
+            padding: 14px 20px;
+            margin: 16px auto;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #333;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: fadeOut 3s forwards;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #888;
+            cursor: pointer;
+            padding: 6px;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        /* ===============================
+        RESPONSIVE
+        =============================== */
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 900px;
+                padding: 16px;
+            }
+            .product-card {
+                max-width: 100%;
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+                padding: 8px;
+            }
+
+            .price-and-cart button {
+                padding: 6px 10px;
+                font-size: 1rem;
+            }
+
+            .quantity-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+
+            .quantity-input {
+                width: 50px;
+                font-size: 16px;
+                padding: 4px;
+            }
+        }
+
+    /* Estilo para las imágenes del carrusel */
+    .carousel-inner img {
+        max-height: 400px; /* Ajusta la altura máxima según tus necesidades */
+        object-fit: cover; /* Mantiene la proporción de la imagen */
+        transition: transform 0.5s ease-in-out;
+    }
+
+    /* ===============================
+    UBICACION SECTION CSS
+    =============================== */
+    .ubicacion-section {
+    background-color: #f0f4f8;
+    padding: 60px 20px;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .ubicacion-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.3s ease;
+    }
+
+    .ubicacion-card:hover {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    .text-content h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: #007bff;
+    }
+
+    .text-content p {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+    color: #555;
+    font-style: italic;
+    line-height: 1.5;
+    }
+
+    .text-content h3 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #222;
+    }
+
+    .maps-container {
+    display: flex;
+    gap: 1.5rem;
+    }
+
+    .map-responsive {
+    flex: 1 1 calc(50% - 0.75rem);
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    }
+
+    .map-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    }
+
+    @media (max-width: 991px) {
+    .maps-container {
+        flex-direction: column;
+    }
+    .map-responsive {
+        flex: 1 1 100%;
+        height: 250px;
+    }
+    }
+
+    .footer-custom {
+    width: 100%;
+    background-color: #007bff;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Contenedor centrado y responsivo */
+    .footer-custom .container {
+    max-width: 1140px;
+    margin: 0 auto;
+    }
+
+    /* Texto */
+    .footer-custom p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #fff !important;
+    }
+
+    /* Iconos sociales */
+    .social-link {
+    color: rgba(255,255,255,0.85);
+    transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .social-link:hover {
+    transform: translateY(-2px);
+    }
+    .social-link.instagram:hover { color: #E4405F; }
+    .social-link.facebook:hover  { color: #4267B2; }
+    .social-link.whatsapp:hover  { color: #25D366; }
+
+    /* Apilar y centrar en móvil */
+    @media (max-width: 767px) {
+    .footer-custom .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-custom ul {
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+    }
+    /* Fix for modal scroll issue */
+    .modal-dialog-scrollable .modal-body {
+    max-height: 60vh; /* Adjust as needed */
+    overflow-y: auto;
+    }
+
+
+    /* --- Botón Crear cuenta (Amarillo-Dorado) --- */
+.btn-account {
+    /* Color de fondo para el estado normal */
+    background-color: #f39c12; /* Un amarillo dorado/mostaza */
+    color: white; /* Texto blanco para asegurar buen contraste */
+    border: none; /* Sin borde, o un borde sutil del mismo color para unificar */
+    /* border: 2px solid #f39c12; /* Opcional: borde del mismo color si prefieres */
+
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 6px 12px rgba(243, 156, 18, 0.4); /* Sombra basada en el color del botón */
+    cursor: pointer;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.btn-account:hover {
+    background-color: #e67e22; /* Un naranja ligeramente más oscuro para el hover, o un amarillo más oscuro */
+    /* background-color: #d18d10; /* Opcional: un amarillo dorado más oscuro para el hover */
+    color: white;
+    box-shadow: 0 8px 16px rgba(243, 156, 18, 0.6); /* Sombra más pronunciada al pasar el ratón */
+    transform: translateY(-3px); /* Ligero levantamiento */
+}
+
+.btn-account:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(243, 156, 18, 0.3); /* Sombra de presión */
+}
+
+/* --- Botón Iniciar Sesión (Sin cambios, te gustó como está) --- */
+.btn-session {
+    background: linear-gradient(135deg, #1abc9c, #16a085); /* Verde aqua */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 6px 12px rgba(22, 160, 133, 0.4);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.btn-session:hover {
+    background: linear-gradient(135deg, #16a085, #1abc9c);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(22, 160, 133, 0.6);
+}
+
+.btn-session:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(22, 160, 133, 0.3);
+}
+
+
+/* --- Reglas de Especificidad (Mantener al final del archivo CSS) --- */
+/* Aseguran que tus estilos sobreescriban los de Bootstrap */
+.navbar-nav .nav-item .btn-account {
+    color: white !important; /* El texto será blanco en el amarillo */
+    background-color: #333333 !important; /* Fondo amarillo para el estado normal */
+    border: none !important; /* Asegura que no haya borde de Bootstrap si no lo quieres */
+    box-shadow: 0 6px 12px rgba(243, 156, 18, 0.4) !important; /* Forzar la sombra */
+}
+
+.navbar-nav .nav-item .btn-account:hover {
+    background-color: #c9e000 !important; /* Hover: un tono un poco más oscuro o naranja suave */
+    color: white !important;
+}
+
+.navbar-nav .nav-item .btn-session {
+    color: white !important;
+}
+
+.navbar-nav .nav-item .btn-session:hover {
+    color: white !important;
+}

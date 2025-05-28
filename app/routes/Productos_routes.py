@@ -11,6 +11,32 @@ from werkzeug.utils import secure_filename
 
 bp = Blueprint('productos', __name__)
 
+@bp.route('/')
+def index_vista_principal():
+    data_producto = Productos.query.filter_by(activo=True).all()
+    categorias    = Categoria.query.all()
+    return render_template('productos/vista_principal.html', data_producto=data_producto, categorias=categorias)
+
+@bp.route('/productos_categoria/<int:id>')
+def index_categoria_vista(id):
+    page             = request.args.get('page', 1, type=int)
+    edit_producto_id = request.args.get('edit')
+    producto_edit    = Productos.query.get(edit_producto_id) if edit_producto_id else None
+
+    pagination      = Productos.query.filter_by(
+                         idCategoria=id, activo=True
+                     ).paginate(page=page, per_page=10)
+    data_producto   = pagination.items
+    categorias      = Categoria.query.all()
+
+    return render_template(
+        'productos/vista_principal.html',
+        data_producto=data_producto,
+        categorias=categorias,
+        producto_edit=producto_edit,
+        pagination=pagination
+    )
+
 @bp.route('/productos')
 @login_required
 def index():

@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 bp = Blueprint('auth', __name__)
 
-@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         correoUser = request.form['correoUser']
