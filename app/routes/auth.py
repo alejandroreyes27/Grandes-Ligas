@@ -90,7 +90,7 @@ def edit(id):
     if request.method == 'POST':
         user.correoUser = request.form['correoUser']
         user.nameUser = request.form['nameUser']
-        new_password = request.form['passwordUser']
+        new_password = request.form.get('passwordUser')
         if new_password:
             user.passwordUser = generate_password_hash(new_password, method='pbkdf2:sha256', salt_length=16)
         user.telefonoUser = request.form['telefonoUser']
