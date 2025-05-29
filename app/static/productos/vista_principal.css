@@ -233,7 +233,7 @@
 
     /* Hover effect for Crear cuenta button */
     .btn-crear-cuenta {
-        background-color: #28a745; /* Default green similar to product price */
+        background-color: #000000; /* Default green similar to product price */
         color: white;
         font-weight: 600;
         transition: background-color 0.3s ease, color 0.3s ease;

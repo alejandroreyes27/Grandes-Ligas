@@ -252,11 +252,27 @@
 
     <!-- Scripts -->
     <script>
-        // Solo manteniendo lo necesario para el funcionamiento básico
         document.addEventListener('DOMContentLoaded', function () {
             // Inicialización de componentes Bootstrap
             const myModal = document.getElementById('staticBackdrop')
             if (myModal) new bootstrap.Modal(myModal);
+
+            // Mostrar automáticamente el dropdown del menú de "Iniciar sesión / Registrarse" al cargar la página
+            const loginDropdownToggle = document.getElementById('navbarDropdown');
+            const loginDropdownMenu = loginDropdownToggle ? loginDropdownToggle.nextElementSibling : null;
+
+            if (loginDropdownMenu) {
+                loginDropdownMenu.classList.add('show');
+                loginDropdownToggle.setAttribute('aria-expanded', 'true');
+            }
+
+            // Cerrar el dropdown si el usuario hace clic fuera de él
+            document.addEventListener('click', function(event) {
+                if (loginDropdownMenu && !loginDropdownToggle.contains(event.target) && !loginDropdownMenu.contains(event.target)) {
+                    loginDropdownMenu.classList.remove('show');
+                    loginDropdownToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
         });
     </script>
 </body>
