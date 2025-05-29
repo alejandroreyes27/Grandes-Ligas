@@ -475,6 +475,7 @@
     .social-link.instagram:hover { color: #E4405F; }
     .social-link.facebook:hover  { color: #4267B2; }
     .social-link.whatsapp:hover  { color: #25D366; }
+    .social-link.tiktok:hover  { color: #000000; }
 
     /* Apilar y centrar en móvil */
     @media (max-width: 767px) {
@@ -515,7 +516,7 @@
 }
 
 .btn-account:hover {
-    background-color: #e67e22; /* Un naranja ligeramente más oscuro para el hover, o un amarillo más oscuro */
+    background-color: white; /* Un naranja ligeramente más oscuro para el hover, o un amarillo más oscuro */
     /* background-color: #d18d10; /* Opcional: un amarillo dorado más oscuro para el hover */
     color: white;
     box-shadow: 0 8px 16px rgba(243, 156, 18, 0.6); /* Sombra más pronunciada al pasar el ratón */
@@ -570,7 +571,7 @@
 }
 
 .navbar-nav .nav-item .btn-session {
-    color: white !important;
+    color: white !important;    
 }
 
 .navbar-nav .nav-item .btn-session:hover {

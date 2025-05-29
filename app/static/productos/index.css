@@ -627,6 +627,7 @@
     .social-link.instagram:hover { color: #E4405F; }
     .social-link.facebook:hover  { color: #4267B2; }
     .social-link.whatsapp:hover  { color: #25D366; }
+    .social-link.tiktok:hover  { color: #000000; }
 
     /* Apilar y centrar en móvil */
     @media (max-width: 767px) {
