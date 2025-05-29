@@ -22,7 +22,8 @@ PRODUCT GRID
     top: auto; /* Remove top positioning */
     bottom: 15px; /* Position at bottom */
     right: 15px;
-}
+    padding: 6px 12px;
+    font-size: 0.9rem;
 
 
 /* Ajuste para el contenedor que envuelve la cuadrícula para eliminar padding y margin extra */
