@@ -644,3 +644,111 @@ NAVBAR
     max-height: 60vh; /* Adjust as needed */
     overflow-y: auto;
     }
+    
+    /* Estilos generales para la sección Nosotros */
+    .nosotros-section {
+        background-color: #f8f9fa; /* Un fondo claro para destacar el contenido */
+        padding: 80px 0; /* Más padding para espacio */
+    }
+
+    .nosotros-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden; /* Asegura que no se desborde el contenido */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada */
+    }
+
+    .nosotros-header {
+        background-color: #007bff; /* Color primario de Bootstrap */
+        color: #fff;
+        padding: 15px 20px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nosotros-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        animation: pulse-light 5s infinite ease-out; /* Animación sutil */
+    }
+
+    @keyframes pulse-light {
+        0% { transform: scale(0.5) rotate(0deg); opacity: 0.5; }
+        50% { transform: scale(1.0) rotate(180deg); opacity: 0.8; }
+        100% { transform: scale(0.5) rotate(360deg); opacity: 0.5; }
+    }
+
+    .nosotros-header h2 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 0;
+        position: relative;
+        z-index: 1; /* Asegura que el texto esté sobre la animación */
+    }
+
+    .nosotros-content {
+        padding: 40px;
+    }
+
+    .nosotros-item {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .nosotros-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .nosotros-item .icon-wrapper {
+        font-size: 3rem;
+        color: #007bff; /* Color primario */
+        margin-bottom: 20px;
+        transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    .nosotros-item:hover .icon-wrapper {
+        transform: translateY(-5px) scale(1.1);
+        color: #0056b3; /* Un tono más oscuro al pasar el ratón */
+    }
+
+    .nosotros-item h3 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #343a40; /* Texto oscuro */
+        margin-bottom: 15px;
+    }
+
+    .nosotros-item p {
+        font-size: 1.1rem;
+        color: #6c757d; /* Texto secundario */
+        line-height: 1.6;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .nosotros-content {
+            padding: 20px;
+        }
+        .nosotros-item {
+            margin-bottom: 40px;
+        }
+        .nosotros-header h2 {
+            font-size: 2.2rem;
+        }
+        .nosotros-item .icon-wrapper {
+            font-size: 2.5rem;
+        }
+        .nosotros-item h3 {
+            font-size: 1.5rem;
+        }
+        .nosotros-item p {
+            font-size: 1rem;
+        }
+    }

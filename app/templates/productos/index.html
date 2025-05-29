@@ -82,6 +82,15 @@
                                 <span class="d-none d-lg-inline">Ubicación</span>
                             </a>
                         </li>
+
+                        {% if current_user.rolUser in ['cliente', 'vendedor'] %}
+                            <li class="nav-item mb-2 mb-lg-0 me-lg-3">
+                                <a class="nav-link text-white d-flex align-items-center" href="#nosotros">
+                                    <i class="fa fa-info-circle me-1"></i>
+                                    <span class="d-none d-lg-inline">Nosotros</span>
+                                </a>
+                            </li>
+                        {% endif %}
                     </li>
                 </ul>
 
@@ -245,6 +254,38 @@
 
         </div>
     </div>
+    </section>
+
+    <section id="nosotros" class="nosotros-section text-center">
+        <div class="container" style="max-width: 1200px;">
+            <div class="card nosotros-card">
+                <div class="nosotros-header">
+                    <h2>Acerca de <span class="fw-light">Grandes Ligas</span></h2>
+                </div>
+                <div class="nosotros-content">
+                    <div class="row">
+                        <div class="col-md-4 nosotros-item">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-shoe-prints"></i> </div>
+                            <h3>Nuestra Misión</h3>
+                            <p>Impulsar tu estilo y rendimiento ofreciéndote el calzado de la más alta calidad, con un servicio que supera tus expectativas.</p>
+                        </div>
+                        <div class="col-md-4 nosotros-item">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-rocket"></i> </div>
+                            <h3>Nuestra Visión</h3>
+                            <p>Ser la tienda líder en calzado deportivo y casual en la región, innovando constantemente y construyendo una comunidad apasionada por el buen vestir y el deporte.</p>
+                        </div>
+                        <div class="col-md-4 nosotros-item">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-handshake"></i> </div>
+                            <h3>Nuestros Valores</h3>
+                            <p>Nos guían el compromiso con la excelencia, la calidad en cada par, la innovación en tendencias, y una atención personalizada para cada cliente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Modal -->
