@@ -17,7 +17,7 @@ def index_vista_principal():
     categorias    = Categoria.query.all()
     return render_template('productos/vista_principal.html', data_producto=data_producto, categorias=categorias)
 
-@bp.route('/productos_categoria/<int:id>')
+@bp.route('/productos_categoria_vista/<int:id>')
 def index_categoria_vista(id):
     page             = request.args.get('page', 1, type=int)
     edit_producto_id = request.args.get('edit')
