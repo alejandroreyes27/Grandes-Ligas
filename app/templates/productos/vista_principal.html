@@ -58,31 +58,56 @@
                                 <span class="d-none d-lg-inline">Ubicación</span>
                             </a>
                         </li>
+
+                         <li class="nav-item mb-2 mb-lg-0 me-lg-3">
+                            <a class="nav-link text-white d-flex align-items-center" href="#nosotros">
+                                <i class="fa fa-info-circle me-1"></i>
+                                <span class="d-none d-lg-inline">Nosotros</span>
+                            </a>
+                        </li>
                     </li>
                 </ul>
 
                 <ul class="navbar-nav ms-auto align-items-center flex-column flex-lg-row">
-                    <li class="nav-item">
-                    <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px;">
-                        <i class="material-icons me-1">account_circle</i>
-                        <span class="d-none d-lg-inline" style="line-height: 40px;">Iniciar sesión / Registrarse</span>
-                    </a>
-
-                    <ul class="navbar-nav ms-auto align-items-center flex-column flex-lg-row">
-                        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                            <li class="nav-item">
-                                <a href="{{ url_for('auth.add') }}" class="btn btn-account d-flex align-items-center gap-2">
-                                    <i class="fas fa-user-plus"></i> Crear cuenta
-                                </a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px;">
+                            <i class="material-icons me-1">account_circle</i>
+                            <span class="d-none d-lg-inline" style="line-height: 40px;">Iniciar sesión / Registrarse</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="navbarDropdown" style="min-width: 280px;">
+                            <li class="mb-3 text-center">
+                                <h6 class="mb-1 fw-bold">Iniciar sesión / Registrarse</h6>
+                                <div class="d-flex justify-content-center align-items-center gap-2 text-success mb-2">
+                                    <i class="fas fa-lock"></i>
+                                    <small>Todos los datos se cifran</small>
+                                </div>
                             </li>
-                            
-                            <li class="nav-item ms-2">
-                                <a href="{{ url_for('auth.login') }}" class="btn btn-session d-flex align-items-center gap-2">
-                                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                            <li class="mb-3 d-flex justify-content-around">
+                                <div class="text-center">
+                                    <div class="icon-circle mb-2">
+                                        <i class="fas fa-truck"></i>
+                                    </div>
+                                    <div><strong>Envío gratis</strong></div>
+                                    <small>Especial para ti</small>
+                                </div>
+                                <div class="text-center">
+                                    <div class="icon-circle mb-2">
+                                        <i class="fas fa-undo-alt"></i>
+                                    </div>
+                                    <div><strong>Devoluciones gratis</strong></div>
+                                    <small>Hasta 90 días</small>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('auth.add') }}" class="btn btn-session w-100 mb-2">
+                                    Crear cuenta
+                                </a>
+                                <a href="{{ url_for('auth.login') }}" class="btn btn-session w-100">
+                                    Iniciar Sesión
                                 </a>
                             </li>
                         </ul>
-                    </ul>
+                    </li>
                 </ul>
 
             </div>
@@ -171,6 +196,27 @@
 
         </div>
     </div>
+    </section>
+
+    <!-- Nosotros Section -->
+    <section id="nosotros" class="ubicacion-section py-5 bg-light text-center">
+        <div class="container" style="max-width: 1200px;">
+            <div class="card ubicacion-card shadow rounded p-4">
+                <div class="text-content w-100 text-start mb-4">
+                    <h2 class="mb-3 text-primary fw-bold">Nosotros</h2>
+                    <p class="fs-5 fst-italic text-secondary mb-0">
+                        <i class="fas fa-info-circle"></i>
+                        Nuestra misión es brindar productos de calidad y un servicio excepcional para nuestros clientes.
+                    </p>
+                    <p class="fs-5 fst-italic text-secondary mb-0 mt-3">
+                        Nuestra visión es ser líderes en el mercado, innovando y creciendo junto a nuestra comunidad.
+                    </p>
+                    <p class="fs-5 fst-italic text-secondary mb-0 mt-3">
+                        Valores: compromiso, calidad, innovación y atención personalizada.
+                    </p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <footer class="footer-custom py-4 mt-5">

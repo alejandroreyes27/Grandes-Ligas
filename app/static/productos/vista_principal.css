@@ -151,7 +151,67 @@
             position: sticky;
             top: 0;
             z-index: 1030;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
+        /* Dropdown menu custom shadow and border radius */
+        .navbar .navbar-nav .nav-item.dropdown .dropdown-menu {
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            border: none;
+            padding: 1rem;
+            min-width: 300px;
+            /* Ensure dropdown appears below and aligned right */
+            top: 100% !important;
+            right: 0 !important;
+            left: auto !important;
+        }
+        
+        /* Dropdown header */
+        .dropdown-menu h6 {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Lock icon and message */
+        .dropdown-menu .text-success {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Icon circles in info section */
+        .icon-circle {
+            width: 48px;
+            height: 48px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: #007bff;
+            font-size: 1.25rem;
+        }
+        
+        /* Info text below icons */
+        .dropdown-menu .text-center small {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        /* Buttons in dropdown */
+        .btn-session {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: none;
+            cursor: pointer;
+            -webkit-font-smoothing: antialiased;
 
         .navbar .navbar-nav .nav-link {
             color: #fff !important;
@@ -184,6 +244,67 @@
             border: none;
             padding: 0.5rem 0;
             min-width: 200px;
+            /* Ensure dropdown appears below and aligned right */
+            top: 100% !important;
+            right: 0 !important;
+            left: auto !important;
+        }
+
+        /* Show dropdown on hover for desktop */
+        @media (min-width: 992px) {
+            .navbar .nav-item.dropdown:hover > .dropdown-menu {
+                display: block;
+                margin-top: 0.125rem;
+            }
+            .navbar .nav-item.dropdown > a::after {
+                transition: transform 0.15s ease-in-out;
+            }
+            .navbar .nav-item.dropdown:hover > a::after {
+                transform: rotate(180deg);
+            }
+        }
+
+        /* Style adjustments for login dropdown buttons */
+        .btn-account, .btn-session {
+            border-radius: 20px;
+            padding: 10px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: none;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-account:hover {
+            background-color: #e0a800;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(224, 168, 0, 0.4);
+        }
+
+        .btn-session:hover {
+            background: linear-gradient(135deg, #149d8f, #117a6f);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(17, 122, 111, 0.4);
+        }
+
+        /* Style for "Nosotros" button similar to "Ubicación" */
+        .navbar-nav .nav-item a[href="#nosotros"] {
+            color: #fff !important;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .navbar-nav .nav-item a[href="#nosotros"]:hover,
+        .navbar-nav .nav-item a[href="#nosotros"]:focus {
+            background-color: rgba(255,255,255,0.2);
+            color: #fff !important;
+            outline: none;
         }
 
         .navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item {
@@ -495,85 +616,63 @@
     }
 
 
-    /* --- Botón Crear cuenta (Amarillo-Dorado) --- */
-.btn-account {
-    /* Color de fondo para el estado normal */
-    background-color: #f39c12; /* Un amarillo dorado/mostaza */
-    color: white; /* Texto blanco para asegurar buen contraste */
-    border: none; /* Sin borde, o un borde sutil del mismo color para unificar */
-    /* border: 2px solid #f39c12; /* Opcional: borde del mismo color si prefieres */
-
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 1rem;
-
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 6px 12px rgba(243, 156, 18, 0.4); /* Sombra basada en el color del botón */
-    cursor: pointer;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.btn-account:hover {
-    background-color: white; /* Un naranja ligeramente más oscuro para el hover, o un amarillo más oscuro */
-    /* background-color: #d18d10; /* Opcional: un amarillo dorado más oscuro para el hover */
-    color: white;
-    box-shadow: 0 8px 16px rgba(243, 156, 18, 0.6); /* Sombra más pronunciada al pasar el ratón */
-    transform: translateY(-3px); /* Ligero levantamiento */
-}
-
-.btn-account:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 8px rgba(243, 156, 18, 0.3); /* Sombra de presión */
-}
-
-/* --- Botón Iniciar Sesión (Sin cambios, te gustó como está) --- */
-.btn-session {
-    background: linear-gradient(135deg, #1abc9c, #16a085); /* Verde aqua */
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 1rem;
-    box-shadow: 0 6px 12px rgba(22, 160, 133, 0.4);
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.btn-session:hover {
-    background: linear-gradient(135deg, #16a085, #1abc9c);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(22, 160, 133, 0.6);
-}
-
-.btn-session:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 8px rgba(22, 160, 133, 0.3);
-}
-
-
-/* --- Reglas de Especificidad (Mantener al final del archivo CSS) --- */
-/* Aseguran que tus estilos sobreescriban los de Bootstrap */
-.navbar-nav .nav-item .btn-account {
-    color: white !important; /* El texto será blanco en el amarillo */
-    background-color: #333333 !important; /* Fondo amarillo para el estado normal */
-    border: none !important; /* Asegura que no haya borde de Bootstrap si no lo quieres */
-    box-shadow: 0 6px 12px rgba(243, 156, 18, 0.4) !important; /* Forzar la sombra */
-}
-
-.navbar-nav .nav-item .btn-account:hover {
-    background-color: #c9e000 !important; /* Hover: un tono un poco más oscuro o naranja suave */
-    color: white !important;
-}
-
-.navbar-nav .nav-item .btn-session {
-    color: white !important;    
-}
-
-.navbar-nav .nav-item .btn-session:hover {
-    color: white !important;
-}
+    /* --- Botón Crear cuenta (Estilo minimalista, texto gris claro) --- */
+    .btn-account {
+        background-color: transparent;
+        color: #6c757d; /* gris medio */
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        box-shadow: none;
+        display: inline-flex;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .btn-account:hover {
+        color: #343a40; /* gris oscuro */
+        background-color: transparent;
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .btn-account:active {
+        color: #212529;
+    }
+    
+    /* --- Botón Iniciar Sesión (Fondo negro, texto blanco, sin cambio de color en hover) --- */
+    .btn-session {
+        background-color: #000000;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 1rem;
+        box-shadow: none;
+        cursor: pointer;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        display: inline-flex;
+        justify-content: center;
+        width: 100%;
+        transition: transform 0.2s ease;
+    }
+    
+    .btn-session:hover {
+        background-color: #000000; /* Mantener negro */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .btn-session:active {
+        background-color: #111111;
+        transform: translateY(0);
+        box-shadow: none;
+    }
