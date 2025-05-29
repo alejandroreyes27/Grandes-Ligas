@@ -888,7 +888,7 @@ overflow-y: auto;
 .nosotros-header {
     background-color: #007bff; /* Color primario de Bootstrap */
     color: #fff;
-    padding: 30px 20px;
+    padding: 15px 20px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     position: relative;
