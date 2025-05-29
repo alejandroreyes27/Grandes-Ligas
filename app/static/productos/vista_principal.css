@@ -803,3 +803,256 @@
         transform: translateY(0);
         box-shadow: none;
     }
+    /* Estilos generales para la sección Nosotros */
+    .nosotros-section {
+        background-color: #f8f9fa; /* Un fondo claro para destacar el contenido */
+        padding: 80px 0; /* Más padding para espacio */
+    }
+
+    .nosotros-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden; /* Asegura que no se desborde el contenido */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada */
+    }
+
+    .nosotros-header {
+        background-color: #007bff; /* Color primario de Bootstrap */
+        color: #fff;
+        padding: 30px 20px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .nosotros-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        animation: pulse-light 5s infinite ease-out; /* Animación sutil */
+    }
+
+    @keyframes pulse-light {
+        0% { transform: scale(0.5) rotate(0deg); opacity: 0.5; }
+        50% { transform: scale(1.0) rotate(180deg); opacity: 0.8; }
+        100% { transform: scale(0.5) rotate(360deg); opacity: 0.5; }
+    }
+
+    .nosotros-header h2 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 0;
+        position: relative;
+        z-index: 1; /* Asegura que el texto esté sobre la animación */
+    }
+
+    .nosotros-content {
+        padding: 40px;
+    }
+
+    .nosotros-item {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .nosotros-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .nosotros-item .icon-wrapper {
+        font-size: 3rem;
+        color: #007bff; /* Color primario */
+        margin-bottom: 20px;
+        transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+    
+    .nosotros-item:hover .icon-wrapper {
+        transform: translateY(-5px) scale(1.1);
+        color: #0056b3; /* Un tono más oscuro al pasar el ratón */
+    }
+
+    .nosotros-item h3 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #343a40; /* Texto oscuro */
+        margin-bottom: 15px;
+    }
+
+    .nosotros-item p {
+        font-size: 1.1rem;
+        color: #6c757d; /* Texto secundario */
+        line-height: 1.6;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .nosotros-content {
+            padding: 20px;
+        }
+        .nosotros-item {
+            margin-bottom: 40px;
+        }
+        .nosotros-header h2 {
+            font-size: 2.2rem;
+        }
+        .nosotros-item .icon-wrapper {
+            font-size: 2.5rem;
+        }
+        .nosotros-item h3 {
+            font-size: 1.5rem;
+        }
+        .nosotros-item p {
+            font-size: 1rem;
+        }
+    }
+
+
+    /* Estilos para el Carrusel */
+    #grandesLigasCarousel {
+        margin-bottom: 0; /* ELIMINADO EL ESPACIO DE ABAJO */
+        position: relative; /* Necesario para el degradado */
+    }
+
+    #grandesLigasCarousel .carousel-item {
+        position: relative; /* Necesario para el degradado */
+        height: 500px; /* Altura fija para las imágenes del carrusel, puedes ajustar */
+        overflow: hidden; /* Asegura que el degradado no se desborde */
+    }
+
+    #grandesLigasCarousel .carousel-item img {
+        height: 100%; /* La imagen llenará la altura del item */
+        width: 100%; /* La imagen llenará el ancho del item */
+        object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
+        display: block; /* Elimina espacios extra bajo la imagen */
+    }
+
+    /* Degradado en la parte inferior de las imágenes del carrusel */
+    #grandesLigasCarousel .carousel-item::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px; /* Altura del degradado, ajusta según necesites */
+        background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+        /* IMPORTANTE: Ajusta el primer color (rgba(255, 255, 255, 1)) para que coincida
+            con el color de fondo de la sección de productos que está debajo del carrusel.
+            Si tu fondo es blanco, está perfecto. Si es un gris claro como en la imagen
+            que subiste, deberías cambiarlo a ese color de gris.
+            Por ejemplo, si el fondo es #F2F2F2, sería background: linear-gradient(to top, rgba(242, 242, 242, 1) 0%, rgba(242, 242, 242, 0) 100%);
+            Basándome en la imagen, tu fondo parece ser blanco o casi blanco, así que el actual
+            `rgba(255, 255, 255, 1)` debería funcionar bien.
+        */
+        pointer-events: none; /* Permite interactuar con los elementos debajo del degradado */
+    }
+
+    /* Estilos para los indicadores del carrusel (los puntos) */
+    #grandesLigasCarousel .carousel-indicators button {
+        background-color: #fff; /* Indicadores blancos por defecto */
+        border-radius: 50%; /* Indicadores circulares */
+        width: 10px; /* Ancho del indicador */
+        height: 10px; /* Alto del indicador */
+        margin: 0 5px; /* Espacio entre indicadores */
+        opacity: 0.5; /* Opacidad normal */
+        transition: opacity 0.3s ease, background-color 0.3s ease;
+    }
+
+    #grandesLigasCarousel .carousel-indicators button.active {
+        background-color: #007bff; /* Indicador activo en azul (color primario de Bootstrap) */
+        opacity: 1; /* Opacidad completa para el activo */
+    }
+
+    /* Estilos para los controles de navegación (flechas) */
+    #grandesLigasCarousel .carousel-control-prev,
+    #grandesLigasCarousel .carousel-control-next {
+        width: 60px; /* Ancho del área de control */
+        opacity: 1; /* Para que las flechas siempre sean visibles, como en Mercado Libre */
+    }
+
+    #grandesLigasCarousel .carousel-control-prev-icon,
+    #grandesLigasCarousel .carousel-control-next-icon {
+        background-color: #fff; /* Flechas blancas como en las imágenes de Mercado Libre */
+        border-radius: 50%; /* Flechas circulares */
+        padding: 20px; /* Espacio interno para la flecha */
+        /* Eliminamos el `background-image` predeterminado de Bootstrap para controlar el color */
+        background-image: none;
+        display: flex; /* Para centrar el icono de la flecha */
+        align-items: center;
+        justify-content: center;
+        width: 40px; /* Ajusta el tamaño visual del icono */
+        height: 40px;
+    }
+
+    /* Color de la flecha interna */
+    #grandesLigasCarousel .carousel-control-prev-icon::before {
+        content: '<';
+        font-family: 'Font Awesome 5 Free'; /* Si usas Font Awesome */
+        font-weight: 900; /* Para el ícono sólido */
+        color: #007bff; /* Color azul de la flecha, como en las imágenes */
+        font-size: 1.5rem;
+    }
+
+    #grandesLigasCarousel .carousel-control-next-icon::before {
+        content: '>';
+        font-family: 'Font Awesome 5 Free'; /* Si usas Font Awesome */
+        font-weight: 900; /* Para el ícono sólido */
+        color: #007bff; /* Color azul de la flecha, como en las imágenes */
+        font-size: 1.5rem;
+    }
+
+
+    /* Media queries para responsividad */
+    @media (max-width: 992px) {
+        #grandesLigasCarousel .carousel-item {
+            height: 400px;
+        }
+        #grandesLigasCarousel .carousel-item::after {
+            height: 80px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #grandesLigasCarousel .carousel-item {
+            height: 300px;
+        }
+        #grandesLigasCarousel .carousel-item::after {
+            height: 60px;
+        }
+        #grandesLigasCarousel .carousel-control-prev-icon,
+        #grandesLigasCarousel .carousel-control-next-icon {
+            padding: 10px; /* Flechas más pequeñas en móviles */
+            width: 30px;
+            height: 30px;
+        }
+        #grandesLigasCarousel .carousel-control-prev-icon::before,
+        #grandesLigasCarousel .carousel-control-next-icon::before {
+            font-size: 1.2rem;
+        }
+        /* Ajustar posición de los controles en pantallas pequeñas */
+        #grandesLigasCarousel .carousel-control-prev,
+        #grandesLigasCarousel .carousel-control-next {
+            width: 40px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        #grandesLigasCarousel .carousel-item {
+            height: 250px;
+        }
+        #grandesLigasCarousel .carousel-item::after {
+            height: 50px;
+        }
+    }
+
+    /* Estilos para unir el carrusel con la cuadrícula de productos */
+    .w3-container.w3-padding-32 {
+        padding-top: 0 !important; /* Elimina el padding superior de w3-padding-32 */
+        margin-top: -20px; /* Ajusta el margen superior para que se solape con el degradado */
+        position: relative; /* Asegura que el z-index funcione si es necesario */
+        z-index: 1; /* Coloca el contenido de productos sobre el degradado si hay alguna superposición */
+    }
