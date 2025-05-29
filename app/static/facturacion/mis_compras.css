@@ -210,3 +210,29 @@
             background-color: #5a6268;
             transform: scale(1.05);
         }
+
+        /* Hover effect for Crear cuenta button */
+        .btn-crear-cuenta {
+            background-color: #28a745; /* Default green similar to product price */
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .btn-crear-cuenta:hover, .btn-crear-cuenta:focus {
+            background-color: #007bff !important; /* Base menu blue on hover */
+            color: white !important;
+            outline: none;
+        }
+
+        /* Hover effect for Iniciar Sesión button */
+        .btn-iniciar-sesion {
+            background-color: #000000; /* Default black */
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .btn-iniciar-sesion:hover, .btn-iniciar-sesion:focus {
+            background-color: #28a745 !important; /* Green similar to product price on hover */
+            color: white !important;
+            outline: none;
+        }

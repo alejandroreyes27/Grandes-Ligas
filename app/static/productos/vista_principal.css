@@ -212,6 +212,87 @@
             box-shadow: none;
             cursor: pointer;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            display: inline-flex;
+            justify-content: center;
+            width: 100%;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn-session:hover {
+            background-color: #000000; /* Mantener negro */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+    .btn-session:active {
+        background-color: #111111;
+        transform: translateY(0);
+        box-shadow: none;
+    }
+
+    /* Hover effect for Crear cuenta button */
+    .btn-crear-cuenta {
+        background-color: #28a745; /* Default green similar to product price */
+        color: white;
+        font-weight: 600;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .btn-crear-cuenta:hover, .btn-crear-cuenta:focus {
+        background-color: #007bff !important; /* Base menu blue on hover */
+        color: white !important;
+        outline: none;
+    }
+
+    /* Hover effect for Iniciar Sesión button */
+    .btn-iniciar-sesion {
+        background-color: #000000; /* Default black */
+        color: white;
+        font-weight: 700;
+        transition: background-color 0.3s ease;
+    }
+    .btn-iniciar-sesion:hover, .btn-iniciar-sesion:focus {
+        background-color: #28a745 !important; /* Green similar to product price on hover */
+        color: white !important;
+        outline: none;
+    }
+
+    /* Override generic btn-session hover to prevent black background */
+    .btn-crear-cuenta.btn-session:hover, .btn-iniciar-sesion.btn-session:hover {
+        background-color: inherit !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+        
+        /* Minimalist style for Crear cuenta button */
+        .btn-account {
+            background-color: transparent;
+            color: #6c757d; /* gris medio */
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-shadow: none;
+            display: inline-flex;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .btn-account:hover {
+            color: #343a40; /* gris oscuro */
+            background-color: transparent;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn-account:active {
+            color: #212529;
+        }
 
         .navbar .navbar-nav .nav-link {
             color: #fff !important;
