@@ -9,9 +9,8 @@ PRODUCT GRID
     max-width: 1200px;
     margin: 0 auto;
     background-color: #f8f9fa;
-    /* To create the "blend" effect, we will adjust the margin-top to be negative
-       and ensure it aligns with the carousel's fading effect. */
-    margin-top: -80px; /* Revert margin-top to previous value */
+    /* Removed negative margin-top to position product grid below carousel */
+    margin-top: 0; /* Changed from -80px to 0 */
     position: relative; /* Needed for z-index to work */
     z-index: 1; /* Ensures product grid appears above the carousel */
 }
@@ -57,7 +56,7 @@ PRODUCT GRID - Existing styles
     max-width: 1200px;
     margin: 0 auto;
     background-color: #f8f9fa; /* Ensure this matches your carousel fade if used */
-    margin-top: -80px; /* Adjust as needed for carousel blend */
+    margin-top: 0; /* Changed from -80px to 0 */
     position: relative;
     z-index: 1;
 }
