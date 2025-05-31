@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,117 +8,130 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='all.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='productos/index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='icons/icon.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <!-- Botón de Hamburguesa -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Contenedor del Menú -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center flex-column flex-lg-row">
                     <li class="nav-item mb-2 mb-lg-0 me-lg-3">
-                        <a class="nav-link text-white d-flex align-items-center" href="{{ url_for('productos.index') }}">
-                            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="rounded-circle" style="height: 40px; width: 40px; object-fit: cover;">
+                        <a class="nav-link text-white d-flex align-items-center"
+                            href="{{ url_for('productos.index') }}">
+                            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="rounded-circle"
+                                style="height: 40px; width: 40px; object-fit: cover;">
                         </a>
                     </li>
                     {% if current_user.rolUser == 'administrador' %}
-                        <li class="nav-item dropdown mb-2 mb-lg-0 me-lg-3 w-100 w-lg-auto">
-                            <a class="nav-link dropdown-toggle text-white d-flex align-items-center justify-content-between" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="material-icons me-1">account_circle</i>
-                                <span class="d-none d-lg-inline">Administrador</span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center"
+                    <li class="nav-item dropdown mb-2 mb-lg-0 me-lg-3 w-100 w-lg-auto">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center justify-content-between"
+                            href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="material-icons me-1">account_circle</i>
+                            <span class="d-none d-lg-inline">Administrador</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-between align-items-center"
                                     href="{{ url_for('facturacion.facturas_index') }}">
                                     Facturas
-                                    {% if pendientes_facturas > 0 %} 
-                                        <span class="badge bg-danger">{{ pendientes_facturas }}</span>
+                                    {% if pendientes_facturas > 0 %}
+                                    <span class="badge bg-danger">{{ pendientes_facturas }}</span>
                                     {% endif %}
-                                    </a>
-                                </li>
-                                <li><a class="dropdown-item" href="{{ url_for('categoria.index') }}">Categorías</a></li>
-                                <li><a class="dropdown-item" href="{{ url_for('auth.dashboard') }}">Usuarios Registrados</a></li>
-                            </ul>
-                        </li>
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ url_for('categoria.index') }}">Categorías</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.dashboard') }}">Usuarios Registrados</a>
+                            </li>
+                        </ul>
+                    </li>
                     {% endif %}
                     {% if current_user.rolUser in ['administrador', 'vendedor'] %}
                     <li class="nav-item mb-2 mb-lg-0 me-lg-3 w-100 w-lg-auto">
-                        <button type="button" class="btn btn-primary d-inline-flex align-items-center w-100 w-lg-auto" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                        <button type="button" class="btn btn-primary d-inline-flex align-items-center w-100 w-lg-auto"
+                            data-bs-toggle="modal" data-bs-target="#addProductModal">
                             <i class="material-icons me-1">add_circle_outline</i>
                             <span>Producto</span>
                         </button>
                     </li>
                     {% endif %}
                     <li class="nav-item dropdown mb-2 mb-lg-0 me-lg-3 w-100 w-lg-auto">
-                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px;">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#"
+                            id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="height: 40px;">
                             <i class="material-icons me-1" style="line-height: 40px;">category</i>
                             <span class="d-none d-lg-inline" style="line-height: 40px;">Categoría</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
                             <li>
-                                <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ url_for('productos.index') }}" data-categoria="">
+                                <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                    href="{{ url_for('productos.index') }}" data-categoria="">
                                     Todas las categorías
                                 </a>
                             </li>
                             {% for categoria in categorias %}
-                                <li>
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ url_for('productos.index_categoria', id=categoria.idCategoria) }}" data-categoria="{{ categoria.idCategoria }}">
-                                        {{ categoria.nombreCategoria }}
-                                    </a>
-                                </li>
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                    href="{{ url_for('productos.index_categoria', id=categoria.idCategoria) }}"
+                                    data-categoria="{{ categoria.idCategoria }}">
+                                    {{ categoria.nombreCategoria }}
+                                </a>
+                            </li>
                             {% endfor %}
                         </ul>
 
-                        <li class="nav-item mb-2 mb-lg-0 me-lg-3">
-                            <a class="nav-link text-white d-flex align-items-center" href="#ubicacion">
-                                <i class="material-icons me-1">location_on</i>
-                                <span class="d-none d-lg-inline">Ubicación</span>
-                            </a>
-                        </li>
+                    <li class="nav-item mb-2 mb-lg-0 me-lg-3">
+                        <a class="nav-link text-white d-flex align-items-center" href="#ubicacion">
+                            <i class="material-icons me-1">location_on</i>
+                            <span class="d-none d-lg-inline">Ubicación</span>
+                        </a>
+                    </li>
 
-                        {% if current_user.rolUser in ['cliente', 'vendedor'] %}
-                            <li class="nav-item mb-2 mb-lg-0 me-lg-3">
-                                <a class="nav-link text-white d-flex align-items-center" href="#nosotros">
-                                    <i class="fa fa-info-circle me-1"></i>
-                                    <span class="d-none d-lg-inline">Nosotros</span>
-                                </a>
-                            </li>
-                        {% endif %}
+                    {% if current_user.rolUser in ['cliente', 'vendedor'] %}
+                    <li class="nav-item mb-2 mb-lg-0 me-lg-3">
+                        <a class="nav-link text-white d-flex align-items-center" href="#nosotros">
+                            <i class="fa fa-info-circle me-1"></i>
+                            <span class="d-none d-lg-inline">Nosotros</span>
+                        </a>
+                    </li>
+                    {% endif %}
                     </li>
                 </ul>
 
                 <ul class="navbar-nav ms-auto align-items-center flex-column flex-lg-row">
                     <li class="nav-item d-flex align-items-center mb-2 mb-lg-0 me-lg-3">
-                      <a class="nav-link text-white d-flex align-items-center justify-content-center justify-content-lg-start" href="{{ url_for('carrito.index') }}">
-                        <i class="material-icons me-1">shopping_cart</i>
-                        <span id="cart-count" class="badge bg-danger ms-1">
-                          {% if data %}{{ data|length }}{% else %}0{% endif %}
-                        </span>
-                      </a>
+                        <a class="nav-link text-white d-flex align-items-center justify-content-center justify-content-lg-start"
+                            href="{{ url_for('carrito.index') }}">
+                            <i class="material-icons me-1">shopping_cart</i>
+                            <span id="cart-count" class="badge bg-danger ms-1">
+                                {% if data %}{{ data|length }}{% else %}0{% endif %}
+                            </span>
+                        </a>
                     </li>
 
                     <li class="nav-item dropdown mb-2 mb-lg-0 me-lg-3 w-100 w-lg-auto">
-                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center justify-content-between" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center justify-content-between"
+                            href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="material-icons me-1">account_circle</i>
                             <span class="navbar-text text-white">{{ current_user.nameUser }}</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-item" href="#" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#editModal"
-                                    data-id="{{ user.idUser }}"
-                                    data-email="{{ user.correoUser }}"
-                                    data-name="{{ user.nameUser }}"
-                                    data-phone="{{ user.telefonoUser }}">
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editModal"
+                                    data-id="{{ user.idUser }}" data-email="{{ user.correoUser }}"
+                                    data-name="{{ user.nameUser }}" data-phone="{{ user.telefonoUser }}">
                                     Editar Perfil
                                 </a>
                             </li>
@@ -126,8 +140,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ url_for('auth.logout') }}" class="btn btn-danger d-flex align-items-center flex-nowrap">
-                          <i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión</a>
+                        <a href="{{ url_for('auth.logout') }}"
+                            class="btn btn-danger d-flex align-items-center flex-nowrap">
+                            <i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
@@ -135,22 +150,29 @@
     </nav>
 
     <!-- Contenido Principal -->
-    <nav id="grandesLigasCarousel" class="carousel slide position-relative" data-bs-ride="carousel" data-bs-interval="5000" style="margin-bottom: 1rem;">
+    <nav id="grandesLigasCarousel" class="carousel slide position-relative" data-bs-ride="carousel"
+        data-bs-interval="5000" style="margin-bottom: 1rem;">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
         </div>
 
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ url_for('static', filename='IMG/1.png') }}" class="d-block w-100" alt="Oferta Especial Zapatillas">
+                <img src="{{ url_for('static', filename='IMG/1.png') }}" class="d-block w-100"
+                    alt="Oferta Especial Zapatillas">
             </div>
             <div class="carousel-item">
-                <img src="{{ url_for('static', filename='IMG/2.png') }}" class="d-block w-100" alt="Descuentos Exclusivos">
+                <img src="{{ url_for('static', filename='IMG/2.png') }}" class="d-block w-100"
+                    alt="Descuentos Exclusivos">
             </div>
             <div class="carousel-item">
-                <img src="{{ url_for('static', filename='IMG/3.png') }}" class="d-block w-100" alt="Envío Gratis en Tu Primera Compra">
+                <img src="{{ url_for('static', filename='IMG/3.png') }}" class="d-block w-100"
+                    alt="Envío Gratis en Tu Primera Compra">
             </div>
         </div>
 
@@ -164,96 +186,111 @@
         </button>
 
         <!-- Nuevo botón indicador de slide -->
-        <button id="slideIndicatorBtn" class="btn btn-primary position-absolute" style="bottom: 15px; right: 15px; z-index: 1050; padding: 6px 12px; font-size: 0.9rem; border-radius: 20px; opacity: 0.85;">
+        <button id="slideIndicatorBtn" class="btn btn-primary position-absolute"
+            style="bottom: 15px; right: 15px; z-index: 1050; padding: 6px 12px; font-size: 0.9rem; border-radius: 20px; opacity: 0.85;">
             1 / 3
         </button>
     </nav>
 
     <div class="w3-container w3-padding-32">
         <div class="product-grid">
-
             {% for producto in data_producto %}
-                <div class="product-card" data-categoria="{{ producto.idCategoria or '' }}">
-                    <!-- Imagen del producto -->
+            <div class="product-card" data-categoria="{{ producto.idCategoria or '' }}">
+
+                <div class="product-image-wrapper">
                     <img src="{{ url_for('static', filename=producto.imagenProducto if producto.imagenProducto else 'img/default.png') }}"
                         class="product-image" alt="{{ producto.nombreProducto }}">
 
-                    <!-- Información del producto -->
-                    <div class="product-info">
-                        <!-- Descripción del producto -->
-                        <div class="product-description">
-                            <p>{{ producto.descripcionProducto }}</p>
-                        </div>
-
-                        <!-- Contenedor para precio y botón -->
-                        <div class="price-and-cart">
-                            <p class="price"><b>${{ "{:,.0f}".format(producto.precioProducto).replace(",", ".") }}</b></p>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    data-id="{{ producto.idProducto }}"
-                                    data-nombre="{{ producto.nombreProducto }}"
-                                    data-precio="{{ producto.precioProducto|int }}" 
-                                    data-descripcion="{{ producto.descripcionProducto }}"
-                                    data-imagen="{{ url_for('static', filename=producto.imagenProducto if producto.imagenProducto else 'img/default.png') }}"
-                                    data-categoria="{{ producto.categoria.nombreCategoria or 'Sin categoría' }}">
-                                <i class="material-icons">shopping_cart</i>
+                    <div class="product-description-overlay">
+                        <div class="overlay-content">
+                            <p class="overlay-description">{{ producto.descripcionProducto }}</p>
+                            <button type="button" class="quick-view-button" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop" data-id="{{ producto.idProducto }}"
+                                data-nombre="{{ producto.nombreProducto }}" data-precio="{{ producto.precioProducto|int }}"
+                                data-descripcion="{{ producto.descripcionProducto }}"
+                                data-imagen="{{ url_for('static', filename=producto.imagenProducto if producto.imagenProducto else 'img/default.png') }}"
+                                data-categoria="{{ producto.categoria.nombreCategoria or 'Sin categoría' }}">
+                                    <i class="material-icons-outlined">remove_red_eye</i>Vista rápida
                             </button>
-                        </div>
-
-                        <!-- Acciones para administradores -->
-                        <div class="admin-actions">
-                            {% if current_user.rolUser in ['administrador', 'vendedor'] %}
-                                <a href="{{ url_for('productos.index', edit=producto.idProducto) }}"><i class="material-icons me-1">edit</i></a>
-                                <a href="{{ url_for('productos.delete', id=producto.idProducto) }}" onclick="return confirm('¿Seguro que desea eliminar el producto?');"><i class="material-icons">delete</i></a>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
-            {% endfor %}
 
-        </div>  
+                <div class="product-info">
+                    <h3 class="product-name">{{ producto.nombreProducto }}</h3>
+                    <p class="product-description">{{ producto.descripcionProducto }}</p>
+
+                    <div class="price-and-cart">
+                        <p class="price"><b>${{ "{:,.0f}".format(producto.precioProducto).replace(",", ".") }}</b></p>
+                        <button type="button" class="add-to-cart-button" aria-label="Añadir al carrito" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" data-id="{{ producto.idProducto }}"
+                            data-nombre="{{ producto.nombreProducto }}" data-precio="{{ producto.precioProducto|int }}"
+                            data-descripcion="{{ producto.descripcionProducto }}"
+                            data-imagen="{{ url_for('static', filename=producto.imagenProducto if producto.imagenProducto else 'img/default.png') }}"
+                            data-categoria="{{ producto.categoria.nombreCategoria or 'Sin categoría' }}">
+                            <span class="material-icons-outlined">shopping_cart</span>
+                        </button>
+
+                    </div>
+
+                    <!-- Acciones para administradores -->
+                    <div class="admin-actions">
+                        {% if current_user.rolUser in ['administrador', 'vendedor'] %}
+                        <a href="{{ url_for('productos.index', edit=producto.idProducto) }}"><i
+                                class="material-icons me-1">edit</i></a>
+                        <a href="{{ url_for('productos.delete', id=producto.idProducto) }}"
+                            onclick="return confirm('¿Seguro que desea eliminar el producto?');"><i
+                                class="material-icons">delete</i></a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
     <!-- Ubicación Section -->
     <section id="ubicacion" class="ubicacion-section py-5 bg-light text-center">
-    <div class="container" style="max-width: 1200px;">
-        <div class="card ubicacion-card shadow rounded p-4">
+        <div class="container" style="max-width: 1200px;">
+            <div class="card ubicacion-card shadow rounded p-4">
 
-        <!-- Misión arriba -->
-        <div class="text-content w-100 text-start mb-4">
-            <h2 class="mb-3 text-primary fw-bold">Nuestra Misión</h2>
-            <p class="fs-5 fst-italic text-secondary mb-0">
-            <i class="fas fa-shopping-bag"></i>
-            Brindar <span class="highlight-quality">productos de calidad</span>
-            y un <span class="highlight-service">servicio excepcional</span>
-            para nuestros clientes.
-            </p>
-        </div>
+                <!-- Misión arriba -->
+                <div class="text-content w-100 text-start mb-4">
+                    <h2 class="mb-3 text-primary fw-bold">Nuestra Misión</h2>
+                    <p class="fs-5 fst-italic text-secondary mb-0">
+                        <i class="fas fa-shopping-bag"></i>
+                        Brindar <span class="highlight-quality">productos de calidad</span>
+                        y un <span class="highlight-service">servicio excepcional</span>
+                        para nuestros clientes.
+                    </p>
+                </div>
 
-        <!-- Mapas lado a lado -->
-        <div class="d-flex flex-wrap justify-content-between gap-3 maps-container w-100">
-            <div class="map-responsive">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4946.976858357151!2d-73.6758238561676!3d6.012307538997236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e41f06a32d7949f%3A0x835212754d0b5523!2sBlack%20Rose%20Studio!5e0!3m2!1ses-419!2sco!4v1747760302771!5m2!1ses-419!2sco"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+                <!-- Mapas lado a lado -->
+                <div class="d-flex flex-wrap justify-content-between gap-3 maps-container w-100">
+                    <div class="map-responsive">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4946.976858357151!2d-73.6758238561676!3d6.012307538997236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e41f06a32d7949f%3A0x835212754d0b5523!2sBlack%20Rose%20Studio!5e0!3m2!1ses-419!2sco!4v1747760302771!5m2!1ses-419!2sco"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <div class="map-responsive">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2sco!4v1747710422081!5m2!1ses-419!2sco!6m8!1m7!1s2r0YJHnf9IBCxr0TUPiFiQ!2m2!1d6.012560610223842!2d-73.67336965270613!3f297.5501443523917!4f-12.586373469397657!5f0.4000000000000002"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Información de dirección y horario -->
+                <div class="text-content w-100 text-start mt-4">
+                    <h3 class="mb-3 fw-semibold text-dark">Visítanos en nuestra tienda física</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Cra. 4 # 8-44, Vélez</p>
+                    <p><i class="far fa-clock"></i> Lunes a sábado: 9 AM - 8 PM</p>
+                </div>
+
             </div>
-            <div class="map-responsive">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2sco!4v1747710422081!5m2!1ses-419!2sco!6m8!1m7!1s2r0YJHnf9IBCxr0TUPiFiQ!2m2!1d6.012560610223842!2d-73.67336965270613!3f297.5501443523917!4f-12.586373469397657!5f0.4000000000000002"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-            </div>
         </div>
-
-        <!-- Información de dirección y horario -->
-        <div class="text-content w-100 text-start mt-4">
-            <h3 class="mb-3 fw-semibold text-dark">Visítanos en nuestra tienda física</h3>
-            <p><i class="fas fa-map-marker-alt"></i> Cra. 4 # 8-44, Vélez</p>
-            <p><i class="far fa-clock"></i> Lunes a sábado: 9 AM - 8 PM</p>
-        </div>
-
-        </div>
-    </div>
     </section>
 
     <section id="nosotros" class="nosotros-section text-center">
@@ -266,21 +303,27 @@
                     <div class="row">
                         <div class="col-md-4 nosotros-item">
                             <div class="icon-wrapper">
-                                <i class="fas fa-shoe-prints"></i> </div>
+                                <i class="fas fa-shoe-prints"></i>
+                            </div>
                             <h3>Nuestra Misión</h3>
-                            <p>Impulsar tu estilo y rendimiento ofreciéndote el calzado de la más alta calidad, con un servicio que supera tus expectativas.</p>
+                            <p>Impulsar tu estilo y rendimiento ofreciéndote el calzado de la más alta calidad, con un
+                                servicio que supera tus expectativas.</p>
                         </div>
                         <div class="col-md-4 nosotros-item">
                             <div class="icon-wrapper">
-                                <i class="fas fa-rocket"></i> </div>
+                                <i class="fas fa-rocket"></i>
+                            </div>
                             <h3>Nuestra Visión</h3>
-                            <p>Ser la tienda líder en calzado deportivo y casual en la región, innovando constantemente y construyendo una comunidad apasionada por el buen vestir y el deporte.</p>
+                            <p>Ser la tienda líder en calzado deportivo y casual en la región, innovando constantemente
+                                y construyendo una comunidad apasionada por el buen vestir y el deporte.</p>
                         </div>
                         <div class="col-md-4 nosotros-item">
                             <div class="icon-wrapper">
-                                <i class="fas fa-handshake"></i> </div>
+                                <i class="fas fa-handshake"></i>
+                            </div>
                             <h3>Nuestros Valores</h3>
-                            <p>Nos guían el compromiso con la excelencia, la calidad en cada par, la innovación en tendencias, y una atención personalizada para cada cliente.</p>
+                            <p>Nos guían el compromiso con la excelencia, la calidad en cada par, la innovación en
+                                tendencias, y una atención personalizada para cada cliente.</p>
                         </div>
                     </div>
                 </div>
@@ -290,161 +333,171 @@
 
     <!-- Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form class="modal-content" id="editForm" method="POST">
-        <div class="modal-header">
-            <h5 class="modal-title" id="editModalLabel">Editar Usuario</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-            <div class="mb-3">
-            <label class="form-label">Correo</label>
-            <input type="email" class="form-control" name="correoUser" id="correoUser">
-            </div>
-            
-            <div class="mb-3">
-            <label class="form-label">Nombre</label>
-            <input type="text" class="form-control" name="nameUser" id="nameUser">
-            </div>
-            
-            <div class="mb-3 position-relative">
-            <label for="passwordUser-{{ user.idUser }}" class="form-label">Contraseña</label>
-            <input
-                type="password"
-                class="form-control"
-                id="passwordUser-{{ user.idUser }}"
-                name="passwordUser"
-                placeholder="Modificar contraseña"
-                required>
-            <i class="material-icons position-absolute toggle-password-icon" data-target="passwordUser-{{ user.idUser }}" style="cursor: pointer; right: 1.5rem; top: calc(50% + .25rem); transform: translateY(-0%);">visibility</i>
-            </div>
-            
-            <div class="mb-3">
-            <label class="form-label">Teléfono</label>
-            <input type="tel" class="form-control" name="telefonoUser" id="telefonoUser">
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar cambios</button>
-        </div>
-        </form>
-    </div>
-    </div>
-
-    <!-- Modal para agregar productos -->
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Formulario que envía la información a la ruta /productos/add -->
-            <form method="POST" action="{{ url_for('productos.add') }}" enctype="multipart/form-data">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addProductModalLabel">Agregar Nuevo Producto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                <label class="form-label">Nombre</label>
-                <input type="text" class="form-control" name="nombreProducto" required>
-                </div>
-                <div class="mb-3">
-                <label class="form-label">Descripción</label>
-                <textarea class="form-control" name="descripcionProducto" rows="3" required></textarea>
-                </div>
-                <div class="mb-3">
-                <label class="form-label">Precio</label>
-                <input type="number" class="form-control" name="precioProducto" step="0.01" required>
-                </div>
-                <div class="mb-3">
-                <label class="form-label">Stock</label>
-                <input type="number" class="form-control" name="stock" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Categoría</label>
-                    <select class="form-select" name="categoria" required>
-                      <option value="" disabled selected>Selecciona una categoría</option>
-                      {% for cat in categorias %}
-                        <option value="{{ cat.idCategoria }}">{{ cat.nombreCategoria }}</option>
-                      {% endfor %}
-                    </select>
-                </div>
-                  
-                <div class="mb-3 mt-4">
-                    <label class="form-label">Imagen</label>
-                    <input type="file" class="form-control" name="imagenProducto">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <!-- Botón submit que hará el POST -->
-                <button type="submit" class="btn btn-primary">Agregar Producto</button>
-            </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
+            <form class="modal-content" id="editForm" method="POST">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Detalles del Producto</h1>
+                    <h5 class="modal-title" id="editModalLabel">Editar Usuario</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <img id="modal-imagen" class="product-image" alt="Imagen del producto" style="width: 50%;">
-                    <p id="producto-precio"><strong>Precio:</strong> <span id="modal-precio"></span></p>
-                    <p id="producto-categoria"><strong>Categoría:</strong> <span id="modal-categoria"></span></p>
-                    <p id="producto-descripcion"><strong>Descripción:</strong> <span id="modal-descripcion"></span></p>
 
-                    <!-- Control de cantidad -->
-                        <!-- Control de cantidad -->
-                        <div class="quantity-control">
-                            <button type="button" class="quantity-btn minus" onclick="cambiarCantidad(-1, 'modal-cantidad')">-</button>
-                            <input type="text" id="modal-cantidad" name="cantidad" value="1" min="1" class="quantity-input" readonly>
-                            <button type="button" class="quantity-btn plus" onclick="cambiarCantidad(1, 'modal-cantidad')">+</button>
+                    <div class="mb-3">
+                        <label class="form-label">Correo</label>
+                        <input type="email" class="form-control" name="correoUser" id="correoUser">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nameUser" id="nameUser">
+                    </div>
+
+                    <div class="mb-3 position-relative">
+                        <label for="passwordUser-{{ user.idUser }}" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="passwordUser-{{ user.idUser }}"
+                            name="passwordUser" placeholder="Modificar contraseña" required>
+                        <i class="material-icons position-absolute toggle-password-icon"
+                            data-target="passwordUser-{{ user.idUser }}"
+                            style="cursor: pointer; right: 1.5rem; top: calc(50% + .25rem); transform: translateY(-0%);">visibility</i>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Teléfono</label>
+                        <input type="tel" class="form-control" name="telefonoUser" id="telefonoUser">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para agregar productos -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Formulario que envía la información a la ruta /productos/add -->
+                <form method="POST" action="{{ url_for('productos.add') }}" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addProductModalLabel">Agregar Nuevo Producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" name="nombreProducto" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Descripción</label>
+                                        <textarea class="form-control" name="descripcionProducto" rows="3" required></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Precio</label>
+                                        <input type="number" class="form-control" name="precioProducto" step="0.01" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Stock</label>
+                                        <input type="number" class="form-control" name="stock" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Categoría</label>
+                                        <select class="form-select" name="categoria" required>
+                                            <option value="" disabled selected>Selecciona una categoría</option>
+                                            {% for cat in categorias %}
+                                            <option value="{{ cat.idCategoria }}">{{ cat.nombreCategoria }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 mt-4">
+                                        <label class="form-label">Imagen</label>
+                                        <input type="file" class="form-control" name="imagenProducto">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="d-flex justify-content-center">
-                            <div class="custom-select-wrapper text-center">
-                              <label for="talla" class="form-label">EU talla</label>
-                              <select id="talla" class="form-select mx-auto" style="width: 120px;">
-                                <option disabled selected>EU</option>
-                                <option value="35">35</option>
-                                <option value="36">36</option>
-                                <option value="37">37</option>
-                                <option value="38.5">38.5</option>
-                                <option value="39.5">39.5</option>
-                                <option value="40">40</option>
-                                <option value="41">41</option>
-                                <option value="42">42</option>
-                                <option value="43">43</option>
-                                <option value="43.5">43.5</option>
-                                <option value="44.5">44.5</option>
-                            </select>
-                        </div>
-                        
-                        <button
-                        id="sizeGuideBtn"
-                        type="button"
-                        class="btn btn-primary position-absolute start-0 bottom-0 m-3"
-                        data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop1">
-                        Guía de tallas
-                        </button>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" id="agregar-carrito-btn" class="btn btn-primary">Agregar al carrito</button>
+                        <!-- Botón submit que hará el POST -->
+                        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                                <img id="modal-imagen" class="product-image" alt="Imagen del producto" style="max-width: 100%; max-height: 300px; object-fit: contain;">
+                            </div>
+                            <div class="col-md-6">
+                                <h3 id="producto-nombre"><span id="modal-nombre"></span></h3>
+                                <p id="producto-descripcion"><span id="modal-descripcion"></span></p>
+                                <p id="producto-categoria"><strong>Categoría:</strong> <span id="modal-categoria"></span></p>
+                                <p id="producto-precio" class="fs-4 fw-bold text-success"><span id="modal-precio"></span></p>
+
+                                <!-- Control de cantidad -->
+                                <div class="quantity-control my-3">
+                                    <button type="button" class="quantity-btn minus"
+                                        onclick="cambiarCantidad(-1, 'modal-cantidad')">-</button>
+                                    <input type="text" id="modal-cantidad" name="cantidad" value="1" min="1" class="quantity-input"
+                                        readonly>
+                                    <button type="button" class="quantity-btn plus"
+                                        onclick="cambiarCantidad(1, 'modal-cantidad')">+</button>
+                                </div>
+
+                                <div class="d-flex justify-content-center mb-3">
+
+
+                                    <div class="custom-select-wrapper text-center">
+                                        <label for="talla" class="form-label">Talla EURO</label>
+                                        <select id="talla" class="form-select mx-auto custom-talla-select">
+                                            <option disabled selected>EURO</option>
+                                            <option value="35">35</option>
+                                            <option value="36">36</option>
+                                            <option value="37">37</option>
+                                            <option value="38.5">38.5</option>
+                                            <option value="39.5">39.5</option>
+                                            <option value="40">40</option>
+                                            <option value="41">41</option>
+                                            <option value="42">42</option>
+                                            <option value="43">43</option>
+                                            <option value="43.5">43.5</option>
+                                            <option value="44.5">44.5</option>
+                                        </select>
+                                    </div>
+                                        <button id="sizeGuideBtn" type="button"
+                                            class="btn-guia-tallas position-absolute start-50 translate-middle-x" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop1">
+                                            <i class="mdi mdi-ruler"></i> Guía de tallas
+                                        </button>
+                                </div>
+
+                                <div class="modal-footer p-0">
+                                    <button type="button" id="agregar-carrito-btn" class="btn-temu-style">¡AGRÉGALO AHORA! ¡LOS ÚLTIMOS!</button>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- Modal  interior-->
     <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
@@ -456,146 +509,182 @@
                 </div>
                 <div class="modal-body">
                     <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                        <th>EU</th>
-                        <th>Largo del pie (cm)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>35</td><td>22</td></tr>
-                        <tr><td>36</td><td>23</td></tr>
-                        <tr><td>37</td><td>24</td></tr>
-                        <tr><td>38.5</td><td>24.5</td></tr>
-                        <tr><td>39.5</td><td>25</td></tr>
-                        <tr><td>40</td><td>25.5</td></tr>
-                        <tr><td>41</td><td>26</td></tr>
-                        <tr><td>42</td><td>26.5</td></tr>
-                        <tr><td>43</td><td>27</td></tr>
-                        <tr><td>43.5</td><td>27.5</td></tr>
-                        <tr><td>44.5</td><td>28</td></tr>
-                    </tbody>
+                        <thead>
+                            <tr>
+                                <th>EURO</th>
+                                <th>Largo del pie (cm)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>35</td>
+                                <td>22</td>
+                            </tr>
+                            <tr>
+                                <td>36</td>
+                                <td>23</td>
+                            </tr>
+                            <tr>
+                                <td>37</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td>38.5</td>
+                                <td>24.5</td>
+                            </tr>
+                            <tr>
+                                <td>39.5</td>
+                                <td>25</td>
+                            </tr>
+                            <tr>
+                                <td>40</td>
+                                <td>25.5</td>
+                            </tr>
+                            <tr>
+                                <td>41</td>
+                                <td>26</td>
+                            </tr>
+                            <tr>
+                                <td>42</td>
+                                <td>26.5</td>
+                            </tr>
+                            <tr>
+                                <td>43</td>
+                                <td>27</td>
+                            </tr>
+                            <tr>
+                                <td>43.5</td>
+                                <td>27.5</td>
+                            </tr>
+                            <tr>
+                                <td>44.5</td>
+                                <td>28</td>
+                            </tr>
+                        </tbody>
                     </table>
                     <small class="text-muted">
-                    ℹ️ Las medidas se obtienen manualmente por lo que puede haber ligeras variaciones.
+                        ℹ️ Las medidas se obtienen manualmente por lo que puede haber ligeras variaciones.
                     </small>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
-    
+
     <!-- Modal de Edición (se mostrará automáticamente si hay producto_edit) -->
     {% if producto_edit %}
-    <div class="modal fade" id="editProductModal" tabindex="-1" 
-        aria-labelledby="editProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-        <form method="POST" action="{{ url_for('productos.edit', id=producto_edit.idProducto) }}" 
-                enctype="multipart/form-data">
-            <div class="modal-header">
-            <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
-            <a href="{{ url_for('productos.index') }}" class="btn-close"></a>
-            </div>
-            <div class="modal-body">
-            <!-- Nombre -->
-            <div class="mb-3">
-                <label class="form-label">Nombre</label>
-                <input type="text" class="form-control" name="nombreProducto" 
-                    value="{{ producto_edit.nombreProducto }}" required>
-            </div>
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <form method="POST" action="{{ url_for('productos.edit', id=producto_edit.idProducto) }}"
+                    enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
+                        <a href="{{ url_for('productos.index') }}" class="btn-close"></a>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombreProducto"
+                                value="{{ producto_edit.nombreProducto }}" required>
+                        </div>
 
-            <!-- Descripción -->
-            <div class="mb-3">
-                <label class="form-label">Descripción</label>
-                <textarea class="form-control" name="descripcionProducto" rows="3" required>{{ producto_edit.descripcionProducto }}</textarea>
-            </div>
+                        <!-- Descripción -->
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" name="descripcionProducto" rows="3"
+                                required>{{ producto_edit.descripcionProducto }}</textarea>
+                        </div>
 
-            <!-- Precio -->
-            <div class="mb-3">
-                <label class="form-label">Precio</label>
-                <input type="number" class="form-control" name="precioProducto" step="0.01" 
-                    value="{{ producto_edit.precioProducto }}" required>
-            </div>
+                        <!-- Precio -->
+                        <div class="mb-3">
+                            <label class="form-label">Precio</label>
+                            <input type="number" class="form-control" name="precioProducto" step="0.01"
+                                value="{{ producto_edit.precioProducto }}" required>
+                        </div>
 
-            <!-- Stock -->
-            <div class="mb-3">
-                <label class="form-label">Stock</label>
-                <input type="number" class="form-control" name="stock" 
-                    value="{{ producto_edit.stock }}" required>
-            </div>
+                        <!-- Stock -->
+                        <div class="mb-3">
+                            <label class="form-label">Stock</label>
+                            <input type="number" class="form-control" name="stock" value="{{ producto_edit.stock }}"
+                                required>
+                        </div>
 
-            <!-- Categoría -->
-            <div class="mb-3">
-                <label class="form-label">Categoría</label>
-                <select class="form-select" name="categoria" required>
-                <option value="">Selecciona una categoría</option>
-                {% for cat in categorias %}
-                    <option value="{{ cat.idCategoria }}" 
-                            {% if cat.idCategoria == producto_edit.idCategoria %}selected{% endif %}>
-                    {{ cat.nombreCategoria }}
-                    </option>
-                {% endfor %}
-                </select>
-            </div>
+                        <!-- Categoría -->
+                        <div class="mb-3">
+                            <label class="form-label">Categoría</label>
+                            <select class="form-select" name="categoria" required>
+                                <option value="">Selecciona una categoría</option>
+                                {% for cat in categorias %}
+                                <option value="{{ cat.idCategoria }}" {% if cat.idCategoria==producto_edit.idCategoria
+                                    %}selected{% endif %}>
+                                    {{ cat.nombreCategoria }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-            <!-- Imagen actual -->
-            <div class="mb-3">
-                <label class="form-label">Imagen Actual</label>
-                <div>
-                {% if producto_edit.imagenProducto %}
-                    <img src="{{ url_for('static', filename=producto_edit.imagenProducto) }}" 
-                        alt="Imagen actual" class="img-thumbnail" style="max-width: 150px;">
-                {% else %}
-                    <p class="text-muted">No hay imagen cargada</p>
-                {% endif %}
-                </div>
-            </div>
+                        <!-- Imagen actual -->
+                        <div class="mb-3">
+                            <label class="form-label">Imagen Actual</label>
+                            <div>
+                                {% if producto_edit.imagenProducto %}
+                                <img src="{{ url_for('static', filename=producto_edit.imagenProducto) }}"
+                                    alt="Imagen actual" class="img-thumbnail" style="max-width: 150px;">
+                                {% else %}
+                                <p class="text-muted">No hay imagen cargada</p>
+                                {% endif %}
+                            </div>
+                        </div>
 
-            <!-- Nueva imagen -->
-            <div class="mb-3">
-                <label class="form-label">Nueva Imagen</label>
-                <input type="file" class="form-control" name="imagenProducto">
+                        <!-- Nueva imagen -->
+                        <div class="mb-3">
+                            <label class="form-label">Nueva Imagen</label>
+                            <input type="file" class="form-control" name="imagenProducto">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ url_for('productos.index') }}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
             </div>
-            </div>
-            <div class="modal-footer">
-            <a href="{{ url_for('productos.index') }}" class="btn btn-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            </div>
-        </form>
         </div>
-    </div>
     </div>
     {% endif %}
 
     <footer class="footer-custom py-4 mt-5">
-    <div class="container d-flex flex-column flex-md-row justify-content-center align-items-center">
-        <p class="text-white small mb-2 mb-md-0 text-center">
-        © 2025 Grandes Ligas. Todos los derechos reservados.
-        </p>
-        <ul class="list-unstyled d-flex mb-0 gap-3 ms-md-4">
-        <li>
-            <a aria-label="Instagram" href="https://www.instagram.com/grandes_ligas22?igsh=a3JvMGRpMG5mb3dx" class="social-link instagram">
-            <i class="fab fa-instagram fa-lg"></i>
-            </a>
-        </li>
-        <li>
-            <a aria-label="Facebook" href="#" class="social-link facebook">
-            <i class="fab fa-facebook-f fa-lg"></i>
-            </a>
-        </li>
-        <li>
-            <a aria-label="WhatsApp" href="https://wa.me/qr/WHDXLHRASLR3D1" class="social-link whatsapp">
-            <i class="fab fa-whatsapp fa-lg"></i>
-            </a>
-        </li>
-        <li>
-        <a aria-label="TikTok" href="https://www.tiktok.com/@grandesligas22?_t=ZS-8wfSSZmyy1a&_r=1" class="social-link tiktok">
-            <i class="fab fa-tiktok fa-lg"></i>
-        </a>
-        </li>
-        </ul>
+        <div class="container d-flex flex-column flex-md-row justify-content-center align-items-center">
+            <p class="text-white small mb-2 mb-md-0 text-center">
+                © 2025 Grandes Ligas. Todos los derechos reservados.
+            </p>
+            <ul class="list-unstyled d-flex mb-0 gap-3 ms-md-4">
+                <li>
+                    <a aria-label="Instagram" href="https://www.instagram.com/grandes_ligas22?igsh=a3JvMGRpMG5mb3dx"
+                        class="social-link instagram">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a aria-label="Facebook" href="#" class="social-link facebook">
+                        <i class="fab fa-facebook-f fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a aria-label="WhatsApp" href="https://wa.me/qr/WHDXLHRASLR3D1" class="social-link whatsapp">
+                        <i class="fab fa-whatsapp fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a aria-label="TikTok" href="https://www.tiktok.com/@grandesligas22?_t=ZS-8wfSSZmyy1a&_r=1"
+                        class="social-link tiktok">
+                        <i class="fab fa-tiktok fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
 
-    </div>
+        </div>
     </footer>
 
     <!-- Scripts -->
@@ -607,15 +696,27 @@
             cantidad = cantidad < 1 ? 1 : cantidad; // Asegurarse de que la cantidad no sea menor a 1
             input.value = cantidad;
         }
+        
+        // Escuchar cuando se cierre el modal de la guía de tallas
+        document.getElementById('staticBackdrop1').addEventListener('hidden.bs.modal', function () {
+            // Obtener la instancia del modal de detalles del producto y mostrarlo
+            const productModal = document.getElementById('staticBackdrop');
+            const modalInstance = bootstrap.Modal.getInstance(productModal);
+            if (modalInstance) {
+                modalInstance.show();
+            } else {
+                // Si no existe una instancia previa, crear una nueva
+                new bootstrap.Modal(productModal).show();
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', function () {
             const modal = document.getElementById('staticBackdrop');
-            const modal1 = document.getElementById('staticBackdrop1');
-
             const modalImagen = document.getElementById('modal-imagen');
             const modalPrecio = document.getElementById('modal-precio');
             const modalCategoria = document.getElementById('modal-categoria');
             const modalDescripcion = document.getElementById('modal-descripcion');
+            const modalNombre = document.getElementById('modal-nombre');
             const modalCantidad = document.getElementById('modal-cantidad');
             const selectTalla = document.getElementById('talla'); // El <select> del modal de detalles
             const tallaInput = document.getElementById('tallaInput'); // El <input> del modal de agregar
@@ -623,19 +724,20 @@
             // Escuchar el evento 'show.bs.modal' para cargar los datos del producto
             modal.addEventListener('show.bs.modal', function (event) {
                 const button = event.relatedTarget;
-                const idProducto       = button.getAttribute('data-id');
-                const nombreProducto   = button.getAttribute('data-nombre');
-                const precioProducto   = button.getAttribute('data-precio');
+                const idProducto = button.getAttribute('data-id');
+                const nombreProducto = button.getAttribute('data-nombre');
+                const precioProducto = button.getAttribute('data-precio');
                 const descripcionProducto = button.getAttribute('data-descripcion');
-                const imagenProducto   = button.getAttribute('data-imagen');
-                const categoriaProducto= button.getAttribute('data-categoria');
+                const imagenProducto = button.getAttribute('data-imagen');
+                const categoriaProducto = button.getAttribute('data-categoria');
 
                 modal.setAttribute('data-product-id', idProducto);
-                modalImagen.src         = imagenProducto;
-                modalImagen.alt         = `Imagen de ${nombreProducto}`;
+                modalImagen.src = imagenProducto;
+                modalImagen.alt = `Imagen de ${nombreProducto}`;
                 modalPrecio.textContent = `$${parseInt(precioProducto).toLocaleString("es-CO")}`;
-                modalCategoria.textContent    = categoriaProducto;
-                modalDescripcion.textContent  = descripcionProducto;
+                modalCategoria.textContent = categoriaProducto;
+                modalNombre.textContent = nombreProducto;
+                modalDescripcion.textContent = descripcionProducto;
 
                 // Reiniciar valores de cantidad y talla
                 modalCantidad.value = 1;
@@ -646,14 +748,14 @@
             const btnAgregarCarrito = document.getElementById('agregar-carrito-btn');
             btnAgregarCarrito.addEventListener('click', function () {
                 const cantidad = parseInt(modalCantidad.value);
-                const talla    = selectTalla.value;               // ← leemos la talla
+                const talla = selectTalla.value;               // ← leemos la talla
                 const idProducto = modal.getAttribute('data-product-id');
 
                 if (!idProducto || isNaN(cantidad) || !talla) {
                     alert('Por favor, selecciona una talla y cantidad válidas.');
                     return;
                 }
-                
+
 
                 // Enviar la solicitud POST al servidor con talla incluida
                 fetch(`/carrito/add/${idProducto}`, {
@@ -667,20 +769,20 @@
                         talla: talla           // ← agregamos aquí
                     })
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        bootstrap.Modal.getInstance(modal).hide(); // Cerrar el modal
-                        // Opcional: recargar para ver la tabla de carrito actualizada
-                        location.reload();
-                    } else {
-                        alert('Error al agregar el producto al carrito.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Ocurrió un error al procesar la solicitud.');
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            bootstrap.Modal.getInstance(modal).hide(); // Cerrar el modal
+                            // Opcional: recargar para ver la tabla de carrito actualizada
+                            location.reload();
+                        } else {
+                            alert('Error al agregar el producto al carrito.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ocurrió un error al procesar la solicitud.');
+                    });
             });
 
             // Custom carousel to show 3 images at a time and slide every 3 seconds
@@ -692,16 +794,16 @@
             });
 
             // Show edit modal if producto_edit is set
-            
+
             var editModalEl = document.getElementById('editProductModal');
             var editModal = new bootstrap.Modal(editModalEl);
             editModal.show();
-            
+
         });
 
         // Additional DOMContentLoaded listener to ensure modal show runs after DOM is fully loaded
         document.addEventListener('DOMContentLoaded', function () {
-            
+
             var editModalEl = document.getElementById('editProductModal');
             if (editModalEl) {
                 var editModal = new bootstrap.Modal(editModalEl);
@@ -710,7 +812,7 @@
             } else {
                 console.log('Edit modal element not found');
             }
-            
+
             // Update slide indicator button text on carousel slide event
             const carouselElement = document.getElementById('grandesLigasCarousel');
             const slideIndicatorBtn = document.getElementById('slideIndicatorBtn');
@@ -725,37 +827,24 @@
             }
         });
 
-        // Escuchar cuando se cierre el modal de la guía de tallas
-        document.getElementById('staticBackdrop1').addEventListener('hidden.bs.modal', function () {
-            // Obtener la instancia del modal de detalles del producto y mostrarlo
-            const productModal = document.getElementById('staticBackdrop');
-            const modalInstance = bootstrap.Modal.getInstance(productModal);
-            if (modalInstance) {
-                modalInstance.show();
-            } else {
-                // Si no existe una instancia previa, crear una nueva
-                new bootstrap.Modal(productModal).show();
-            }
-        });
-
         // Función para actualizar el contador del carrito
         function actualizarContadorCarrito() {
             const cartCount = document.getElementById('cart-count');
             if (cartCount) {
                 fetch('/carrito/count')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.count > 0) {
-                    cartCount.textContent = data.count;
-                    cartCount.style.display = 'inline-block';
-                    } else {
-                    cartCount.style.display = 'none';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al obtener el contador:', error);
-                    cartCount.style.display = 'none';
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.count > 0) {
+                            cartCount.textContent = data.count;
+                            cartCount.style.display = 'inline-block';
+                        } else {
+                            cartCount.style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener el contador:', error);
+                        cartCount.style.display = 'none';
+                    });
             }
         }
 
@@ -765,37 +854,39 @@
         // Actualiza el contador después de agregar un producto
         document.querySelectorAll('#agregar-carrito-btn').forEach(button => {
             button.addEventListener('click', () => {
-            setTimeout(() => {
-                actualizarContadorCarrito();
-            }, 500); // Pequeño retraso para asegurar que el servidor responda
+                setTimeout(() => {
+                    actualizarContadorCarrito();
+                }, 500); // Pequeño retraso para asegurar que el servidor responda
             });
         });
 
         // Rellena el modal con datos cuando se hace clic
         document.querySelectorAll('[data-bs-toggle="modal"]').forEach(link => {
-        link.addEventListener('click', function() {
-            const form = document.getElementById('editForm');
-            form.action = "{{ url_for('auth.edit', id=0) }}".replace('/0', '/' + this.dataset.id);
-            
-            document.getElementById('correoUser').value = this.dataset.email;
-            document.getElementById('nameUser').value = this.dataset.name;
-            document.getElementById('telefonoUser').value = this.dataset.phone;
-        });
+            link.addEventListener('click', function () {
+                const form = document.getElementById('editForm');
+                form.action = "{{ url_for('auth.edit', id=0) }}".replace('/0', '/' + this.dataset.id);
+
+                document.getElementById('correoUser').value = this.dataset.email;
+                document.getElementById('nameUser').value = this.dataset.name;
+                document.getElementById('telefonoUser').value = this.dataset.phone;
+            });
         });
 
         document.querySelectorAll('.toggle-password-icon').forEach(icon => {
             icon.addEventListener('click', () => {
-            const input = document.getElementById(icon.dataset.target);
-            if (!input) return;
-            if (input.type === 'password') {
-            input.type = 'text';
-            icon.textContent = 'visibility_off';
-            } else {
-            input.type = 'password';
-            icon.textContent = 'visibility';
-            }
+                const input = document.getElementById(icon.dataset.target);
+                if (!input) return;
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.textContent = 'visibility_off';
+                } else {
+                    input.type = 'password';
+                    icon.textContent = 'visibility';
+                }
+            });
         });
-        });
-    </script>   
+
+    </script>
 </body>
+
 </html>

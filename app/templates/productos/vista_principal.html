@@ -1,52 +1,57 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Productos</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='all.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='icons/icon.css') }}">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='productos/vista_principal.css') }}">
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center flex-column flex-lg-row">
                     <li class="nav-item mb-2 mb-lg-0 me-lg-3">
-                        <a class="nav-link text-white d-flex align-items-center" href="{{ url_for('productos.index_vista_principal') }}">
-                            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="rounded-circle" style="height: 40px; width: 40px; object-fit: cover;">
+                        <a class="nav-link text-white d-flex align-items-center"
+                            href="{{ url_for('productos.index_vista_principal') }}">
+                            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="rounded-circle"
+                                style="height: 40px; width: 40px; object-fit: cover;">
                         </a>
                     </li>
                     <li class="nav-item dropdown mb-2 mb-lg-0 me-lg-3 w-100 w-lg-auto">
-                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px;">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#"
+                            id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="height: 40px;">
                             <i class="material-icons me-1" style="line-height: 40px;">category</i>
                             <span class="d-none d-lg-inline" style="line-height: 40px;">Categoría</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
                             <li>
-                                <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ url_for('productos.index_vista_principal') }}" data-categoria="">
+                                <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                    href="{{ url_for('productos.index_vista_principal') }}" data-categoria="">
                                     Todas las categorías
                                 </a>
                             </li>
                             {% for categoria in categorias %}
-                                <li>
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ url_for('productos.index_categoria_vista', id=categoria.idCategoria) }}" 
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                    href="{{ url_for('productos.index_categoria_vista', id=categoria.idCategoria) }}"
                                     data-categoria="{{ categoria.idCategoria }}">
-                                        {{ categoria.nombreCategoria }}
-                                    </a>
-                                </li>
+                                    {{ categoria.nombreCategoria }}
+                                </a>
+                            </li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -66,11 +71,15 @@
 
                 <ul class="navbar-nav ms-auto align-items-center flex-column flex-lg-row">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px;">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#"
+                            id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="height: 40px;">
                             <i class="material-icons me-1">account_circle</i>
-                            <span class="d-none d-lg-inline" style="line-height: 40px;">Iniciar sesión / Registrarse</span>
+                            <span class="d-none d-lg-inline" style="line-height: 40px;">Iniciar sesión /
+                                Registrarse</span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="navbarDropdown" style="min-width: 280px;">
+                        <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="navbarDropdown"
+                            style="min-width: 280px;">
                             <li class="mb-3 text-center">
                                 <h6 class="mb-1 fw-bold">Iniciar sesión / Registrarse</h6>
                                 <div class="d-flex justify-content-center align-items-center gap-2 text-success mb-2">
@@ -96,7 +105,7 @@
                             </li>
                             <li>
                                 <a href="{{ url_for('auth.add') }}" class="btn btn-crear-cuenta w-100 mb-2">
-                                    Crear cuenta
+                                    Crear Cuenta
                                 </a>
                                 <a href="{{ url_for('auth.login') }}" class="btn btn-iniciar-sesion w-100">
                                     Iniciar Sesión
@@ -109,22 +118,29 @@
         </div>
     </nav>
 
-    <div id="grandesLigasCarousel" class="carousel slide position-relative" data-bs-ride="carousel" data-bs-interval="5000">
+    <div id="grandesLigasCarousel" class="carousel slide position-relative" data-bs-ride="carousel"
+        data-bs-interval="5000">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#grandesLigasCarousel" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
         </div>
 
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ url_for('static', filename='IMG/1.png') }}" class="d-block w-100" alt="Oferta Especial Zapatillas">
+                <img src="{{ url_for('static', filename='IMG/1.png') }}" class="d-block w-100"
+                    alt="Oferta Especial Zapatillas">
             </div>
             <div class="carousel-item">
-                <img src="{{ url_for('static', filename='IMG/2.png') }}" class="d-block w-100" alt="Descuentos Exclusivos">
+                <img src="{{ url_for('static', filename='IMG/2.png') }}" class="d-block w-100"
+                    alt="Descuentos Exclusivos">
             </div>
             <div class="carousel-item">
-                <img src="{{ url_for('static', filename='IMG/3.png') }}" class="d-block w-100" alt="Envío Gratis en Tu Primera Compra">
+                <img src="{{ url_for('static', filename='IMG/3.png') }}" class="d-block w-100"
+                    alt="Envío Gratis en Tu Primera Compra">
             </div>
         </div>
 
@@ -141,33 +157,41 @@
     <div class="w3-container w3-padding-32">
         <div class="product-grid">
             {% for producto in data_producto %}
-                <div class="product-card" data-categoria="{{ producto.idCategoria or '' }}">
+            <div class="product-card" data-categoria="{{ producto.idCategoria or '' }}">
+
+                <div class="product-image-wrapper">
                     <img src="{{ url_for('static', filename=producto.imagenProducto if producto.imagenProducto else 'img/default.png') }}"
                         class="product-image" alt="{{ producto.nombreProducto }}">
 
-                    <div class="product-info">
-                        <div class="product-description">
-                            <p>{{ producto.descripcionProducto }}</p>
-                        </div>
-
-                        <div class="price-and-cart">
-                            <p class="price"><b>${{ "{:,.0f}".format(producto.precioProducto).replace(",", ".") }}</b></p>
-                            <a href="{{ url_for('auth.add') }}" class="btn btn-primary" 
-                                    role="button" 
-                                    aria-label="Registrar para agregar al carrito">
-                                <i class="material-icons">shopping_cart</i>
+                    <div class="product-description-overlay">
+                        <div class="overlay-content">
+                            <p class="overlay-description">{{ producto.descripcionProducto }}</p>
+                            <a href="{{ url_for('auth.add') }}" class="quick-view-button"><i class="material-icons-outlined">remove_red_eye</i>Vista rápida
                             </a>
                         </div>
                     </div>
                 </div>
+
+                <div class="product-info">
+                    <h3 class="product-name">{{ producto.nombreProducto }}</h3>
+                    <p class="product-description">{{ producto.descripcionProducto }}</p>
+
+                    <div class="price-and-cart">
+                        <p class="price"><b>${{ "{:,.0f}".format(producto.precioProducto).replace(",", ".") }}</b></p>
+                        <a href="{{ url_for('auth.add') }}" class="add-to-cart-button" role="button"
+                            aria-label="Agregar al carrito">
+                            <i class="mdi mdi-cart-outline"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-        </div> 
+        </div>
     </div>
 
     <section id="ubicacion" class="ubicacion-section py-5 bg-light text-center">
         <div class="container" style="max-width: 1200px;">
             <div class="card ubicacion-card shadow rounded p-4">
-
                 <div class="text-content w-100 text-start mb-4">
                     <h2 class="mb-3 text-primary fw-bold">Nuestra Misión</h2>
                     <p class="fs-5 fst-italic text-secondary mb-0">
@@ -177,7 +201,6 @@
                         para nuestros clientes.
                     </p>
                 </div>
-
                 <div class="d-flex flex-wrap justify-content-between gap-3 maps-container w-100">
                     <div class="map-responsive">
                         <iframe
@@ -192,13 +215,11 @@
                         </iframe>
                     </div>
                 </div>
-
                 <div class="text-content w-100 text-start mt-4">
                     <h3 class="mb-3 fw-semibold text-dark">Visítanos en nuestra tienda física</h3>
                     <p><i class="fas fa-map-marker-alt"></i> Cra. 4 # 8-44, Vélez</p>
                     <p><i class="far fa-clock"></i> Lunes a sábado: 9 AM - 8 PM</p>
                 </div>
-
             </div>
         </div>
     </section>
@@ -213,21 +234,27 @@
                     <div class="row">
                         <div class="col-md-4 nosotros-item">
                             <div class="icon-wrapper">
-                                <i class="fas fa-shoe-prints"></i> </div>
+                                <i class="fas fa-shoe-prints"></i>
+                            </div>
                             <h3>Nuestra Misión</h3>
-                            <p>Impulsar tu estilo y rendimiento ofreciéndote el calzado de la más alta calidad, con un servicio que supera tus expectativas.</p>
+                            <p>Impulsar tu estilo y rendimiento ofreciéndote el calzado de la más alta calidad, con un
+                                servicio que supera tus expectativas.</p>
                         </div>
                         <div class="col-md-4 nosotros-item">
                             <div class="icon-wrapper">
-                                <i class="fas fa-rocket"></i> </div>
+                                <i class="fas fa-rocket"></i>
+                            </div>
                             <h3>Nuestra Visión</h3>
-                            <p>Ser la tienda líder en calzado deportivo y casual en la región, innovando constantemente y construyendo una comunidad apasionada por el buen vestir y el deporte.</p>
+                            <p>Ser la tienda líder en calzado deportivo y casual en la región, innovando constantemente
+                                y construyendo una comunidad apasionada por el buen vestir y el deporte.</p>
                         </div>
                         <div class="col-md-4 nosotros-item">
                             <div class="icon-wrapper">
-                                <i class="fas fa-handshake"></i> </div>
+                                <i class="fas fa-handshake"></i>
+                            </div>
                             <h3>Nuestros Valores</h3>
-                            <p>Nos guían el compromiso con la excelencia, la calidad en cada par, la innovación en tendencias, y una atención personalizada para cada cliente.</p>
+                            <p>Nos guían el compromiso con la excelencia, la calidad en cada par, la innovación en
+                                tendencias, y una atención personalizada para cada cliente.</p>
                         </div>
                     </div>
                 </div>
@@ -242,7 +269,8 @@
             </p>
             <ul class="list-unstyled d-flex mb-0 gap-3 ms-md-4">
                 <li>
-                    <a aria-label="Instagram" href="https://www.instagram.com/grandes_ligas22?igsh=a3JvMGRpMG5mb3dx" class="social-link instagram">
+                    <a aria-label="Instagram" href="https://www.instagram.com/grandes_ligas22?igsh=a3JvMGRpMG5mb3dx"
+                        class="social-link instagram">
                         <i class="fab fa-instagram fa-lg"></i>
                     </a>
                 </li>
@@ -257,7 +285,8 @@
                     </a>
                 </li>
                 <li>
-                    <a aria-label="TikTok" href="https://www.tiktok.com/@grandesligas22?_t=ZS-8wfSSZmyy1a&_r=1" class="social-link tiktok">
+                    <a aria-label="TikTok" href="https://www.tiktok.com/@grandesligas22?_t=ZS-8wfSSZmyy1a&_r=1"
+                        class="social-link tiktok">
                         <i class="fab fa-tiktok fa-lg"></i>
                     </a>
                 </li>
@@ -265,42 +294,43 @@
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Inicialización de componentes Bootstrap
-            const myModal = document.getElementById('staticBackdrop')
-            if (myModal) new bootstrap.Modal(myModal);
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
 
-            // Mostrar automáticamente el dropdown del menú de "Iniciar sesión / Registrarse" al cargar la página
-            const loginDropdownToggle = document.getElementById('navbarDropdown');
-            const loginDropdownMenu = loginDropdownToggle ? loginDropdownToggle.nextElementSibling : null;
+        // Mostrar automáticamente el dropdown del menú de "Iniciar sesión / Registrarse" al cargar la página
+        const loginDropdownToggle = document.getElementById('navbarDropdown');
+        const loginDropdownMenu = loginDropdownToggle ? loginDropdownToggle.nextElementSibling : null;
 
-            if (loginDropdownMenu) {
-                loginDropdownMenu.classList.add('show');
-                loginDropdownToggle.setAttribute('aria-expanded', 'true');
-            }
+        if (loginDropdownMenu) {
+            loginDropdownMenu.classList.add('show');
+            loginDropdownToggle.setAttribute('aria-expanded', 'true');
+        }
 
-            // Cerrar el dropdown si el usuario hace clic fuera de él
-            document.addEventListener('click', function(event) {
-                if (loginDropdownMenu && !loginDropdownToggle.contains(event.target) && !loginDropdownMenu.contains(event.target)) {
-                    loginDropdownMenu.classList.remove('show');
-                    loginDropdownToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-
-            // Update slide indicator button text on carousel slide event
-            const carouselElement = document.getElementById('grandesLigasCarousel');
-            const slideIndicatorBtn = document.getElementById('slideIndicatorBtn');
-            if (carouselElement && slideIndicatorBtn) {
-                const totalSlides = carouselElement.querySelectorAll('.carousel-item').length;
-                // Initialize button text
-                slideIndicatorBtn.textContent = `1 / ${totalSlides}`;
-                carouselElement.addEventListener('slid.bs.carousel', function (event) {
-                    const activeIndex = event.to + 1; // event.to is zero-based index
-                    slideIndicatorBtn.textContent = `${activeIndex} / ${totalSlides}`;
-                });
+        // Cerrar el dropdown si el usuario hace clic fuera de él
+        document.addEventListener('click', function (event) {
+            if (loginDropdownMenu && !loginDropdownToggle.contains(event.target) && !loginDropdownMenu.contains(event.target)) {
+                loginDropdownMenu.classList.remove('show');
+                loginDropdownToggle.setAttribute('aria-expanded', 'false');
             }
         });
-    </script>
+
+        // Update slide indicator button text on carousel slide event
+        const carouselElement = document.getElementById('grandesLigasCarousel');
+        // Nota: No veo un elemento con id 'slideIndicatorBtn' en tu HTML,
+        // si lo necesitas, debes añadirlo al carrusel.
+        // const slideIndicatorBtn = document.getElementById('slideIndicatorBtn'); 
+        if (carouselElement /*&& slideIndicatorBtn*/) { // Condición ajustada
+            const totalSlides = carouselElement.querySelectorAll('.carousel-item').length;
+            // Initialize button text (si slideIndicatorBtn existe)
+            // if (slideIndicatorBtn) slideIndicatorBtn.textContent = `1 / ${totalSlides}`;
+            carouselElement.addEventListener('slid.bs.carousel', function (event) {
+                const activeIndex = event.to + 1; // event.to is zero-based index
+                // if (slideIndicatorBtn) slideIndicatorBtn.textContent = `${activeIndex} / ${totalSlides}`;
+            });
+        }
+
+    });
+</script>
 </body>
+
 </html>

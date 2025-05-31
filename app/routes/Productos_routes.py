@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, jsonify, request, redirect, url_for, flash
 from app.models.Productos import Productos
 from flask_login import current_user
 from app.models.Categoria import Categoria 
@@ -10,6 +10,22 @@ from flask import current_app
 from werkzeug.utils import secure_filename
 
 bp = Blueprint('productos', __name__)
+
+@bp.route('/producto/<int:id>', methods=['GET'])
+def get_product_details(id):
+    producto = Productos.query.get(id) # Fetch product by ID
+    if producto:
+        # Return product details as a JSON object
+        return jsonify({
+            'idProducto': producto.idProducto,
+            'nombreProducto': producto.nombreProducto,
+            'descripcionProducto': producto.descripcionProducto,
+            'precioProducto': producto.precioProducto,
+            'imagenProducto': producto.imagenProducto, # Assuming this is just the filename, e.g., 'img/product1.jpg'
+            # Add any other fields you want to show in the modal
+        })
+    else:
+        return jsonify({'error': 'Producto no encontrado'}), 404
 
 @bp.route('/')
 def index_vista_principal():

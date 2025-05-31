@@ -9,6 +9,35 @@ PRODUCT GRID
     max-width: 1200px;
     margin: 0 auto;
     background-color: #f8f9fa;
+    /* To create the "blend" effect, we will adjust the margin-top to be negative
+       and ensure it aligns with the carousel's fading effect. */
+    margin-top: -80px; /* Revert margin-top to previous value */
+    position: relative; /* Needed for z-index to work */
+    z-index: 1; /* Ensures product grid appears above the carousel */
+}
+
+#slideIndicatorBtn {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease;
+    top: auto; /* Remove top positioning */
+    bottom: 15px; /* Position at bottom */
+    right: 15px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    opacity: 0.85;
+}
+/* Ajuste para el contenedor que envuelve la cuadrícula para eliminar padding y margin extra */
+.w3-container.w3-padding-32 {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    position: relative;
+    z-index: 1;
+}
+
+#slideIndicatorBtn:hover {
+    opacity: 1;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Prevent product card from stretching full width when only one product */
@@ -18,25 +47,59 @@ PRODUCT GRID
 }
 
 /* ===============================
-PRODUCT CARD
+PRODUCT GRID - Existing styles
 =============================== */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f8f9fa; /* Ensure this matches your carousel fade if used */
+    margin-top: -80px; /* Adjust as needed for carousel blend */
+    position: relative;
+    z-index: 1;
+}
+
+/* Ajuste para el contenedor que envuelve la cuadrícula para eliminar padding y margin extra */
+.w3-container.w3-padding-32 {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Prevent product card from stretching full width when only one product */
 .product-card {
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    overflow: hidden;
+    overflow: hidden; /* Important for border-radius and overlay */
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    position: relative;
-    border: 1px solid transparent;
+    position: relative; /* REQUIRED for absolute positioning of elements inside */
+    border: 1px solid transparent; /* Subtle border for hover effect */
 }
 
 .product-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-    border-color: #007bff;
+    border-color: #007bff; /* Blue border on hover */
+}
+
+/* ===============================
+NEW: PRODUCT IMAGE WRAPPER (Critical for overlay)
+=============================== */
+.product-image-wrapper {
+    position: relative; /* ESTO ES CLAVE: Posiciona el overlay absolutamente dentro de este */
+    width: 100%;
+    height: 180px; /* Consistent height for product images */
+    overflow: hidden; /* Ensures content stays within rounded corners */
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
 /* ===============================
@@ -44,19 +107,91 @@ PRODUCT IMAGE
 =============================== */
 .product-image {
     width: 100%;
-    height: 180px;
+    height: 100%; /* Fill the wrapper's height */
     object-fit: cover;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
     transition: transform 0.3s ease;
 }
 
 .product-card:hover .product-image {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Slight zoom on image hover */
 }
 
 /* ===============================
-PRODUCT INFO
+NEW: PRODUCT DESCRIPTION OVERLAY (Quick View Effect)
+=============================== */
+.product-description-overlay { /* Changed from .product-image-overlay */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Fill the product-image-wrapper */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Initially hidden */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    box-sizing: border-box;
+    padding: 15px; /* Padding inside the overlay */
+    border-top-left-radius: 12px; /* Match wrapper's radius */
+    border-top-right-radius: 12px; /* Match wrapper's radius */
+}
+
+.product-card:hover .product-description-overlay {
+    opacity: 1; /* Show on hover */
+    visibility: visible;
+}
+
+.overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+}
+
+.overlay-description {
+    color: white;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Max 3 lines for description in overlay */
+    -webkit-box-orient: vertical;
+    white-space: normal; /* Allow text to wrap */
+}
+
+.quick-view-button {
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Light border */
+    border-radius: 20px;
+    padding: 8px 15px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.quick-view-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: white;
+}
+
+.quick-view-button .material-icons-outlined {
+    font-size: 1.1rem;
+}
+
+
+/* ===============================
+PRODUCT INFO (Below the image)
 =============================== */
 .product-info {
     padding: 16px 20px;
@@ -66,29 +201,33 @@ PRODUCT INFO
     justify-content: space-between;
 }
 
-.product-description p {
-    font-size: 0.95rem;
-    color: #555;
+.product-name {
+    font-size: 1rem; /* Adjust as needed */
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px; /* Space between name and description */
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-bottom: 12px;
-    transition: white-space 0.3s ease, height 0.3s ease;
 }
 
-.product-card:hover .product-description p {
-    white-space: normal;
-    height: auto;
+.product-description { /* This is the description always visible below the image */
+    font-size: 0.9rem;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Keep it as single line */
+    margin-bottom: 12px;
 }
 
 /* ===============================
-PRICE AND CART BUTTON
+PRICE AND CART BUTTON - Temu Style
 =============================== */
 .price-and-cart {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: auto;
+    margin-top: auto; /* Pushes to the bottom */
 }
 
 .price {
@@ -101,25 +240,245 @@ PRICE AND CART BUTTON
     font-weight: 700;
 }
 
-.price-and-cart button {
-    background-color: #007bff; /* Match menu blue */
-    border: none;
-    border-radius: 6px;
-    padding: 8px 14px;
-    color: white;
-    font-size: 1.1rem;
+/* Botón de añadir al carrito - Estilo más distintivo */
+.add-to-cart-button {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 1px solid #c5c5c5; /* Borde gris medio, más notable que antes */
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    transition: background-color 0.3s ease;
+    color: #333333; /* Color del ícono oscuro */
+    font-size: 1.3rem; /* Tamaño del ícono */
     cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.25s ease-out,
+                border-color 0.25s ease-out,
+                color 0.25s ease-out,
+                box-shadow 0.25s ease-out,
+                transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); /* Transición con efecto "elástico" */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra inicial más perceptible */
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.price-and-cart button:hover {
-    background-color: #0056b3;
+.add-to-cart-button:hover {
+    background-color: #007bff; /* Fondo azul primario al pasar el cursor */
+    color: #ffffff; /* Ícono blanco para contraste */
+    border-color: #0069d9; /* Borde azul más oscuro */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Sombra azulada y más grande */
+    transform: scale(1.1); /* Zoom más notable */
 }
 
+.add-to-cart-button:active {
+    background-color: #0056b3; /* Azul más oscuro al hacer clic */
+    color: #ffffff;
+    border-color: #004085; /* Borde azul aún más oscuro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra se reduce un poco */
+    transform: scale(1.0); /* Escala vuelve o se reduce ligeramente */
+}
+
+/* Estilos para el ícono dentro del botón */
+.add-to-cart-button .mdi,
+.add-to-cart-button .material-icons-outlined {
+    font-size: inherit;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*
+   Bloque para sobreescribir Bootstrap si es necesario
+   (Asegúrate que los valores coincidan con los de arriba para el estado por defecto y hover)
+*/
+.add-to-cart-button.btn.btn-primary {
+    background-color: #ffffff !important;
+    border-color: #c5c5c5 !important;
+    color: #333333 !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+    padding: 0 !important;
+    width: 42px !important;
+    height: 42px !important;
+    transform: scale(1) !important;
+}
+
+.add-to-cart-button.btn.btn-primary:hover {
+    background-color: #007bff !important;
+    color: #ffffff !important;
+    border-color: #0069d9 !important;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3) !important;
+    transform: scale(1.1) !important;
+}
+
+.add-to-cart-button.btn.btn-primary:active {
+    background-color: #0056b3 !important;
+    color: #ffffff !important;
+    border-color: #004085 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    transform: scale(1.0) !important;
+}
+
+.btn-temu-style {
+    /* Colores */
+    background-color: #ff6700; /* Naranja vibrante tipo Temu */
+    color: #ffffff; /* Texto blanco */
+    border: none; /* Sin borde */
+
+    /* Forma y tamaño */
+    border-radius: 50px; /* Bordes muy redondeados para forma de píldora */
+    padding: 15px 30px; /* Relleno generoso para un botón más grande */
+
+    /* Tipografía */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: uppercase; /* Texto en mayúsculas (como en el ejemplo) */
+    font-size: 1.1em; /* Un poco más grande para mayor impacto */
+
+    /* Comportamiento al interactuar */
+    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+    transition: background-color 0.2s ease, transform 0.1s ease; /* Transición suave para efectos */
+}
+
+.btn-temu-style:hover {
+    background-color: #e65c00; /* Naranja ligeramente más oscuro al pasar el ratón */
+    transform: translateY(-1px); /* Un ligero efecto de "levantamiento" */
+}
+
+.btn-temu-style:active {
+    background-color: #cc5000; /* Naranja aún más oscuro al hacer clic */
+    transform: translateY(0); /* Restaura la posición al hacer clic */
+}
+
+.btn-guia-tallas {
+    background-color: #f8f8f8; /* Un gris muy claro, casi blanco */
+    color: #333; /* Color de texto oscuro */
+    border: 1px solid #e0e0e0; /* Borde sutil */
+    border-radius: 25px; /* Para darle la forma de píldora */
+    padding: 8px 18px; /* Ajusta el padding para el espaciado interno */
+    display: flex; /* Usa flexbox para alinear el icono y el texto */
+    align-items: center; /* Alinea verticalmente el icono y el texto */
+    justify-content: center; /* Centra el contenido si hay espacio extra */
+    font-weight: normal; /* Asegúrate de que el texto no esté en negrita por defecto */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    transition: background-color 0.2s, border-color 0.2s; /* Transición suave al pasar el ratón */
+}
+
+.btn-guia-tallas i {
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+    font-size: 1.2em; /* Ajusta el tamaño del icono si es necesario */
+    color: #555; /* Un color ligeramente más oscuro para el icono si lo deseas */
+}
+
+.btn-guia-tallas:hover {
+    background-color: #f0f0f0; /* Un gris un poco más oscuro al pasar el ratón */
+    border-color: #ccc; /* Borde ligeramente más oscuro al pasar el ratón */
+    cursor: pointer; /* Indica que es un elemento interactivo */
+}
+.btn-guia-tallas {
+    /* ... estilos existentes para el botón ... */
+    position: absolute;
+    bottom: 0px; /* Esto controla la posición vertical, ajustada previamente */
+
+    margin-left: -190px;
+
+}
+
+/* Estilos para el contenedor del select, necesario para posicionar la flecha personalizada */
+.custom-select-wrapper {
+    position: relative; /* Esencial para que la flecha personalizada se posicione correctamente */
+    display: inline-block; /* Permite que el contenedor se ajuste al contenido si no se especifica un ancho */
+    /* Si quieres que ocupe todo el ancho disponible, puedes usar display: block; y ajustar el ancho del select */
+}
+
+/* Estilos para la etiqueta (label) */
+.custom-select-wrapper .form-label {
+    /* Puedes añadir estilos aquí si quieres personalizar el texto de "EU talla" */
+    margin-bottom: 5px; /* Espacio entre la etiqueta y el select */
+    display: block; /* Asegura que la etiqueta esté en su propia línea */
+}
+
+/* Estilos para el elemento <select> */
+.custom-talla-select {
+    width: 120px; /* Ancho fijo para el select, como en tu HTML original */
+    padding: 10px 35px 10px 15px; /* Relleno: top, right (espacio para la flecha), bottom, left */
+    background-color: #f8f8f8; /* Fondo claro, similar al botón "Guía de tallas" */
+    color: #333; /* Color de texto oscuro */
+    border: 1px solid #ddd; /* Borde sutil */
+    border-radius: 8px; /* Bordes ligeramente redondeados */
+    cursor: pointer; /* Muestra el cursor de puntero */
+    font-size: 1rem; /* Tamaño de fuente estándar */
+    line-height: 1.5; /* Altura de línea */
+    height: auto; /* Permite que el padding determine la altura, en lugar de un alto fijo */
+
+    /* OCULTAR LA FLECHA POR DEFECTO DEL NAVEGADOR */
+    -webkit-appearance: none; /* Para navegadores basados en WebKit (Chrome, Safari) */
+    -moz-appearance: none;    /* Para navegadores basados en Gecko (Firefox) */
+    appearance: none;         /* Estándar CSS */
+    /* Elimina la flecha SVG que a veces añade Bootstrap por defecto en form-select */
+    background-image: none;
+}
+
+/* Estilos para la flecha personalizada usando un pseudoelemento */
+/* Estilos para el estado de enfoque (cuando el select está seleccionado) */
+.custom-talla-select:focus {
+    border-color: #80bdff; /* Color de borde de enfoque de Bootstrap */
+    outline: 0; /* Elimina el contorno por defecto del navegador */
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); /* Sombra de enfoque de Bootstrap */
+}
+.custom-select-wrapper .form-label {
+    font-size: 1.2em; /* Adjust the size as needed */
+    font-weight: bold;
+    display: block; /* Ensure it takes full width and is on its own line */
+    margin-bottom: 5px; /* Maintain some space below the label */
+}
+/* ===============================
+RESPONSIVE - Existing styles (adjusted for new structure)
+=============================== */
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 900px;
+        padding: 16px;
+        margin-top: -60px;
+    }
+    .product-card {
+        max-width: 100%;
+        margin: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 600px;
+        padding: 12px;
+        margin-top: -40px;
+    }
+    .product-image-wrapper {
+        height: 160px; /* Adjust image height for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        padding: 8px;
+        margin-top: -30px;
+    }
+    .product-image-wrapper {
+        height: 140px; /* Further adjust image height for mobile */
+    }
+    .add-to-cart-button {
+        width: 36px; /* Smaller button on mobile */
+        height: 36px;
+        font-size: 1.2rem;
+    }
+}
+
+/* (Other existing CSS you provided can remain, e.g., navbar, footer, carousel etc.) */
 /* ===============================
 ADMIN ACTIONS
 =============================== */
