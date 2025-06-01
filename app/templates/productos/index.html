@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Productos</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='IMG/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='all.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='productos/index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='icons/icon.css') }}">
@@ -31,7 +32,7 @@
                     <li class="nav-item mb-2 mb-lg-0 me-lg-3">
                         <a class="nav-link text-white d-flex align-items-center"
                             href="{{ url_for('productos.index') }}">
-                            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="rounded-circle"
+                            <img src="{{ url_for('static', filename='IMG/favicon.png') }}" alt="Logo" class="rounded-circle"
                                 style="height: 40px; width: 40px; object-fit: cover;">
                         </a>
                     </li>
