@@ -8,7 +8,7 @@ PRODUCT GRID
     padding: 24px;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #f8f9fa;
+    background-color: transparent; /* Changed to transparent to make container invisible */
     /* To create the "blend" effect, we will adjust the margin-top to be negative
        and ensure it aligns with the carousel's fading effect. */
     margin-top: -80px; /* Revert margin-top to previous value */
@@ -44,30 +44,6 @@ PRODUCT GRID
 .product-card {
     max-width: 280px;
     margin: 0 auto;
-}
-
-/* ===============================
-PRODUCT GRID - Existing styles
-=============================== */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    padding: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #f8f9fa; /* Ensure this matches your carousel fade if used */
-    margin-top: -80px; /* Adjust as needed for carousel blend */
-    position: relative;
-    z-index: 1;
-}
-
-/* Ajuste para el contenedor que envuelve la cuadrícula para eliminar padding y margin extra */
-.w3-container.w3-padding-32 {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-    position: relative;
-    z-index: 1;
 }
 
 /* Prevent product card from stretching full width when only one product */
