@@ -33,9 +33,6 @@ PRODUCT GRID
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-
-
-
 /* Ajuste para el contenedor que envuelve la cuadrícula para eliminar padding y margin extra */
 .w3-container.w3-padding-32 {
     padding-top: 0 !important;
