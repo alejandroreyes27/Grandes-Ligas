@@ -11,45 +11,28 @@ PRODUCT GRID
     background-color: transparent; /* Changed to transparent to make container invisible */
     /* To create the "blend" effect, we will adjust the margin-top to be negative
        and ensure it aligns with the carousel's fading effect. */
-    margin-top: -80px; /* Adjusted margin-top to match index.css */
+    margin-top: -80px; /* Revert margin-top to previous value */
     position: relative; /* Needed for z-index to work */
-    z-index: 1100; /* Increased z-index to overlay carousel */
+    z-index: 100; /* Increased z-index to show above carousel */
 }
 
-/* Ajuste para el contenedor que envuelve la cuadrícula para eliminar padding y margin extra */
-.w3-container.w3-padding-32 {
-    padding-top: 0 !important;
-    margin-top: -80px !important; /* Added negative margin to lift container above carousel */
-    position: relative;
-    z-index: 1100; /* Increased z-index to overlay carousel */
-}
-
-/* Mejorar visibilidad de los indicadores del carrusel */
-#grandesLigasCarousel .carousel-indicators {
-    display: none;
-}
-
-#grandesLigasCarousel .carousel-indicators button {
-    background-color: #007bff; /* Cambiado a azul para mejor visibilidad */
-    border-radius: 50%; /* Indicadores circulares */
-    width: 12px; /* Aumentado tamaño */
-    height: 12px; /* Aumentado tamaño */
-    margin: 0 6px; /* Espacio entre indicadores */
-    opacity: 0.9; /* Opacidad más alta */
-    transition: opacity 0.3s ease, background-color 0.3s ease;
-}
-
-#grandesLigasCarousel .carousel-indicators button.active {
-    background-color: #0056b3; /* Azul más oscuro para activo */
-    opacity: 1;
-}
-
-/* Ajuste para el botón indicador de slide agregado */
 #slideIndicatorBtn {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: opacity 0.3s ease;
-    top: 15px; /* Mover hacia arriba */
+    top: auto; /* Remove top positioning */
+    bottom: 15px; /* Position at bottom */
     right: 15px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    opacity: 0.85;
+}
+/* Ajuste para el contenedor que envuelve la cuadrícula para eliminar padding y margin extra */
+.w3-container.w3-padding-32 {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    position: relative;
+    z-index: 100; /* Increase z-index to be above carousel */
 }
 
 #slideIndicatorBtn:hover {
@@ -74,7 +57,8 @@ PRODUCT GRID
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     position: relative; /* REQUIRED for absolute positioning of elements inside */
-    border: 1px solid transparent; /* Subtle border for hover effect */
+    border: 1px solid #ddd; /* Subtle border for hover effect */
+    z-index: 101; /* Ensure card is above carousel and container */
 }
 
 .product-card:hover {
@@ -315,6 +299,133 @@ PRICE AND CART BUTTON - Temu Style
 }
 
 /* ===============================
+NEW: CAROUSEL IMAGE GRADIENT
+=============================== */
+#grandesLigasCarousel .carousel-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; /* Height of the gradient */
+    background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none; /* Allows interaction with elements below the gradient */
+    z-index: 10;
+}
+
+.btn-temu-style {
+    /* Colores */
+    background-color: #ff6700; /* Naranja vibrante tipo Temu */
+    color: #ffffff; /* Texto blanco */
+    border: none; /* Sin borde */
+
+    /* Forma y tamaño */
+    border-radius: 50px; /* Bordes muy redondeados para forma de píldora */
+    padding: 15px 30px; /* Relleno generoso para un botón más grande */
+
+    /* Tipografía */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: uppercase; /* Texto en mayúsculas (como en el ejemplo) */
+    font-size: 1.1em; /* Un poco más grande para mayor impacto */
+
+    /* Comportamiento al interactuar */
+    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+    transition: background-color 0.2s ease, transform 0.1s ease; /* Transición suave para efectos */
+}
+
+.btn-temu-style:hover {
+    background-color: #e65c00; /* Naranja ligeramente más oscuro al pasar el ratón */
+    transform: translateY(-1px); /* Un ligero efecto de "levantamiento" */
+}
+
+.btn-temu-style:active {
+    background-color: #cc5000; /* Naranja aún más oscuro al hacer clic */
+    transform: translateY(0); /* Restaura la posición al hacer clic */
+}
+
+.btn-guia-tallas {
+    background-color: #f8f8f8; /* Un gris muy claro, casi blanco */
+    color: #333; /* Color de texto oscuro */
+    border: 1px solid #e0e0e0; /* Borde sutil */
+    border-radius: 25px; /* Para darle la forma de píldora */
+    padding: 8px 18px; /* Ajusta el padding para el espaciado interno */
+    display: flex; /* Usa flexbox para alinear el icono y el texto */
+    align-items: center; /* Alinea verticalmente el icono y el texto */
+    justify-content: center; /* Centra el contenido si hay espacio extra */
+    font-weight: normal; /* Asegúrate de que el texto no esté en negrita por defecto */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    transition: background-color 0.2s, border-color 0.2s; /* Transición suave al pasar el ratón */
+}
+
+.btn-guia-tallas i {
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+    font-size: 1.2em; /* Ajusta el tamaño del icono si es necesario */
+    color: #555; /* Un color ligeramente más oscuro para el icono si lo deseas */
+}
+
+.btn-guia-tallas:hover {
+    background-color: #f0f0f0; /* Un gris un poco más oscuro al pasar el ratón */
+    border-color: #ccc; /* Borde ligeramente más oscuro al pasar el ratón */
+    cursor: pointer; /* Indica que es un elemento interactivo */
+}
+.btn-guia-tallas {
+    /* ... estilos existentes para el botón ... */
+    position: absolute;
+    bottom: 0px; /* Esto controla la posición vertical, ajustada previamente */
+
+    margin-left: -190px;
+
+}
+
+/* Estilos para el contenedor del select, necesario para posicionar la flecha personalizada */
+.custom-select-wrapper {
+    position: relative; /* Esencial para que la flecha personalizada se posicione correctamente */
+    display: inline-block; /* Permite que el contenedor se ajuste al contenido si no se especifica un ancho */
+    /* Si quieres que ocupe todo el ancho disponible, puedes usar display: block; y ajustar el ancho del select */
+}
+
+/* Estilos para la etiqueta (label) */
+.custom-select-wrapper .form-label {
+    /* Puedes añadir estilos aquí si quieres personalizar el texto de "EU talla" */
+    margin-bottom: 5px; /* Espacio entre la etiqueta y el select */
+    display: block; /* Asegura que la etiqueta esté en su propia línea */
+}
+
+/* Estilos para el elemento <select> */
+.custom-talla-select {
+    width: 120px; /* Ancho fijo para el select, como en tu HTML original */
+    padding: 10px 35px 10px 15px; /* Relleno: top, right (espacio para la flecha), bottom, left */
+    background-color: #f8f8f8; /* Fondo claro, similar al botón "Guía de tallas" */
+    color: #333; /* Color de texto oscuro */
+    border: 1px solid #ddd; /* Borde sutil */
+    border-radius: 8px; /* Bordes ligeramente redondeados */
+    cursor: pointer; /* Muestra el cursor de puntero */
+    font-size: 1rem; /* Tamaño de fuente estándar */
+    line-height: 1.5; /* Altura de línea */
+    height: auto; /* Permite que el padding determine la altura, en lugar de un alto fijo */
+
+    /* OCULTAR LA FLECHA POR DEFECTO DEL NAVEGADOR */
+    -webkit-appearance: none; /* Para navegadores basados en WebKit (Chrome, Safari) */
+    -moz-appearance: none;    /* Para navegadores basados en Gecko (Firefox) */
+    appearance: none;         /* Estándar CSS */
+    /* Elimina la flecha SVG que a veces añade Bootstrap por defecto en form-select */
+    background-image: none;
+}
+
+/* Estilos para la flecha personalizada usando un pseudoelemento */
+/* Estilos para el estado de enfoque (cuando el select está seleccionado) */
+.custom-talla-select:focus {
+    border-color: #80bdff; /* Color de borde de enfoque de Bootstrap */
+    outline: 0; /* Elimina el contorno por defecto del navegador */
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); /* Sombra de enfoque de Bootstrap */
+}
+.custom-select-wrapper .form-label {
+    font-size: 1.2em; /* Adjust the size as needed */
+    font-weight: bold;
+    display: block; /* Ensure it takes full width and is on its own line */
+    margin-bottom: 5px; /* Maintain some space below the label */
+}
+/* ===============================
 RESPONSIVE - Existing styles (adjusted for new structure)
 =============================== */
 @media (max-width: 1024px) {
@@ -381,6 +492,618 @@ ADMIN ACTIONS
 }
 
 /* ===============================
+NAVBAR
+=============================== */
+.navbar {
+    background-color: #007bff !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 0.5rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+.navbar .navbar-nav .nav-link {
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 6px;
+}
+
+/* Fix for logout button to prevent line break */
+.navbar .nav-item > a.btn.btn-danger {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 12px;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus {
+    background-color: rgba(255,255,255,0.2);
+    color: #fff !important;
+    outline: none;
+}
+
+.navbar .navbar-nav .nav-item.dropdown .dropdown-menu {
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border: none;
+    padding: 0.5rem 0;
+    min-width: 200px;
+}
+
+.navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item {
+    color: #333;
+    font-weight: 500;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item:hover,
+.navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item:focus {
+    background-color: #0056b3;
+    color: #fff;
+    outline: none;
+}
+
+.navbar .navbar-nav .nav-item.dropdown .dropdown-menu li a.dropdown-item .badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background-color: #dc3545;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 12px;
+    margin-left: 8px;
+}
+
+/* Cart icon and badge */
+.navbar .nav-link i.material-icons {
+    font-size: 1.6rem;
+    position: relative;
+    margin-right: 0; /* Remove any margin to stick badge closer */
+}
+
+#cart-count {
+    position: relative; /* Changed from absolute to relative for inline flow */
+    top: 0;
+    right: 0;
+    min-width: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 11px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #dc3545;
+    color: white;
+    padding: 0 4px;
+    display: inline-block;
+    margin-left: 2px; /* small gap from icon */
+    vertical-align: middle;
+}
+
+        /* Add product button */
+        .btn-primary.d-inline-flex {
+            background-color: #007bff; /* Match menu blue */
+            border-color: #007bff;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 6px 14px;
+            transition: background-color 0.3s ease;
+            white-space: nowrap; /* Prevent line break */
+        }
+
+        .btn-primary.d-inline-flex:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        /* ===============================
+        MODALS
+        =============================== */
+        .modal-content {
+            border-radius: 12px;
+            padding-bottom: 3rem;
+            position: relative;
+        }
+
+        .modal-header {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .modal-body {
+            text-align: center;
+            font-size: 1rem;
+            color: #444;
+        }
+
+        #producto-precio, #producto-categoria, #producto-descripcion {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        #producto-precio span {
+            font-weight: 700;
+            color: #28a745;
+        }
+
+        #producto-categoria span {
+            font-weight: 700;
+            color: #007bff;
+        }
+
+        #producto-descripcion span {
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Quantity control */
+        .quantity-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .quantity-btn {
+            width: 42px;
+            height: 42px;
+            font-size: 22px;
+            font-weight: bold;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .quantity-btn.minus {
+            background-color: #dc3545 !important;
+        }
+
+        .quantity-btn.minus:hover {
+            background-color: #c82333 !important;
+        }
+
+        .quantity-btn.plus {
+            background-color: #28a745 !important;
+        }
+
+        .quantity-btn.plus:hover {
+            background-color: #218838 !important;
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 6px;
+        }
+
+        /* Modal footer buttons */
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        #agregar-carrito-btn {
+            background-color: #007bff;
+            border: none;
+            font-weight: 700;
+            padding: 8px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        #agregar-carrito-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* ===============================
+        CUSTOM SELECT
+        =============================== */
+        .custom-select-wrapper {
+            width: 220px;
+            margin: 12px auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .custom-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1.5px solid #ccc;
+            font-size: 1rem;
+            appearance: none;
+            background-color: #f9f9f9;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 18px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .custom-select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* ===============================
+        FLASH MESSAGE
+        =============================== */
+        .flash-message {
+            position: relative;
+            padding: 14px 20px;
+            margin: 16px auto;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #333;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: fadeOut 3s forwards;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #888;
+            cursor: pointer;
+            padding: 6px;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        /* ===============================
+        RESPONSIVE
+        =============================== */
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 900px;
+                padding: 16px;
+            }
+            .product-card {
+                max-width: 100%;
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+                padding: 8px;
+            }
+
+            .price-and-cart button {
+                padding: 6px 10px;
+                font-size: 1rem;
+            }
+
+            .quantity-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+
+            .quantity-input {
+                width: 50px;
+                font-size: 16px;
+                padding: 4px;
+            }
+        }
+
+    /* Estilo para las imágenes del carrusel */
+    .carousel-inner img {
+        max-height: 400px; /* Ajusta la altura máxima según tus necesidades */
+        object-fit: cover; /* Mantiene la proporción de la imagen */
+        transition: transform 0.5s ease-in-out;
+    }
+
+    /* ===============================
+    UBICACION SECTION CSS
+    =============================== */
+    .ubicacion-section {
+    background-color: #f0f4f8;
+    padding: 60px 20px;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .ubicacion-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.3s ease;
+    }
+
+    .ubicacion-card:hover {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    .text-content h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: #007bff;
+    }
+
+    .text-content p {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+    color: #555;
+    font-style: italic;
+    line-height: 1.5;
+    }
+
+    .text-content h3 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #222;
+    }
+
+    .maps-container {
+    display: flex;
+    gap: 1.5rem;
+    }
+
+    .map-responsive {
+    flex: 1 1 calc(50% - 0.75rem);
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    }
+
+    .map-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    }
+
+    @media (max-width: 991px) {
+    .maps-container {
+        flex-direction: column;
+    }
+    .map-responsive {
+        flex: 1 1 100%;
+        height: 250px;
+    }
+    }
+
+    /* Custom carousel for 3 images per slide */
+    .carousel-item > div {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-item img {
+        width: 33.33%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-item-next.carousel-item-start,
+    .carousel-item-prev.carousel-item-end {
+        transform: translateX(0);
+    }
+
+    .carousel-item-next,
+    .active.carousel-item-start {
+        transform: translateX(33.33%);
+    }
+
+    .carousel-item-prev,
+    .active.carousel-item-end {
+        transform: translateX(-33.33%);
+    }
+
+    .footer-custom {
+    width: 100%;
+    background-color: #007bff;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Contenedor centrado y responsivo */
+    .footer-custom .container {
+    max-width: 1140px;
+    margin: 0 auto;
+    }
+
+    /* Texto */
+    .footer-custom p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #fff !important;
+    }
+
+    /* Iconos sociales */
+    .social-link {
+    color: rgba(255,255,255,0.85);
+    transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .social-link:hover {
+    transform: translateY(-2px);
+    }
+    .social-link.instagram:hover { color: #E4405F; }
+    .social-link.facebook:hover  { color: #4267B2; }
+    .social-link.whatsapp:hover  { color: #25D366; }
+    .social-link.tiktok:hover  { color: #000000; }
+
+    /* Apilar y centrar en móvil */
+    @media (max-width: 767px) {
+    .footer-custom .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-custom ul {
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+    }
+    /* Fix for modal scroll issue */
+    .modal-dialog-scrollable .modal-body {
+    max-height: 60vh; /* Adjust as needed */
+    overflow-y: auto;
+    }
+    
+    /* Estilos generales para la sección Nosotros */
+    .nosotros-section {
+        background-color: #f8f9fa; /* Un fondo claro para destacar el contenido */
+        padding: 80px 0; /* Más padding para espacio */
+    }
+
+    .nosotros-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden; /* Asegura que no se desborde el contenido */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada */
+    }
+
+    .nosotros-header {
+        background-color: #007bff; /* Color primario de Bootstrap */
+        color: #fff;
+        padding: 15px 20px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nosotros-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        animation: pulse-light 5s infinite ease-out; /* Animación sutil */
+    }
+
+    @keyframes pulse-light {
+        0% { transform: scale(0.5) rotate(0deg); opacity: 0.5; }
+        50% { transform: scale(1.0) rotate(180deg); opacity: 0.8; }
+        100% { transform: scale(0.5) rotate(360deg); opacity: 0.5; }
+    }
+
+    .nosotros-header h2 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 0;
+        position: relative;
+        z-index: 1; /* Asegura que el texto esté sobre la animación */
+    }
+
+    .nosotros-content {
+        padding: 40px;
+    }
+
+    .nosotros-item {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .nosotros-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .nosotros-item .icon-wrapper {
+        font-size: 3rem;
+        color: #007bff; /* Color primario */
+        margin-bottom: 20px;
+        transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    .nosotros-item:hover .icon-wrapper {
+        transform: translateY(-5px) scale(1.1);
+        color: #0056b3; /* Un tono más oscuro al pasar el ratón */
+    }
+
+    .nosotros-item h3 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #343a40; /* Texto oscuro */
+        margin-bottom: 15px;
+    }
+
+    .nosotros-item p {
+        font-size: 1.1rem;
+        color: #6c757d; /* Texto secundario */
+        line-height: 1.6;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .nosotros-content {
+            padding: 20px;
+        }
+        .nosotros-item {
+            margin-bottom: 40px;
+        }
+        .nosotros-header h2 {
+            font-size: 2.2rem;
+        }
+        .nosotros-item .icon-wrapper {
+            font-size: 2.5rem;
+        }
+        .nosotros-item h3 {
+            font-size: 1.5rem;
+        }
+        .nosotros-item p {
+            font-size: 1rem;
+        }
+    }
+    /* ===============================
 NAVBAR
 =============================== */
 .navbar {
@@ -708,644 +1431,4 @@ NAVBAR
 .btn-primary.d-inline-flex:hover {
     background-color: #0056b3;
     border-color: #004085;
-}
-
-
-/* ===============================
-CUSTOM SELECT
-=============================== */
-.custom-select-wrapper {
-    width: 220px;
-    margin: 12px auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.custom-select {
-    width: 100%;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1.5px solid #ccc;
-    font-size: 1rem;
-    appearance: none;
-    background-color: #f9f9f9;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 18px;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-}
-
-.custom-select:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* ===============================
-FLASH MESSAGE
-=============================== */
-.flash-message {
-    position: relative;
-    padding: 14px 20px;
-    margin: 16px auto;
-    border-radius: 8px;
-    font-size: 15px;
-    color: #333;
-    background: #f8f9fa;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    max-width: 360px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    animation: fadeOut 3s forwards;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    color: #888;
-    cursor: pointer;
-    padding: 6px;
-    transition: color 0.3s ease;
-}
-
-.close-btn:hover {
-    color: #000;
-}
-
-/* ===============================
-RESPONSIVE
-=============================== */
-@media (max-width: 1024px) {
-    .product-grid {
-        grid-template-columns: repeat(3, 1fr);
-        max-width: 900px;
-        padding: 16px;
-        margin-top: -60px;
-    }
-    .product-card {
-        max-width: 100%;
-        margin: 0;
-    }
-}
-
-@media (max-width: 768px) {
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 600px;
-        padding: 12px;
-        margin-top: -40px;
-    }
-    .product-image-wrapper {
-        height: 160px; /* Adjust image height for smaller screens */
-    }
-}
-
-@media (max-width: 480px) {
-    .product-grid {
-        grid-template-columns: 1fr;
-        max-width: 100%;
-        padding: 8px;
-        margin-top: -30px;
-    }
-    .product-image-wrapper {
-        height: 140px; /* Further adjust image height for mobile */
-    }
-    .add-to-cart-button {
-        width: 36px; /* Smaller button on mobile */
-        height: 36px;
-        font-size: 1.2rem;
-    }
-}
-
-/* (Other existing CSS you provided can remain, e.g., navbar, footer, carousel etc.) */
-/* ===============================
-ADMIN ACTIONS
-=============================== */
-.admin-actions {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 14px;
-}
-
-.admin-actions a {
-    color: #007bff;
-    font-size: 1.4rem;
-    transition: color 0.3s ease;
-}
-
-.admin-actions a:hover {
-    color: #0056b3;
-}
-
-/* ===============================
-NAVBAR
-=============================== */
-.navbar {
-    background-color: #007bff !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    padding: 0.5rem 1rem;
-    position: sticky;
-    top: 0;
-    z-index: 1030;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Dropdown menu custom shadow and border radius */
-.navbar .navbar-nav .nav-item.dropdown .dropdown-menu {
-    border-radius: 12px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-    border: none;
-    padding: 1rem;
-    min-width: 300px;
-    /* Ensure dropdown appears below and aligned right */
-    top: 100% !important;
-    right: 0 !important;
-    left: auto !important;
-}
-
-/* Dropdown header */
-.dropdown-menu h6 {
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Lock icon and message */
-.dropdown-menu .text-success {
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-/* Icon circles in info section */
-.icon-circle {
-    width: 56px;
-    height: 56px;
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 12px auto;
-    color: white;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.6);
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.icon-circle:hover {
-    background: linear-gradient(135deg, #0056b3, #003d80);
-    box-shadow: 0 6px 20px rgba(0, 86, 179, 0.8);
-    cursor: pointer;
-}
-
-/* Info text below icons */
-.dropdown-menu .text-center small {
-    color: #666;
-    font-size: 0.85rem;
-}
-
-/* Buttons in dropdown */
-.btn-session {
-    background-color: #000000;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 1rem;
-    box-shadow: none;
-    cursor: pointer;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    display: inline-flex;
-    justify-content: center;
-    width: 100%;
-    transition: transform 0.2s ease;
-}
-
-.btn-session:hover {
-    background-color: #000000; /* Mantener negro */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-.maps-container {
-display: flex;
-gap: 1.5rem;
-background-color: #e9f0fb;
-padding: 20px;
-border-radius: 16px;
-box-shadow: 0 8px 24px rgba(0, 123, 255, 0.15);
-}
-
-.map-responsive {
-flex: 1 1 calc(50% - 0.75rem);
-height: 300px;
-border-radius: 16px;
-overflow: hidden;
-position: relative;
-box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-border: 1px solid #cce0ff;
-transition: box-shadow 0.3s ease;
-}
-
-.map-responsive:hover {
-    box-shadow: 0 8px 32px rgba(0, 123, 255, 0.3);
-    border-color: #007bff;
-    transform: translateY(-4px);
-}
-
-.map-responsive iframe {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-border: none;
-}
-
-@media (max-width: 991px) {
-.maps-container {
-    flex-direction: column;
-}
-.map-responsive {
-    flex: 1 1 100%;
-    height: 250px;
-}
-}
-
-.footer-custom {
-width: 100%;
-background-color: #007bff;
-box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
-}
-
-/* Contenedor centrado y responsivo */
-.footer-custom .container {
-max-width: 1140px;
-margin: 0 auto;
-}
-
-/* Texto */
-.footer-custom p {
-margin: 0;
-font-size: 0.875rem;
-color: #fff !important;
-}
-
-/* Iconos sociales */
-.social-link {
-color: rgba(255,255,255,0.85);
-transition: color 0.3s ease, transform 0.3s ease;
-}
-.social-link:hover {
-transform: translateY(-2px);
-}
-.social-link.instagram:hover { color: #E4405F; }
-.social-link.facebook:hover  { color: #4267B2; }
-.social-link.whatsapp:hover  { color: #25D366; }
-.social-link.tiktok:hover  { color: #000000; }
-
-/* Apilar y centrar en móvil */
-@media (max-width: 767px) {
-.footer-custom .container {
-    flex-direction: column;
-    text-align: center;
-}
-.footer-custom ul {
-    justify-content: center;
-    margin-top: 0.5rem;
-}
-}
-/* Fix for modal scroll issue */
-.modal-dialog-scrollable .modal-body {
-max-height: 60vh; /* Adjust as needed */
-overflow-y: auto;
-}
-
-
-/* --- Botón Crear cuenta (Estilo minimalista, texto gris claro) --- */
-.btn-account {
-    background-color: transparent;
-    color: #6c757d; /* gris medio */
-    border: none;
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    box-shadow: none;
-    display: inline-flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.btn-account:hover {
-    color: #343a40; /* gris oscuro */
-    background-color: transparent;
-    transform: none;
-    box-shadow: none;
-}
-
-.btn-account:active {
-    color: #212529;
-}
-
-/* --- Botón Iniciar Sesión (Fondo negro, texto blanco, sin cambio de color en hover) --- */
-.btn-session {
-    background-color: #000000;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 1rem;
-    box-shadow: none;
-    cursor: pointer;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    display: inline-flex;
-    justify-content: center;
-    width: 100%;
-    transition: transform 0.2s ease;
-}
-
-.btn-session:hover {
-    background-color: #000000; /* Mantener negro */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-.btn-session:active {
-    background-color: #111111;
-    transform: translateY(0);
-    box-shadow: none;
-}
-/* Estilos generales para la sección Nosotros */
-.nosotros-section {
-    background-color: #f8f9fa; /* Un fondo claro para destacar el contenido */
-    padding: 80px 0; /* Más padding para espacio */
-}
-
-.nosotros-card {
-    border: none;
-    border-radius: 15px;
-    overflow: hidden; /* Asegura que no se desborde el contenido */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada */
-}
-
-.nosotros-header {
-    background-color: #007bff; /* Color primario de Bootstrap */
-    color: #fff;
-    padding: 15px 20px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    position: relative;
-    overflow: hidden;
-}
-
-.nosotros-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-    animation: pulse-light 5s infinite ease-out; /* Animación sutil */
-}
-
-@keyframes pulse-light {
-    0% { transform: scale(0.5) rotate(0deg); opacity: 0.5; }
-    50% { transform: scale(1.0) rotate(180deg); opacity: 0.8; }
-    100% { transform: scale(0.5) rotate(360deg); opacity: 0.5; }
-}
-
-.nosotros-header h2 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin-bottom: 0;
-    position: relative;
-    z-index: 1; /* Asegura que el texto esté sobre la animación */
-}
-
-.nosotros-content {
-    padding: 40px;
-}
-
-.nosotros-item {
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.nosotros-item:last-child {
-    margin-bottom: 0;
-}
-
-.nosotros-item .icon-wrapper {
-    font-size: 3rem;
-    color: #007bff; /* Color primario */
-    margin-bottom: 20px;
-    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-.nosotros-item:hover .icon-wrapper {
-    transform: translateY(-5px) scale(1.1);
-    color: #0056b3; /* Un tono más oscuro al pasar el ratón */
-}
-
-.nosotros-item h3 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: #343a40; /* Texto oscuro */
-    margin-bottom: 15px;
-}
-
-.nosotros-item p {
-    font-size: 1.1rem;
-    color: #6c757d; /* Texto secundario */
-    line-height: 1.6;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .nosotros-content {
-        padding: 20px;
-    }
-    .nosotros-item {
-        margin-bottom: 40px;
-    }
-    .nosotros-header h2 {
-        font-size: 2.2rem;
-    }
-    .nosotros-item .icon-wrapper {
-        font-size: 2.5rem;
-    }
-    .nosotros-item h3 {
-        font-size: 1.5rem;
-    }
-    .nosotros-item p {
-        font-size: 1rem;
-    }
-}
-
-
-/* Estilos para el Carrusel */
-#grandesLigasCarousel {
-    margin-bottom: 0; /* ELIMINADO EL ESPACIO DE ABAJO */
-    position: relative; /* Necesario para el degradado */
-}
-
-#grandesLigasCarousel .carousel-item {
-    position: relative; /* Necesario para el degradado */
-    height: 500px; /* Altura fija para las imágenes del carrusel, puedes ajustar */
-    overflow: hidden; /* Asegura que el degradado no se desborde */
-}
-
-#grandesLigasCarousel .carousel-item img {
-    height: 100%; /* La imagen llenará la altura del item */
-    width: 100%; /* La imagen llenará el ancho del item */
-    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
-    display: block; /* Elimina espacios extra bajo la imagen */
-}
-
-/* Degradado en la parte inferior de las imágenes del carrusel */
-#grandesLigasCarousel .carousel-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px; /* Altura del degradado, ajusta según necesites */
-    /* IMPORTANT: Adjust the first color (rgba(255, 255, 255, 1)) to match
-       the background color of the product section that is below the carousel.
-       If your background is white, this is perfect. If it's a light gray
-       like in the image you uploaded (image_bbeff3.png), you should
-       change it to that gray color.
-       For instance, if the background is #F2F2F2, it would be
-       background: linear-gradient(to top, rgba(242, 242, 242, 1) 0%, rgba(242, 242, 242, 0) 100%);
-       Based on the image, your background appears to be white or nearly white,
-       so the current `rgba(255, 255, 255, 1)` should work well.
-    */
-    background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-    pointer-events: none; /* Allows interaction with elements below the gradient */
-}
-
-/* Estilos para los indicadores del carrusel (los puntos) */
-#grandesLigasCarousel .carousel-indicators button {
-    background-color: #fff; /* Indicadores blancos por defecto */
-    border-radius: 50%; /* Indicadores circulares */
-    width: 10px; /* Ancho del indicador */
-    height: 10px; /* Alto del indicador */
-    margin: 0 5px; /* Espacio entre indicadores */
-    opacity: 0.5; /* Opacidad normal */
-    transition: opacity 0.3s ease, background-color 0.3s ease;
-}
-
-#grandesLigasCarousel .carousel-navigation .carousel-indicators button.active {
-    background-color: #007bff;
-    opacity: 1;
-}
-
-/* Estilos para los controles de navegación (flechas) */
-#grandesLigasCarousel .carousel-control-prev,
-#grandesLigasCarousel .carousel-control-next {
-    width: 60px; /* Ancho del área de control */
-    opacity: 1; /* Para que las flechas siempre sean visibles, como en Mercado Libre */
-}
-
-#grandesLigasCarousel .carousel-control-prev-icon,
-#grandesLigasCarousel .carousel-control-next-icon {
-    background-color: #fff; /* Flechas blancas como en las imágenes de Mercado Libre */
-    border-radius: 50%; /* Flechas circulares */
-    padding: 20px; /* Espacio interno para la flecha */
-    /* Eliminamos el `background-image` predeterminado de Bootstrap para controlar el color */
-    background-image: none;
-    display: flex; /* Para centrar el icono de la flecha */
-    align-items: center;
-    justify-content: center;
-    width: 40px; /* Ajusta el tamaño visual del icono */
-    height: 40px;
-}
-
-/* Color de la flecha interna */
-#grandesLigasCarousel .carousel-control-prev-icon::before {
-    content: '<';
-    font-family: 'Font Awesome 5 Free'; /* Si usas Font Awesome */
-    font-weight: 900; /* Para el ícono sólido */
-    color: #007bff; /* Color azul de la flecha, como en las imágenes */
-    font-size: 1.5rem;
-}
-
-#grandesLigasCarousel .carousel-control-next-icon::before {
-    content: '>';
-    font-family: 'Font Awesome 5 Free'; /* Si usas Font Awesome */
-    font-weight: 900; /* Para el ícono sólido */
-    color: #007bff; /* Color azul de la flecha, como en las imágenes */
-    font-size: 1.5rem;
-}
-
-
-/* Media queries para responsividad */
-@media (max-width: 992px) {
-    #grandesLigasCarousel .carousel-item {
-        height: 400px;
-    }
-    #grandesLigasCarousel .carousel-item::after {
-        height: 80px;
-    }
-}
-
-@media (max-width: 768px) {
-    #grandesLigasCarousel .carousel-item {
-        height: 300px;
-    }
-    #grandesLigasCarousel .carousel-item::after {
-        height: 60px;
-    }
-    #grandesLigasCarousel .carousel-control-prev-icon,
-    #grandesLigasCarousel .carousel-control-next-icon {
-        padding: 10px; /* Flechas más pequeñas en móviles */
-        width: 30px;
-        height: 30px;
-    }
-    #grandesLigasCarousel .carousel-control-prev-icon::before,
-    #grandesLigasCarousel .carousel-control-next-icon::before {
-        font-size: 1.2rem;
-    }
-    /* Ajustar posición de los controles en pantallas pequeñas */
-    #grandesLigasCarousel .carousel-control-prev,
-    #grandesLigasCarousel .carousel-control-next {
-        width: 40px;
-    }
-}
-
-@media (max-width: 576px) {
-    #grandesLigasCarousel .carousel-item {
-        height: 250px;
-    }
-    #grandesLigasCarousel .carousel-item::after {
-        height: 50px;
-    }
-}
-
-/* Estilos para unir el carrusel con la cuadrícula de productos */
-.w3-container.w3-padding-32 {
-    /* This class seems to be causing an issue by adding padding-top and margin-top.
-       We should remove its effects if it's wrapping the product grid.
-       If this class is meant for general page layout and is applied to a parent
-       of both carousel and product grid, it might need different adjustments.
-       Assuming it's a direct parent or container of the product grid for now.
-    */
-    padding-top: 0 !important;
-    margin-top: 0 !important; /* Reset this to avoid conflicting with .product-grid's negative margin */
-    position: relative;
-    z-index: 1;
 }

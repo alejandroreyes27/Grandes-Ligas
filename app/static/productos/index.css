@@ -13,7 +13,7 @@ PRODUCT GRID
        and ensure it aligns with the carousel's fading effect. */
     margin-top: -80px; /* Revert margin-top to previous value */
     position: relative; /* Needed for z-index to work */
-    z-index: 1; /* Ensures product grid appears above the carousel */
+    z-index: 100; /* Increased z-index to show above carousel */
 }
 
 #slideIndicatorBtn {
@@ -32,7 +32,7 @@ PRODUCT GRID
     padding-top: 0 !important;
     margin-top: 0 !important;
     position: relative;
-    z-index: 1;
+    z-index: 100; /* Increase z-index to be above carousel */
 }
 
 #slideIndicatorBtn:hover {
@@ -57,7 +57,8 @@ PRODUCT GRID
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     position: relative; /* REQUIRED for absolute positioning of elements inside */
-    border: 1px solid transparent; /* Subtle border for hover effect */
+    border: 1px solid #ddd; /* Subtle border for hover effect */
+    z-index: 101; /* Ensure card is above carousel and container */
 }
 
 .product-card:hover {
@@ -295,6 +296,21 @@ PRICE AND CART BUTTON - Temu Style
     border-color: #004085 !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
     transform: scale(1.0) !important;
+}
+
+/* ===============================
+NEW: CAROUSEL IMAGE GRADIENT
+=============================== */
+#grandesLigasCarousel .carousel-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; /* Height of the gradient */
+    background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none; /* Allows interaction with elements below the gradient */
+    z-index: 10;
 }
 
 .btn-temu-style {
