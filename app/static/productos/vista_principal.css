@@ -11,26 +11,9 @@ PRODUCT GRID
     background-color: transparent; /* Changed to transparent to make container invisible */
     /* To create the "blend" effect, we will adjust the margin-top to be negative
        and ensure it aligns with the carousel's fading effect. */
-    margin-top: -140px; /* Increased negative margin to move container up over carousel */
+    margin-top: -80px; /* Adjusted margin-top to match index.css */
     position: relative; /* Needed for z-index to work */
-    z-index: 1100; /* Further increased z-index to ensure container overlays carousel */
-}
-
-#slideIndicatorBtn {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.3s ease;
-    top: auto; /* Remove top positioning */
-    bottom: 15px; /* Position at bottom */
-    right: 15px;
-    padding: 6px 12px;
-    font-size: 0.9rem;
-    border-radius: 20px;
-    opacity: 0.85;
-}
-
-#slideIndicatorBtn:hover {
-    opacity: 1;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1100; /* Increased z-index to overlay carousel */
 }
 
 /* Ajuste para el contenedor que envuelve la cuadrícula para eliminar padding y margin extra */
@@ -38,7 +21,7 @@ PRODUCT GRID
     padding-top: 0 !important;
     margin-top: -80px !important; /* Added negative margin to lift container above carousel */
     position: relative;
-    z-index: 1100; /* Further increased z-index to overlay carousel */
+    z-index: 1100; /* Increased z-index to overlay carousel */
 }
 
 /* Mejorar visibilidad de los indicadores del carrusel */
@@ -49,8 +32,8 @@ PRODUCT GRID
 #grandesLigasCarousel .carousel-indicators button {
     background-color: #007bff; /* Cambiado a azul para mejor visibilidad */
     border-radius: 50%; /* Indicadores circulares */
-    width: 14px; /* Aumentado tamaño */
-    height: 14px; /* Aumentado tamaño */
+    width: 12px; /* Aumentado tamaño */
+    height: 12px; /* Aumentado tamaño */
     margin: 0 6px; /* Espacio entre indicadores */
     opacity: 0.9; /* Opacidad más alta */
     transition: opacity 0.3s ease, background-color 0.3s ease;
@@ -78,30 +61,6 @@ PRODUCT GRID
 .product-card {
     max-width: 280px;
     margin: 0 auto;
-}
-
-/* ===============================
-PRODUCT GRID - Existing styles
-=============================== */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    padding: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #f8f9fa; /* Ensure this matches your carousel fade if used */
-    margin-top: -80px; /* Adjust as needed for carousel blend */
-    position: relative;
-    z-index: 1;
-}
-
-/* Ajuste para el contenedor que envuelve la cuadrícula para eliminar padding y margin extra */
-.w3-container.w3-padding-32 {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-    position: relative;
-    z-index: 1;
 }
 
 /* Prevent product card from stretching full width when only one product */
@@ -355,7 +314,6 @@ PRICE AND CART BUTTON - Temu Style
     transform: scale(1.0) !important;
 }
 
-
 /* ===============================
 RESPONSIVE - Existing styles (adjusted for new structure)
 =============================== */
@@ -402,7 +360,6 @@ RESPONSIVE - Existing styles (adjusted for new structure)
 }
 
 /* (Other existing CSS you provided can remain, e.g., navbar, footer, carousel etc.) */
-
 /* ===============================
 ADMIN ACTIONS
 =============================== */
@@ -826,7 +783,7 @@ RESPONSIVE
         grid-template-columns: repeat(3, 1fr);
         max-width: 900px;
         padding: 16px;
-        margin-top: -60px; /* Adjusted for smaller screens */
+        margin-top: -60px;
     }
     .product-card {
         max-width: 100%;
@@ -839,7 +796,10 @@ RESPONSIVE
         grid-template-columns: repeat(2, 1fr);
         max-width: 600px;
         padding: 12px;
-        margin-top: -40px; /* Adjusted for smaller screens */
+        margin-top: -40px;
+    }
+    .product-image-wrapper {
+        height: 160px; /* Adjust image height for smaller screens */
     }
 }
 
@@ -848,89 +808,129 @@ RESPONSIVE
         grid-template-columns: 1fr;
         max-width: 100%;
         padding: 8px;
-        margin-top: -30px; /* Adjusted for smaller screens */
+        margin-top: -30px;
     }
-
-    .price-and-cart button {
-        padding: 6px 10px;
-        font-size: 1rem;
+    .product-image-wrapper {
+        height: 140px; /* Further adjust image height for mobile */
     }
-
-    .quantity-btn {
-        width: 36px;
+    .add-to-cart-button {
+        width: 36px; /* Smaller button on mobile */
         height: 36px;
-        font-size: 18px;
-    }
-
-    .quantity-input {
-        width: 50px;
-        font-size: 16px;
-        padding: 4px;
+        font-size: 1.2rem;
     }
 }
 
-/* Estilo para las imágenes del carrusel */
-.carousel-inner img {
-    max-height: 400px; /* Ajusta la altura máxima según tus necesidades */
-    object-fit: cover; /* Mantiene la proporción de la imagen */
-    transition: transform 0.5s ease-in-out;
+/* (Other existing CSS you provided can remain, e.g., navbar, footer, carousel etc.) */
+/* ===============================
+ADMIN ACTIONS
+=============================== */
+.admin-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 14px;
+}
+
+.admin-actions a {
+    color: #007bff;
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+}
+
+.admin-actions a:hover {
+    color: #0056b3;
 }
 
 /* ===============================
-UBICACION SECTION CSS
+NAVBAR
 =============================== */
-.ubicacion-section {
-background-color: #f0f4f8;
-padding: 60px 20px;
-color: #333;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.navbar {
+    background-color: #007bff !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 0.5rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.ubicacion-card {
-background-color: #ffffff;
-border-radius: 16px;
-padding: 2.5rem;
-box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-transition: box-shadow 0.3s ease;
+/* Dropdown menu custom shadow and border radius */
+.navbar .navbar-nav .nav-item.dropdown .dropdown-menu {
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    border: none;
+    padding: 1rem;
+    min-width: 300px;
+    /* Ensure dropdown appears below and aligned right */
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
 }
 
-.ubicacion-card:hover {
-box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+/* Dropdown header */
+.dropdown-menu h6 {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
 }
 
-.text-content h2 {
-font-size: 2.75rem;
-font-weight: 800;
-color: #007bff;
+/* Lock icon and message */
+.dropdown-menu .text-success {
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
-.text-content p {
-font-size: 1.25rem;
-margin-bottom: 0;
-color: #555;
-font-style: italic;
-line-height: 1.5;
+/* Icon circles in info section */
+.icon-circle {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px auto;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.6);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.text-content p i {
-    color: #007bff;
-    font-size: 1.3rem;
-    margin-right: 8px;
-    vertical-align: middle;
-    filter: drop-shadow(0 0 2px rgba(0, 123, 255, 0.7));
-    transition: color 0.3s ease, filter 0.3s ease;
+.icon-circle:hover {
+    background: linear-gradient(135deg, #0056b3, #003d80);
+    box-shadow: 0 6px 20px rgba(0, 86, 179, 0.8);
+    cursor: pointer;
 }
 
-.text-content p i:hover {
-    color: #0056b3;
-    filter: drop-shadow(0 0 4px rgba(0, 86, 179, 0.9));
-    cursor: default;
+/* Info text below icons */
+.dropdown-menu .text-center small {
+    color: #666;
+    font-size: 0.85rem;
 }
 
-.text-content h3 {
-font-size: 1.9rem;
-font-weight: 700;
-color: #222;
+/* Buttons in dropdown */
+.btn-session {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: none;
+    cursor: pointer;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    transition: transform 0.2s ease;
+}
+
+.btn-session:hover {
+    background-color: #000000; /* Mantener negro */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .maps-container {
