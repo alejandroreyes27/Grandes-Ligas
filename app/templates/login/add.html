@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Usuario - ShoeStore</title>
+    <title>Registrar Usuario - Grandes Ligas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='login/add.css') }}">
@@ -11,62 +11,134 @@
 <body>
     <div class="auth-card">
         <div class="card-header">
-            <i class="fas fa-shopping-bag fa-2x mb-2"></i>
-            <h3>Shoe Store Registro</h3>
-            <p>Bienvenido al sistema</p>
+            <i class="fas fa-shoe-prints fa-2x mb-2"></i>
+            <h3>Grandes Ligas Registro</h3>
+            <p>¡Bienvenido al sistema!</p>
         </div>
         <div class="card-body">
-            <form action="{{ url_for('auth.add') }}" method="post">
-                <div class="mb-3">
-                <input
-                    type="email"
-                    class="form-control {% if error %}is-invalid{% endif %}"
-                    id="correoUser"
-                    name="correoUser"
-                    placeholder="Correo electrónico"
-                    required
-                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-                    title="Por favor ingresa un correo válido, que incluya ‘@’ y un dominio (ej. usuario@gmail.com)."
-                    value="{{ correoUser if correoUser is defined else '' }}"
-                >
-                {% if error %}
-                <div class="invalid-feedback" style="display:block;">
-                    {{ error }}
-                </div>
-                {% endif %}
+            <form action="{{ url_for('auth.add') }}" method="post" class="needs-validation" novalidate>
+                <div class="form-floating mb-4">
+                    <input
+                        type="email"
+                        class="form-control {% if error %}is-invalid{% endif %}"
+                        id="correoUser"
+                        name="correoUser"
+                        placeholder="Correo electrónico"
+                        required
+                        pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                        title="Por favor, ingresa un correo válido, que incluya ‘@’ y un dominio (ej. usuario@gmail.com)."
+                        value="{{ correoUser if correoUser is defined else '' }}"
+                    >
+                    <label for="correoUser"><i class="fas fa-envelope icon-label"></i> Correo electrónico</label>
+                    {% if error %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endif %}
                 </div>
 
-                <div class="mb-3">
-                    <input type="text" class="form-control" id="nameUser" name="nameUser" placeholder="Nombre de usuario" required>
-                </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" id="passwordUser" name="passwordUser" placeholder="Contraseña" required>
-                </div>
-                <div class="mb-3">
+                <div class="form-floating mb-4">
                     <input
                         type="text"
-                        class="form-control {% if error_tel %}is-invalid{% endif %}"
+                        class="form-control {% if error_name %}is-invalid{% endif %}"
+                        id="nameUser"
+                        name="nameUser"
+                        placeholder="Nombre de usuario"
+                        required
+                        value="{{ nameUser if nameUser is defined else '' }}"
+                    >
+                    <label for="nameUser"><i class="fas fa-user icon-label"></i> Nombre de usuario</label>
+                    {% if error_name %}
+                    <div class="invalid-feedback">
+                        {{ error_name }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-floating mb-4 position-relative">
+                    <input
+                        type="password"
+                        class="form-control {% if error_password %}is-invalid{% endif %}"
+                        id="passwordUser"
+                        name="passwordUser"
+                        placeholder="Contraseña"
+                        required
+                        value="{{ passwordUser if passwordUser is defined else '' }}"
+                    >
+                    <label for="passwordUser"><i class="fas fa-lock icon-label"></i> Contraseña</label>
+                    <span class="password-toggle" onclick="togglePasswordVisibility()">
+                        <i class="fas fa-eye-slash"></i>
+                    </span>
+                    {% if error_password %}
+                    <div class="invalid-feedback">
+                        {{ error_password }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input
+                        type="tel" class="form-control {% if error_tel %}is-invalid{% endif %}"
                         id="telefonoUser"
                         name="telefonoUser"
                         placeholder="WhatsApp"
                         required
                         pattern="\d{10}"
-                        title="Por favor ingresa un número de teléfono válido de 10 dígitos."
+                        title="Por favor, ingresa un número de teléfono válido de 10 dígitos."
                         value="{{ telefonoUser if telefonoUser is defined else '' }}"
                     >
+                    <label for="telefonoUser"><i class="fas fa-phone-alt icon-label"></i> WhatsApp</label>
                     {% if error_tel %}
-                    <div class="invalid-feedback" style="display:block;">
+                    <div class="invalid-feedback">
                         {{ error_tel }}
                     </div>
                     {% endif %}
                 </div>
-                <button type="submit" class="btn btn-primary mb-3">Registrar Usuario</button>
-                <p class="text-center">¿Ya tienes cuenta?</p>
+
+                <button type="submit" class="btn btn-primary mb-3">
+                    <i class="fas fa-user-plus icon"></i> Registrar Usuario
+                </button>
+
+                <p class="text-center mt-3">¿Ya tienes cuenta?</p>
                 <a href="{{ url_for('auth.login') }}" class="text-link d-flex justify-content-center">
-                    <i class="fas fa-user-plus icon"></i> Iniciar sesión
+                    Iniciar sesión
                 </a>
             </form>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Script para mostrar/ocultar contraseña
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('passwordUser');
+            const toggleIcon = document.querySelector('.password-toggle i');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            }
+        }
+
+        // Script para el control de validación de Bootstrap (hacer que los mensajes invalid-feedback se muestren correctamente)
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 </body>
 </html>
